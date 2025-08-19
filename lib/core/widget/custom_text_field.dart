@@ -1,7 +1,9 @@
+import 'package:animoo_app/core/style/app_border_radius.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_fonts_size.dart';
+import 'package:animoo_app/core/style/app_height.dart';
+import 'package:animoo_app/core/style/app_width.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyTextFormField extends StatelessWidget {
   const MyTextFormField({
@@ -23,8 +25,8 @@ class MyTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 56.h,
-      width: 331.w,
+      height: AppHeight.h56,
+      width: AppWidth.w331,
       child: TextFormField(
         // style: TextStyle(color: AppColors.kgreyColor),
         obscureText: isObsecure,
@@ -44,24 +46,24 @@ class MyTextFormField extends StatelessWidget {
           filled: true,
           fillColor: AppColors.kTextFieldColor,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.r),
-            borderSide: const BorderSide(
+            borderRadius: BorderRadius.circular(AppBorderRadius.br8),
+            borderSide: BorderSide(
               color: AppColors.kTextFieldColor,
-              width: 2,
+              width: AppWidth.w2,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.r),
-            borderSide: const BorderSide(
+            borderRadius: BorderRadius.circular(AppBorderRadius.br8),
+            borderSide: BorderSide(
               color: AppColors.kTextFieldColor,
-              width: 1,
+              width: AppWidth.w2,
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.r),
-            borderSide: const BorderSide(
+            borderRadius: BorderRadius.circular(AppBorderRadius.br8),
+            borderSide: BorderSide(
               color: AppColors.kprimaryColor,
-              width: 2,
+              width: AppWidth.w2,
             ),
           ),
         ),

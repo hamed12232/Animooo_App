@@ -1,4 +1,5 @@
 import 'package:animoo_app/core/constant/asset_values.dart';
+import 'package:animoo_app/core/services/internet_checker.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_fonts_size.dart';
@@ -64,7 +65,11 @@ class _LoginscreenState extends State<Loginscreen> {
                 ForgetPassword(),
                 VerticalSpace(height: AppHeight.h30),
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    var result = InternetChecker();
+                    bool isConnected = await result();
+                    print('isConnected: $isConnected');
+                  },
                   text: "Log In",
                   fontSize: AppFontsSize.s14,
                 ),
