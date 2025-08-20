@@ -10,7 +10,7 @@ import 'package:animoo_app/core/widget/custom_password_text_field.dart';
 import 'package:animoo_app/core/widget/custom_animoo_logo_app.dart';
 import 'package:animoo_app/core/widget/custom_rich_text_button.dart';
 import 'package:animoo_app/features/auth/login/widgets/forget_password.dart';
-import 'package:animoo_app/features/auth/signUp/screen/signUpScreen.dart';
+import 'package:animoo_app/features/auth/signUp/views/screen/signUpScreen.dart';
 import 'package:flutter/material.dart';
 
 class Loginscreen extends StatefulWidget {

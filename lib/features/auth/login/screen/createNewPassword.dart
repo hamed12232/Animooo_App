@@ -7,7 +7,7 @@ import 'package:animoo_app/core/style/padding.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
 import 'package:animoo_app/core/widget/custom_password_text_field.dart';
 import 'package:animoo_app/features/auth/login/widgets/custom_app_bar_verification.dart';
-import 'package:animoo_app/features/auth/signUp/widget/custom_password_rules.dart';
+import 'package:animoo_app/features/auth/signUp/views/widget/custom_password_rules.dart';
 import 'package:flutter/material.dart';
 
 class Createnewpassword extends StatelessWidget {

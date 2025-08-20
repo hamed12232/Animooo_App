@@ -13,8 +13,8 @@ import 'package:animoo_app/core/widget/custom_button.dart';
 import 'package:animoo_app/core/widget/custom_password_text_field.dart';
 import 'package:animoo_app/features/auth/login/screen/loginScreen.dart';
 import 'package:animoo_app/core/widget/custom_rich_text_button.dart';
-import 'package:animoo_app/features/auth/signUp/widget/custom_password_rules.dart';
-import 'package:animoo_app/features/auth/signUp/widget/custom_rounded_rectangle_border.dart';
+import 'package:animoo_app/features/auth/signUp/views/widget/custom_password_rules.dart';
+import 'package:animoo_app/features/auth/signUp/views/widget/custom_rounded_rectangle_border.dart';
 import 'package:flutter/material.dart';
 
 class Signupscreen extends StatefulWidget {
