@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:animoo_app/core/constant/asset_values.dart';
+import 'package:animoo_app/core/functions/app_validators.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_fonts_size.dart';
@@ -35,6 +38,18 @@ class _SignupscreenState extends State<Signupscreen> {
   final TextEditingController phoneNumberEditingController =
       TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  File? imageFile;
+  @override
+  void dispose() {
+    emailEditingController.dispose();
+    firstNameEditingController.dispose();
+    lastNameEditingController.dispose();
+    passwordEditingController.dispose();
+    confirmPasswordEditingController.dispose();
+    phoneNumberEditingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,26 +76,31 @@ class _SignupscreenState extends State<Signupscreen> {
                 CustomAttributeTextField(
                   attribute: "First Name",
                   attributeEditingController: firstNameEditingController,
+                  validator: (value)=>  AppValidators.firstNameValidator(value),
                 ),
                 VerticalSpace(height: AppHeight.h16),
                 CustomAttributeTextField(
                   attribute: "Last Name",
                   attributeEditingController: lastNameEditingController,
+                  validator: (value) => AppValidators.lastNameValidator(value),
                 ),
                 VerticalSpace(height: AppHeight.h16),
                 CustomAttributeTextField(
                   attribute: "Email",
                   attributeEditingController: emailEditingController,
+                  validator: (value) => AppValidators.emailValidator(value),
                 ),
                 VerticalSpace(height: AppHeight.h16),
                 CustomAttributeTextField(
                   attribute: "Phone Number",
                   attributeEditingController: phoneNumberEditingController,
+                  validator: (value) => AppValidators.phoneValidator(value),
                 ),
                 VerticalSpace(height: AppHeight.h16),
                 CustomPasswordTextField(
                   passwordEditingController: passwordEditingController,
                   text: "Password",
+                  validator: (value) => AppValidators.passwordValidator(value),
                 ),
                 VerticalSpace(height: AppHeight.h8),
                 Text(
@@ -121,6 +141,7 @@ class _SignupscreenState extends State<Signupscreen> {
                 CustomPasswordTextField(
                   passwordEditingController: confirmPasswordEditingController,
                   text: "Confirm Password",
+                  validator: (value) => AppValidators.confirmPasswordValidator(passwordEditingController.text,value),
                 ),
                 VerticalSpace(height: AppHeight.h16),
                 Padding(
@@ -143,7 +164,13 @@ class _SignupscreenState extends State<Signupscreen> {
 
                 VerticalSpace(height: AppHeight.h30),
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      // Handle the sign-up logic here
+                      // For example, you can call a sign-up API
+                      // and navigate to the next screen on success.
+                    }
+                  },
                   text: "Sign Up",
                   fontSize: AppFontsSize.s14,
                 ),

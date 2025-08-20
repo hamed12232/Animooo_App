@@ -10,11 +10,13 @@ class CustomPasswordTextField extends StatefulWidget {
   const CustomPasswordTextField({
     super.key,
     required this.passwordEditingController,
-    required this.text,
+    required this.text, this.validator,
   });
 
   final TextEditingController passwordEditingController;
   final String text;
+  final String? Function(String? value)? validator;
+
 
   @override
   State<CustomPasswordTextField> createState() =>
@@ -58,12 +60,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
               });
             },
           ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter your Password';
-            }
-            return null;
-          },
+          validator: widget.validator,
         ),
       ],
     );

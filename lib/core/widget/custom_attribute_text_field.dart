@@ -10,9 +10,11 @@ class CustomAttributeTextField extends StatelessWidget {
     super.key,
     required this.attributeEditingController,
     required this.attribute,
+    this.validator,
   });
   final TextEditingController attributeEditingController;
   final String attribute;
+  final String? Function(String? value)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +39,7 @@ class CustomAttributeTextField extends StatelessWidget {
           controller: attributeEditingController,
           hintText: "Enter your $attribute",
           isObsecure: false,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter your $attribute';
-            }
-            return null;
-          },
+          validator: validator,
         ),
       ],
     );

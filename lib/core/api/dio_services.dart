@@ -5,20 +5,37 @@ import 'package:dio/dio.dart';
 
 class DioServices extends ApiConsumer {
   Dio dio;
-  DioServices(this.dio) {
+  DioServices({required this.dio}) {
     dio.options.baseUrl = ApiConstant.baseUrl;
     dio.options.connectTimeout = const Duration(seconds: 10);
     dio.options.receiveTimeout = const Duration(seconds: 5);
     dio.options.sendTimeout = const Duration(seconds: 10);
   }
   @override
-  Future delete({required String url, Map<String, dynamic>? queryParameters}) {
-    throw UnimplementedError();
+  Future delete({
+    required String url,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    try {
+      Response response = await dio.post(url, queryParameters: queryParameters);
+
+      return response.data;
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    }
   }
 
   @override
-  Future get({required String url, Map<String, dynamic>? queryParameters}) {
-    throw UnimplementedError();
+  Future get({
+    required String url,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    try {
+      Response response = await dio.get(url, queryParameters: queryParameters);
+      return response.data;
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    }
   }
 
   @override
@@ -33,16 +50,10 @@ class DioServices extends ApiConsumer {
         data: body,
         queryParameters: queryParameters,
       );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return response.data;
-      } else {
-        throw ServerFailure(response.statusMessage!);
-      }
-    } catch (e) {
-      if (e is DioException) {
-        return ServerFailure.fromDioError(e);
-      }
-      return ServerFailure(e.toString());
+
+      return response.data;
+    } on DioException catch (e) {
+      handleDioExceptions(e);
     }
   }
 
@@ -51,7 +62,17 @@ class DioServices extends ApiConsumer {
     required String url,
     Map<String, dynamic>? body,
     Map<String, dynamic>? queryParameters,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      Response response = await dio.post(
+        url,
+        data: body,
+        queryParameters: queryParameters,
+      );
+
+      return response.data;
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    }
   }
 }

@@ -17,7 +17,7 @@ class MyTextFormField extends StatelessWidget {
   });
   final String hintText;
   final bool isObsecure;
-  final String? Function(String?)? validator;
+  final String? Function(String? value)? validator;
   final TextEditingController controller;
   final Widget? suffixIcon;
   final void Function()? onTap;
