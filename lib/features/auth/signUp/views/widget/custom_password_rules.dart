@@ -8,11 +8,11 @@ class CustomPasswordRules extends StatelessWidget {
   const CustomPasswordRules({
     super.key,
     required this.rulesColor,
-    required this.rulesText,
+    required this.rulesText, required this.decoration,
   });
   final Color rulesColor;
   final String rulesText;
-
+  final TextDecoration decoration ;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,6 +27,7 @@ class CustomPasswordRules extends StatelessWidget {
               color: rulesColor,
               fontSize: AppFontsSize.s9,
               fontWeight: FontWeight.w600,
+              decoration: decoration
             ),
           ),
         ],

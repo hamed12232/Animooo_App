@@ -16,10 +16,10 @@ class SignupViewmodel extends Cubit<SignupState> {
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
   final phoneNumberEditingController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   File? imageFile;
   Future<void> signup() async {
-    if (!_formKey.currentState!.validate()) {
+    if (!formKey.currentState!.validate()) {
       return;
     }
 
@@ -36,12 +36,23 @@ class SignupViewmodel extends Cubit<SignupState> {
         userModel,
         passwordEditingController.text,
       );
-     response.fold(
+      response.fold(
         (failure) => emit(SignupError(failure.errorModel.error.toString())),
         (authResponse) => emit(SignupSuccess(authResponse: authResponse)),
       );
     } on ServerFailure catch (e) {
       emit(SignupError(e.errorModel.error.toString()));
     }
+  }
+
+  @override
+  Future<void> close() {
+    emailEditingController.dispose();
+    firstNameEditingController.dispose();
+    lastNameEditingController.dispose();
+    passwordEditingController.dispose();
+    confirmPasswordEditingController.dispose();
+    phoneNumberEditingController.dispose();
+    return super.close();
   }
 }

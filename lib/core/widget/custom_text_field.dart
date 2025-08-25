@@ -13,7 +13,7 @@ class MyTextFormField extends StatelessWidget {
     required this.isObsecure,
     required this.controller,
     this.validator,
-    this.onTap,
+    this.onTap, this.onChanged,
   });
   final String hintText;
   final bool isObsecure;
@@ -21,6 +21,8 @@ class MyTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final Widget? suffixIcon;
   final void Function()? onTap;
+  final void Function(String)? onChanged;
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +33,11 @@ class MyTextFormField extends StatelessWidget {
         // style: TextStyle(color: AppColors.kgreyColor),
         obscureText: isObsecure,
         obscuringCharacter: '*',
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         controller: controller,
         onTap: onTap,
+        onChanged: onChanged,
         onTapOutside: (event) => FocusManager.instance.primaryFocus!.unfocus(),
         decoration: InputDecoration(
           hintText: hintText,
@@ -63,6 +67,20 @@ class MyTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppBorderRadius.br8),
             borderSide: BorderSide(
               color: AppColors.kprimaryColor,
+              width: AppWidth.w2,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppBorderRadius.br8),
+            borderSide: BorderSide(
+              color: AppColors.kannotationPasswordColor,
+              width: AppWidth.w2,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppBorderRadius.br8),
+            borderSide: BorderSide(
+              color: AppColors.kannotationPasswordColor,
               width: AppWidth.w2,
             ),
           ),

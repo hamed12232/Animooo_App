@@ -10,13 +10,13 @@ class CustomPasswordTextField extends StatefulWidget {
   const CustomPasswordTextField({
     super.key,
     required this.passwordEditingController,
-    required this.text, this.validator,
+    required this.text, this.validator, this.onChanged,
   });
 
   final TextEditingController passwordEditingController;
   final String text;
   final String? Function(String? value)? validator;
-
+  final void Function(String)? onChanged;
 
   @override
   State<CustomPasswordTextField> createState() =>
@@ -49,6 +49,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
           controller: widget.passwordEditingController,
           hintText: "*********",
           isObsecure: isObsecure,
+          onChanged: widget.onChanged,
           suffixIcon: IconButton(
             icon: Icon(
               isObsecure ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
@@ -61,6 +62,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
             },
           ),
           validator: widget.validator,
+          
         ),
       ],
     );

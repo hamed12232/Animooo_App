@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:animoo_app/core/constant/asset_values.dart';
+import 'package:animoo_app/core/functions/app_on_change_password.dart';
+import 'package:animoo_app/core/models/password_rules.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_fonts_size.dart';
@@ -7,17 +11,41 @@ import 'package:animoo_app/core/style/padding.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
 import 'package:animoo_app/core/widget/custom_password_text_field.dart';
 import 'package:animoo_app/features/auth/login/widgets/custom_app_bar_verification.dart';
-import 'package:animoo_app/features/auth/signUp/views/widget/custom_password_rules.dart';
+import 'package:animoo_app/features/auth/signUp/views/widget/custom_list_view_password_rules.dart';
 import 'package:flutter/material.dart';
 
-class Createnewpassword extends StatelessWidget {
-  Createnewpassword({super.key});
+class Createnewpassword extends StatefulWidget {
+  const Createnewpassword({super.key});
   static const String routeName = '/createNewPassword';
+
+  @override
+  State<Createnewpassword> createState() => _CreatenewpasswordState();
+}
+
+class _CreatenewpasswordState extends State<Createnewpassword> {
   final TextEditingController passwordEditingController =
       TextEditingController();
+
   final TextEditingController confirmPasswordEditingController =
       TextEditingController();
 
+  late Stream<List<PasswordRulesModel>> listPasswordRulesOutPutStream;
+  late StreamController<List<PasswordRulesModel>> listPasswordRulesController;
+  @override
+
+  void initState() {
+    listPasswordRulesController = StreamController<List<PasswordRulesModel>>();
+    listPasswordRulesInput = listPasswordRulesController.sink;
+    listPasswordRulesOutPutStream = listPasswordRulesController.stream;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    listPasswordRulesController.close();
+    listPasswordRulesInput.close();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,29 +87,8 @@ class Createnewpassword extends StatelessWidget {
               ),
             ),
             VerticalSpace(height: AppHeight.h11),
-            CustomPasswordRules(
-              rulesColor: AppColors.krulesOfPasswordColor,
-              rulesText: " At least 12 characters",
-            ),
-            VerticalSpace(height: AppHeight.h5),
-            CustomPasswordRules(
-              rulesColor: AppColors.krulesOfPasswordColor,
-              rulesText: " At least 1 uppercase letter",
-            ),
-            VerticalSpace(height: AppHeight.h5),
-            CustomPasswordRules(
-              rulesColor: AppColors.krulesOfPasswordColor,
-              rulesText: " At least 1 lowercase letter",
-            ),
-            VerticalSpace(height: AppHeight.h5),
-            CustomPasswordRules(
-              rulesColor: AppColors.krulesOfPasswordColor,
-              rulesText: " At least 1 Special Character",
-            ),
-            VerticalSpace(height: AppHeight.h5),
-            CustomPasswordRules(
-              rulesColor: AppColors.krulesOfPasswordColor,
-              rulesText: " At least 1 Number",
+            CustomListViewPasswordRequiredRules(
+              stream: listPasswordRulesOutPutStream,
             ),
             VerticalSpace(height: AppHeight.h16),
             CustomPasswordTextField(

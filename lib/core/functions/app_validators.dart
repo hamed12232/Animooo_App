@@ -51,15 +51,7 @@ class AppValidators {
     return emailRegEx.hasMatch(value);
   }
 
-  static passwordValidator(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return "This field is required";
-    } else if (isPassword(value) == false) {
-      return "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number.";
-    } else {
-      return null;
-    }
-  }
+  
 
   static confirmPasswordValidator(
     String? valuePassword,
@@ -74,11 +66,5 @@ class AppValidators {
     }
   }
 
-  static bool isPassword(String value) {
-    final passwordRegEx = RegExp(
-      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$',
-    );
-
-    return passwordRegEx.hasMatch(value);
-  }
+  
 }
