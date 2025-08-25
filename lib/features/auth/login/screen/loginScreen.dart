@@ -35,51 +35,53 @@ class _LoginscreenState extends State<Loginscreen> {
         body: Center(
           child: Form(
             key: _formKey,
-            child: Column(
-              children: [
-                const CustomAnimooLogoApp(),
-                VerticalSpace(height: AppHeight.h30),
-                SizedBox(
-                  height: AppHeight.h93,
-                  child: Text(
-                    "Log In",
-                    style: TextStyle(
-                      fontFamily: FontValues.otamaEp,
-                      color: AppColors.kblackColor,
-                      fontSize: AppFontsSize.s38,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const CustomAnimooLogoApp(),
+                  VerticalSpace(height: AppHeight.h30),
+                  SizedBox(
+                    height: AppHeight.h93,
+                    child: Text(
+                      "Log In",
+                      style: TextStyle(
+                        fontFamily: FontValues.otamaEp,
+                        color: AppColors.kblackColor,
+                        fontSize: AppFontsSize.s38,
+                      ),
                     ),
                   ),
-                ),
-
-                CustomAttributeTextField(
-                  attribute: "Email",
-                  attributeEditingController: emailEditingController,
-                ),
-                VerticalSpace(height: AppHeight.h16),
-                CustomPasswordTextField(
-                  passwordEditingController: passwordEditingController,
-                  text: "Password",
-                ),
-
-                VerticalSpace(height: AppHeight.h8),
-                ForgetPassword(),
-                VerticalSpace(height: AppHeight.h30),
-                CustomButton(
-                  onPressed: () async {
-                    var result = InternetChecker();
-                    bool isConnected = await result();
-                    print('isConnected: $isConnected');
-                  },
-                  text: "Log In",
-                  fontSize: AppFontsSize.s14,
-                ),
-                VerticalSpace(height: AppHeight.h257),
-                const CustomRichTextButton(
-                  subTextBottomTitle: "Don’t have an account? ",
-                  textButtonTitle: "Sign up now",
-                  routeName: Signupscreen.routeName,
-                ),
-              ],
+              
+                  CustomAttributeTextField(
+                    attribute: "Email",
+                    attributeEditingController: emailEditingController,
+                  ),
+                  VerticalSpace(height: AppHeight.h16),
+                  CustomPasswordTextField(
+                    passwordEditingController: passwordEditingController,
+                    text: "Password",
+                  ),
+              
+                  VerticalSpace(height: AppHeight.h8),
+                  ForgetPassword(),
+                  VerticalSpace(height: AppHeight.h30),
+                  CustomButton(
+                    onPressed: () async {
+                      var result = InternetChecker();
+                      bool isConnected = await result();
+                      print('isConnected: $isConnected');
+                    },
+                    text: "Log In",
+                    fontSize: AppFontsSize.s14,
+                  ),
+                  VerticalSpace(height: AppHeight.h257),
+                  const CustomRichTextButton(
+                    subTextBottomTitle: "Don’t have an account? ",
+                    textButtonTitle: "Sign up now",
+                    routeName: Signupscreen.routeName,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

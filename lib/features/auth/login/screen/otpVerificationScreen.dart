@@ -15,33 +15,36 @@ class Otpverificationscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.kbackGroungColor,
-      body: Column(
-        children: [
-          CustomAppBarVerification(text: "Cancel"),
-          VerticalSpace(height: AppHeight.h16),
-          CustomTitleAndSubTitleVerficiation(
-            title: "OTP Verification",
-            subtitle: "Please enter the 4 digit code sent your phone number",
-          ),
-          VerticalSpace(height: AppHeight.h54),
-          CustomPinCodeTextField(),
-          VerticalSpace(height: AppHeight.h41),
-          CustomButton(
-            text: "Confirm",
-            onPressed: () {
-              Navigator.of(context).pushNamed(Createnewpassword.routeName);
-            },
-          ),
-          VerticalSpace(height: AppHeight.h8),
-          Text(
-            "Resend Code In 00:59",
-            style: TextStyle(
-              color: AppColors.kgreyColor,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Column(
+          children: [
+            CustomAppBarVerification(text: "Cancel"),
+            VerticalSpace(height: AppHeight.h16),
+            CustomTitleAndSubTitleVerficiation(
+              title: "OTP Verification",
+              subtitle: "Please enter the 4 digit code sent your phone number",
             ),
-          ),
-        ],
+            VerticalSpace(height: AppHeight.h54),
+            CustomPinCodeTextField(),
+            VerticalSpace(height: AppHeight.h41),
+            CustomButton(
+              text: "Confirm",
+              onPressed: () {
+                Navigator.of(context).pushNamed(Createnewpassword.routeName);
+              },
+            ),
+            VerticalSpace(height: AppHeight.h8),
+            Text(
+              "Resend Code In 00:59",
+              style: TextStyle(
+                color: AppColors.kgreyColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

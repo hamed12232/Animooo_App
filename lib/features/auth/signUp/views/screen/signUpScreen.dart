@@ -54,134 +54,136 @@ class _SignupscreenState extends State<Signupscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.kbackGroungColor,
-      body: Center(
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const CustomAnimooLogoApp(),
-                VerticalSpace(height: AppHeight.h30),
-                SizedBox(
-                  height: AppHeight.h93,
-                  child: Text(
-                    "Sign Up",
-                    style: TextStyle(
-                      fontFamily: FontValues.otamaEp,
-                      color: AppColors.kblackColor,
-                      fontSize: AppFontsSize.s38,
-                    ),
-                  ),
-                ),
-                CustomAttributeTextField(
-                  attribute: "First Name",
-                  attributeEditingController: firstNameEditingController,
-                  validator: (value)=>  AppValidators.firstNameValidator(value),
-                ),
-                VerticalSpace(height: AppHeight.h16),
-                CustomAttributeTextField(
-                  attribute: "Last Name",
-                  attributeEditingController: lastNameEditingController,
-                  validator: (value) => AppValidators.lastNameValidator(value),
-                ),
-                VerticalSpace(height: AppHeight.h16),
-                CustomAttributeTextField(
-                  attribute: "Email",
-                  attributeEditingController: emailEditingController,
-                  validator: (value) => AppValidators.emailValidator(value),
-                ),
-                VerticalSpace(height: AppHeight.h16),
-                CustomAttributeTextField(
-                  attribute: "Phone Number",
-                  attributeEditingController: phoneNumberEditingController,
-                  validator: (value) => AppValidators.phoneValidator(value),
-                ),
-                VerticalSpace(height: AppHeight.h16),
-                CustomPasswordTextField(
-                  passwordEditingController: passwordEditingController,
-                  text: "Password",
-                  validator: (value) => AppValidators.passwordValidator(value),
-                ),
-                VerticalSpace(height: AppHeight.h8),
-                Text(
-                  "Please add all necessary characters to create safe password.",
-                  style: TextStyle(
-                    fontFamily: FontValues.poppins,
-                    color: AppColors.kannotationPasswordColor,
-                    fontSize: AppFontsSize.s10,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                VerticalSpace(height: AppHeight.h11),
-                CustomPasswordRules(
-                  rulesColor: AppColors.krulesOfPasswordColor,
-                  rulesText: " At least 12 characters",
-                ),
-                VerticalSpace(height: AppHeight.h5),
-                CustomPasswordRules(
-                  rulesColor: AppColors.krulesOfPasswordColor,
-                  rulesText: " At least 1 uppercase letter",
-                ),
-                VerticalSpace(height: AppHeight.h5),
-                CustomPasswordRules(
-                  rulesColor: AppColors.krulesOfPasswordColor,
-                  rulesText: " At least 1 lowercase letter",
-                ),
-                VerticalSpace(height: AppHeight.h5),
-                CustomPasswordRules(
-                  rulesColor: AppColors.krulesOfPasswordColor,
-                  rulesText: " At least 1 Special Character",
-                ),
-                VerticalSpace(height: AppHeight.h5),
-                CustomPasswordRules(
-                  rulesColor: AppColors.krulesOfPasswordColor,
-                  rulesText: " At least 1 Number",
-                ),
-                VerticalSpace(height: AppHeight.h16),
-                CustomPasswordTextField(
-                  passwordEditingController: confirmPasswordEditingController,
-                  text: "Confirm Password",
-                  validator: (value) => AppValidators.confirmPasswordValidator(passwordEditingController.text,value),
-                ),
-                VerticalSpace(height: AppHeight.h16),
-                Padding(
-                  padding: EdgeInsets.only(left: PAdding.kPadding22),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
+      body: SafeArea(
+        child: Center(
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const CustomAnimooLogoApp(),
+                  VerticalSpace(height: AppHeight.h30),
+                  SizedBox(
+                    height: AppHeight.h93,
                     child: Text(
-                      "Uploading Profile Picture",
+                      "Sign Up",
                       style: TextStyle(
-                        fontFamily: FontValues.poppins,
-                        color: AppColors.kTextFieldHintColor,
-                        fontSize: AppFontsSize.s16,
-                        fontWeight: FontWeight.w400,
+                        fontFamily: FontValues.otamaEp,
+                        color: AppColors.kblackColor,
+                        fontSize: AppFontsSize.s38,
                       ),
                     ),
                   ),
-                ),
-                VerticalSpace(height: AppHeight.h8),
-                CustomRoundedRectDottedBorder(),
-
-                VerticalSpace(height: AppHeight.h30),
-                CustomButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      // Handle the sign-up logic here
-                      // For example, you can call a sign-up API
-                      // and navigate to the next screen on success.
-                    }
-                  },
-                  text: "Sign Up",
-                  fontSize: AppFontsSize.s14,
-                ),
-                VerticalSpace(height: AppHeight.h8),
-                CustomRichTextButton(
-                  subTextBottomTitle: "Already have an account? ",
-                  textButtonTitle: "Log in",
-                  routeName: Loginscreen.routeName,
-                ),
-                VerticalSpace(height: AppHeight.h20),
-              ],
+                  CustomAttributeTextField(
+                    attribute: "First Name",
+                    attributeEditingController: firstNameEditingController,
+                    validator: (value)=>  AppValidators.firstNameValidator(value),
+                  ),
+                  VerticalSpace(height: AppHeight.h16),
+                  CustomAttributeTextField(
+                    attribute: "Last Name",
+                    attributeEditingController: lastNameEditingController,
+                    validator: (value) => AppValidators.lastNameValidator(value),
+                  ),
+                  VerticalSpace(height: AppHeight.h16),
+                  CustomAttributeTextField(
+                    attribute: "Email",
+                    attributeEditingController: emailEditingController,
+                    validator: (value) => AppValidators.emailValidator(value),
+                  ),
+                  VerticalSpace(height: AppHeight.h16),
+                  CustomAttributeTextField(
+                    attribute: "Phone Number",
+                    attributeEditingController: phoneNumberEditingController,
+                    validator: (value) => AppValidators.phoneValidator(value),
+                  ),
+                  VerticalSpace(height: AppHeight.h16),
+                  CustomPasswordTextField(
+                    passwordEditingController: passwordEditingController,
+                    text: "Password",
+                    validator: (value) => AppValidators.passwordValidator(value),
+                  ),
+                  VerticalSpace(height: AppHeight.h8),
+                  Text(
+                    "Please add all necessary characters to create safe password.",
+                    style: TextStyle(
+                      fontFamily: FontValues.poppins,
+                      color: AppColors.kannotationPasswordColor,
+                      fontSize: AppFontsSize.s10,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  VerticalSpace(height: AppHeight.h11),
+                  CustomPasswordRules(
+                    rulesColor: AppColors.krulesOfPasswordColor,
+                    rulesText: " At least 12 characters",
+                  ),
+                  VerticalSpace(height: AppHeight.h5),
+                  CustomPasswordRules(
+                    rulesColor: AppColors.krulesOfPasswordColor,
+                    rulesText: " At least 1 uppercase letter",
+                  ),
+                  VerticalSpace(height: AppHeight.h5),
+                  CustomPasswordRules(
+                    rulesColor: AppColors.krulesOfPasswordColor,
+                    rulesText: " At least 1 lowercase letter",
+                  ),
+                  VerticalSpace(height: AppHeight.h5),
+                  CustomPasswordRules(
+                    rulesColor: AppColors.krulesOfPasswordColor,
+                    rulesText: " At least 1 Special Character",
+                  ),
+                  VerticalSpace(height: AppHeight.h5),
+                  CustomPasswordRules(
+                    rulesColor: AppColors.krulesOfPasswordColor,
+                    rulesText: " At least 1 Number",
+                  ),
+                  VerticalSpace(height: AppHeight.h16),
+                  CustomPasswordTextField(
+                    passwordEditingController: confirmPasswordEditingController,
+                    text: "Confirm Password",
+                    validator: (value) => AppValidators.confirmPasswordValidator(passwordEditingController.text,value),
+                  ),
+                  VerticalSpace(height: AppHeight.h16),
+                  Padding(
+                    padding: EdgeInsets.only(left: PAdding.kPadding22),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Uploading Profile Picture",
+                        style: TextStyle(
+                          fontFamily: FontValues.poppins,
+                          color: AppColors.kTextFieldHintColor,
+                          fontSize: AppFontsSize.s16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                  VerticalSpace(height: AppHeight.h8),
+                  CustomRoundedRectDottedBorder(),
+        
+                  VerticalSpace(height: AppHeight.h30),
+                  CustomButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        // Handle the sign-up logic here
+                        // For example, you can call a sign-up API
+                        // and navigate to the next screen on success.
+                      }
+                    },
+                    text: "Sign Up",
+                    fontSize: AppFontsSize.s14,
+                  ),
+                  VerticalSpace(height: AppHeight.h8),
+                  CustomRichTextButton(
+                    subTextBottomTitle: "Already have an account? ",
+                    textButtonTitle: "Log in",
+                    routeName: Loginscreen.routeName,
+                  ),
+                  VerticalSpace(height: AppHeight.h20),
+                ],
+              ),
             ),
           ),
         ),

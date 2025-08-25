@@ -10,6 +10,14 @@ class ErrorModel {
       code: json['statusCode'],
     );
   }
+  @override
+  String toString() {
+    if (error.isNotEmpty) {
+      return error.join(', ');
+    }
+    
+    return super.toString();
+  }
   
 }
 

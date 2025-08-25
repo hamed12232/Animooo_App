@@ -17,7 +17,7 @@ class DioServices extends ApiConsumer {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      Response response = await dio.post(url, queryParameters: queryParameters);
+      Response response = await dio.delete(url, queryParameters: queryParameters);
 
       return response.data;
     } on DioException catch (e) {

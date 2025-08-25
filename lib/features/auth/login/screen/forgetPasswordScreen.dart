@@ -17,30 +17,33 @@ class Forgetpasswordscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.kbackGroungColor,
-      body: Column(
-        children: [
-          CustomAppBarVerification(text: "Back"),
-          VerticalSpace(height: AppFontsSize.s18),
-          CustomTitleAndSubTitleVerficiation(
-            title: "Forget Password",
-            subtitle:
-                "Please enter the email address associated with your account, and we'll send you OTP to reset your password.",
-          ),
-          VerticalSpace(height: AppHeight.h58),
-          CustomAttributeTextField(
-            attributeEditingController: emailEditingController,
-            attribute: "Email",
-          ),
-          VerticalSpace(height: AppHeight.h151),
-          CustomButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(Otpverificationscreen.routeName);
-            },
-            text: "Send Code",
-            fontSize: AppFontsSize.s14,
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            CustomAppBarVerification(text: "Back"),
+            VerticalSpace(height: AppFontsSize.s18),
+            CustomTitleAndSubTitleVerficiation(
+              title: "Forget Password",
+              subtitle:
+                  "Please enter the email address associated with your account, and we'll send you OTP to reset your password.",
+            ),
+            VerticalSpace(height: AppHeight.h58),
+            CustomAttributeTextField(
+              attributeEditingController: emailEditingController,
+              attribute: "Email",
+            ),
+            VerticalSpace(height: AppHeight.h151),
+            CustomButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(Otpverificationscreen.routeName);
+              },
+              text: "Send Code",
+              fontSize: AppFontsSize.s14,
+            ),
+          ],
+        ),
       ),
     );
   }

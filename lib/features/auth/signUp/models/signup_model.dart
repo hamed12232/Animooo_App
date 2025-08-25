@@ -1,4 +1,3 @@
-// ignore: file_names
 class AuthResponse {
   int? statusCode;
   String? message;
@@ -22,11 +21,6 @@ class AuthResponse {
     'alert': alert,
     'user': user?.toJson(),
   };
-
-  @override
-  String toString() {
-    return 'AuthResponse{statusCode: $statusCode, message: $message, alert: $alert, user: $user}';
-  }
 }
 
 class UserResponseModel {
@@ -56,7 +50,7 @@ class UserResponseModel {
         email: json['email'],
         phone: json['phone'],
         imagePath: json['imagePath'],
-        isVerified: json['isVerified'],
+        isVerified: json['isVerified'] ?? "false",
       );
   Map<String, dynamic> toJson() => {
     'id': id,

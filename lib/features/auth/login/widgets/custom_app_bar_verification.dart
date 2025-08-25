@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:animoo_app/core/constant/asset_values.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
