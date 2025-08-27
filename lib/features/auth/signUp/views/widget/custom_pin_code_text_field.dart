@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animoo_app/core/style/app_border_radius.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_height.dart';
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class CustomPinCodeTextField extends StatelessWidget {
-  const CustomPinCodeTextField({super.key});
+  const CustomPinCodeTextField({super.key, });
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +18,9 @@ class CustomPinCodeTextField extends StatelessWidget {
       appContext: context,
       keyboardType: TextInputType.number,
       obscureText: false,
+      onCompleted: (value) {
+        log(value);
+      },
       animationType: AnimationType.fade,
       enableActiveFill: true,
       cursorColor: AppColors.kprimaryColor,

@@ -19,14 +19,14 @@ class SignupViewmodel extends Cubit<SignupState> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   File? imageFile;
   Future<void> signup() async {
-    if (!(formKey.currentState?.validate() ?? false)) {
+    if (!(formKey.currentState?.validate() ?? false)) {// 
       return;
     }
     if (imageFile == null) {
       emit(SignupError("Please select a profile image"));
       return;
     }
-    if (!(await imageFile!.exists())) {
+    if (!(await imageFile!.exists())) {// Check if the file exists
       emit(SignupError("Selected image file not found on device"));
       return;
     }

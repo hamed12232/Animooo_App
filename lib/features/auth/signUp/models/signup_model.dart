@@ -54,11 +54,11 @@ class UserResponseModel {
       );
   Map<String, dynamic> toJson() => {
     'id': id,
-    'firstName': firstName,
-    'lastName': lastName,
+    'firse_name': firstName,
+    'last_name': lastName,
     'email': email,
     'phone': phone,
-    'imagePath': imagePath,
-    'isVerified': isVerified,
+    'image_path': imagePath,
+    'is_verified': isVerified,
   };
 }

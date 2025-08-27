@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:animoo_app/core/constant/asset_values.dart';
-import 'package:animoo_app/core/constant/const_manager.dart';
 import 'package:animoo_app/core/functions/app_on_change_password.dart';
 import 'package:animoo_app/core/functions/app_validators.dart';
 import 'package:animoo_app/core/models/password_rules.dart';
@@ -18,8 +17,10 @@ import 'package:animoo_app/features/auth/login/screen/loginScreen.dart';
 import 'package:animoo_app/core/widget/custom_rich_text_button.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/signup_state.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/signup_viewmodel.dart';
+import 'package:animoo_app/features/auth/signUp/views/screen/otpVerificationScreen.dart';
 import 'package:animoo_app/features/auth/signUp/views/widget/custom_list_view_password_rules.dart';
 import 'package:animoo_app/features/auth/signUp/views/widget/custom_rounded_rectangle_border.dart';
+import 'package:animoo_app/features/auth/signUp/views/widget/password_rules_stream_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,13 +35,18 @@ class Signupscreen extends StatefulWidget {
 class _SignupscreenState extends State<Signupscreen> {
   late Stream<List<PasswordRulesModel>> listPasswordRulesOutPutStream;
   late StreamController<List<PasswordRulesModel>> listPasswordRulesController;
-  late SignupViewmodel viewModel ;
+  late SignupViewmodel viewModel;
   @override
   void initState() {
-    listPasswordRulesController = StreamController<List<PasswordRulesModel>>.broadcast();
-    listPasswordRulesInput = listPasswordRulesController.sink;
-    listPasswordRulesOutPutStream = listPasswordRulesController.stream;
-    viewModel=context.read<SignupViewmodel>();
+    listPasswordRulesController =
+        StreamController<
+          List<PasswordRulesModel>
+        >.broadcast(); // to allow multiple listeners
+    listPasswordRulesInput =
+        listPasswordRulesController.sink; // to add data to the stream
+    listPasswordRulesOutPutStream =
+        listPasswordRulesController.stream; // to listen to the stream
+    viewModel = context.read<SignupViewmodel>();
     super.initState();
   }
 
@@ -48,162 +54,150 @@ class _SignupscreenState extends State<Signupscreen> {
   void dispose() {
     listPasswordRulesController.close();
     listPasswordRulesInput.close();
+    viewModel.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: AppColors.kbackGroungColor,
       body: SafeArea(
         child: Center(
-          child: BlocListener<SignupViewmodel, SignupState>(
-            listener: (BuildContext context,  state) {
-              if(state is SignupLoading){
-                CircularProgressIndicator();
-              }
-              
-            else  if (state is SignupSuccess) {
+          child: BlocConsumer<SignupViewmodel, SignupState>(
+            listener: (BuildContext context, state) {
+              if (state is SignupSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.authResponse.alert!)),
+                  SnackBar(content: Text(state.authResponse.message!)),
                 );
+                Navigator.of(context).pushNamed(Otpverificationscreen.routeName,);
               } else if (state is SignupError) {
                 ScaffoldMessenger.of(
                   context,
                 ).showSnackBar(SnackBar(content: Text(state.message)));
               }
             },
-            child: Form(
-              key: viewModel.formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const CustomAnimooLogoApp(),
-                    VerticalSpace(height: AppHeight.h30),
-                    SizedBox(
-                      height: AppHeight.h93,
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          fontFamily: FontValues.otamaEp,
-                          color: AppColors.kblackColor,
-                          fontSize: AppFontsSize.s38,
+            builder: (BuildContext context, state) {
+              if (state is SignupLoading) {
+                return CircularProgressIndicator();
+              }
+              return Form(
+                key: viewModel.formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const CustomAnimooLogoApp(),
+                      VerticalSpace(height: AppHeight.h30),
+                      SizedBox(
+                        height: AppHeight.h93,
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            fontFamily: FontValues.otamaEp,
+                            color: AppColors.kblackColor,
+                            fontSize: AppFontsSize.s38,
+                          ),
                         ),
                       ),
-                    ),
-                    CustomAttributeTextField(
-                      attribute: "First Name",
-                      attributeEditingController:
-                          viewModel.firstNameEditingController,
-                      validator: (value) =>
-                          AppValidators.firstNameValidator(value),
-                    ),
-                    VerticalSpace(height: AppHeight.h16),
-                    CustomAttributeTextField(
-                      attribute: "Last Name",
-                      attributeEditingController:
-                          viewModel.lastNameEditingController,
-                      validator: (value) =>
-                          AppValidators.lastNameValidator(value),
-                    ),
-                    VerticalSpace(height: AppHeight.h16),
-                    CustomAttributeTextField(
-                      attribute: "Email",
-                      attributeEditingController:
-                          viewModel.emailEditingController,
-                      validator: (value) => AppValidators.emailValidator(value),
-                    ),
-                    VerticalSpace(height: AppHeight.h16),
-                    CustomAttributeTextField(
-                      attribute: "Phone Number",
-                      attributeEditingController:
-                          viewModel.phoneNumberEditingController,
-                      validator: (value) => AppValidators.phoneValidator(value),
-                    ),
-                    VerticalSpace(height: AppHeight.h16),
-                    CustomPasswordTextField(
-                      passwordEditingController:
-                          viewModel.passwordEditingController,
-                      text: "Password",
-                      onChanged: (value) => onChangePassword(value),
-                    ),
-                    VerticalSpace(height: AppHeight.h8),
+                      CustomAttributeTextField(
+                        attribute: "First Name",
+                        attributeEditingController:
+                            viewModel.firstNameEditingController,
+                        validator: (value) =>
+                            AppValidators.firstNameValidator(value),
+                      ),
+                      VerticalSpace(height: AppHeight.h16),
+                      CustomAttributeTextField(
+                        attribute: "Last Name",
+                        attributeEditingController:
+                            viewModel.lastNameEditingController,
+                        validator: (value) =>
+                            AppValidators.lastNameValidator(value),
+                      ),
+                      VerticalSpace(height: AppHeight.h16),
+                      CustomAttributeTextField(
+                        attribute: "Email",
+                        attributeEditingController:
+                            viewModel.emailEditingController,
+                        validator: (value) =>
+                            AppValidators.emailValidator(value),
+                      ),
+                      VerticalSpace(height: AppHeight.h16),
+                      CustomAttributeTextField(
+                        attribute: "Phone Number",
+                        attributeEditingController:
+                            viewModel.phoneNumberEditingController,
+                        validator: (value) =>
+                            AppValidators.phoneValidator(value),
+                      ),
+                      VerticalSpace(height: AppHeight.h16),
+                      CustomPasswordTextField(
+                        passwordEditingController:
+                            viewModel.passwordEditingController,
+                        text: "Password",
+                        onChanged: (value) => onChangePassword(value),
+                      ),
+                      VerticalSpace(height: AppHeight.h8),
 
-                    StreamBuilder<List<PasswordRulesModel>>(
-                      stream: listPasswordRulesOutPutStream,
-                      initialData: ConstsListsManager.passwordRulesRequirements,
-                      builder: (context, snapshot) {
-                        final rules = snapshot.data ?? const <PasswordRulesModel>[];
-                        if (rules.any((x) => !x.valid)) {
-                          return Text(
-                            "Please add all necessary characters to create safe password.",
+                      PasswordRulesStreamBuilder(
+                        listPasswordRulesOutPutStream:
+                            listPasswordRulesOutPutStream,
+                      ),
+                      VerticalSpace(height: AppHeight.h11),
+                      CustomListViewPasswordRequiredRules(
+                        stream: listPasswordRulesOutPutStream,
+                      ),
+                      VerticalSpace(height: AppHeight.h16),
+                      CustomPasswordTextField(
+                        passwordEditingController:
+                            viewModel.confirmPasswordEditingController,
+                        text: "Confirm Password",
+                        validator: (value) =>
+                            AppValidators.confirmPasswordValidator(
+                              viewModel.passwordEditingController.text,
+                              value,
+                            ),
+                      ),
+                      VerticalSpace(height: AppHeight.h16),
+                      Padding(
+                        padding: EdgeInsets.only(left: PAdding.kPadding22),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Uploading Profile Picture",
                             style: TextStyle(
                               fontFamily: FontValues.poppins,
-                              color: AppColors.kannotationPasswordColor,
-                              fontSize: AppFontsSize.s10,
-                              fontWeight: FontWeight.w600,
+                              color: AppColors.kTextFieldHintColor,
+                              fontSize: AppFontsSize.s16,
+                              fontWeight: FontWeight.w400,
                             ),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
-                    VerticalSpace(height: AppHeight.h11),
-                    CustomListViewPasswordRequiredRules(
-                      stream: listPasswordRulesOutPutStream,
-                    ),
-                    VerticalSpace(height: AppHeight.h16),
-                    CustomPasswordTextField(
-                      passwordEditingController:
-                          viewModel.confirmPasswordEditingController,
-                      text: "Confirm Password",
-                      validator: (value) =>
-                          AppValidators.confirmPasswordValidator(
-                            viewModel.passwordEditingController.text,
-                            value,
-                          ),
-                    ),
-                    VerticalSpace(height: AppHeight.h16),
-                    Padding(
-                      padding: EdgeInsets.only(left: PAdding.kPadding22),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Uploading Profile Picture",
-                          style: TextStyle(
-                            fontFamily: FontValues.poppins,
-                            color: AppColors.kTextFieldHintColor,
-                            fontSize: AppFontsSize.s16,
-                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
-                    ),
-                    VerticalSpace(height: AppHeight.h8),
-                    CustomRoundedRectDottedBorder(viewModel: viewModel,),
+                      VerticalSpace(height: AppHeight.h8),
+                      CustomRoundedRectDottedBorder(viewModel: viewModel),
 
-                    VerticalSpace(height: AppHeight.h30),
-                    CustomButton(
-                      onPressed: () async => await viewModel.signup(),
-                      text: "Sign Up",
-                      fontSize: AppFontsSize.s14,
-                    ),
-                    VerticalSpace(height: AppHeight.h8),
-                    CustomRichTextButton(
-                      subTextBottomTitle: "Already have an account? ",
-                      textButtonTitle: "Log in",
-                      routeName: Loginscreen.routeName,
-                    ),
-                    VerticalSpace(height: AppHeight.h20),
-                  ],
+                      VerticalSpace(height: AppHeight.h30),
+                      CustomButton(
+                        onPressed: () async => await viewModel.signup(),
+                        text: "Sign Up",
+                        fontSize: AppFontsSize.s14,
+                      ),
+                      VerticalSpace(height: AppHeight.h8),
+                      CustomRichTextButton(
+                        subTextBottomTitle: "Already have an account? ",
+                        textButtonTitle: "Log in",
+                        routeName: Loginscreen.routeName,
+                      ),
+                      VerticalSpace(height: AppHeight.h20),
+                    ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ),
       ),
     );
   }
-    
 }

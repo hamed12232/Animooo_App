@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animoo_app/core/constant/asset_values.dart';
 import 'package:animoo_app/core/services/internet_checker.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
@@ -69,7 +71,7 @@ class _LoginscreenState extends State<Loginscreen> {
                     onPressed: () async {
                       var result = InternetChecker();
                       bool isConnected = await result();
-                      print('isConnected: $isConnected');
+                      log('isConnected: $isConnected');
                     },
                     text: "Log In",
                     fontSize: AppFontsSize.s14,

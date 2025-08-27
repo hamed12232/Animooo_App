@@ -4,12 +4,13 @@ import 'package:animoo_app/core/style/app_height.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
 import 'package:animoo_app/features/auth/login/screen/createNewPassword.dart';
 import 'package:animoo_app/features/auth/login/widgets/custom_app_bar_verification.dart';
-import 'package:animoo_app/features/auth/login/widgets/custom_pin_code_text_field.dart';
 import 'package:animoo_app/features/auth/login/widgets/custom_title_subTitle_verification.dart';
+import 'package:animoo_app/features/auth/signUp/views/widget/custom_pin_code_text_field.dart';
 import 'package:flutter/material.dart';
 
 class Otpverificationscreen extends StatelessWidget {
   const Otpverificationscreen({super.key});
+
   static const String routeName = "/otp";
   @override
   Widget build(BuildContext context) {
