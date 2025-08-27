@@ -11,18 +11,20 @@ import 'package:flutter/material.dart';
 
 class CustomRoundedRectDottedBorder extends StatefulWidget {
   const CustomRoundedRectDottedBorder({super.key, required this.viewModel});
-  final SignupViewmodel viewModel ;
+  final SignupViewmodel viewModel;
 
   @override
-  State<CustomRoundedRectDottedBorder> createState() => _CustomRoundedRectDottedBorderState();
+  State<CustomRoundedRectDottedBorder> createState() =>
+      _CustomRoundedRectDottedBorderState();
 }
 
-class _CustomRoundedRectDottedBorderState extends State<CustomRoundedRectDottedBorder> {
+class _CustomRoundedRectDottedBorderState
+    extends State<CustomRoundedRectDottedBorder> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()async{
-      await  widget.viewModel.pickImage();
+      onTap: () async {
+        await widget.viewModel.pickImage();
         setState(() {});
       },
       child: Stack(
@@ -39,9 +41,12 @@ class _CustomRoundedRectDottedBorderState extends State<CustomRoundedRectDottedB
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-          
+
                   children: [
-                    Icon(CupertinoIcons.photo_fill, color: AppColors.kprimaryColor),
+                    Icon(
+                      CupertinoIcons.photo_fill,
+                      color: AppColors.kprimaryColor,
+                    ),
                     VerticalSpace(height: AppHeight.h16),
                     Text(
                       "Select file",
@@ -56,16 +61,16 @@ class _CustomRoundedRectDottedBorderState extends State<CustomRoundedRectDottedB
               ),
             ),
           ),
-          if(widget.viewModel.imageFile!=null)
-          Positioned.fill(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(AppBorderRadius.br10),
-              child: Image.file(
-                widget.viewModel.imageFile!,
-                fit: BoxFit.cover,
+          if (widget.viewModel.imageFile != null)
+            Positioned.fill(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppBorderRadius.br10),
+                child: Image.file(
+                  widget.viewModel.imageFile!,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
         ],
       ),
     );
