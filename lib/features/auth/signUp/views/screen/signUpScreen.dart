@@ -34,11 +34,13 @@ class Signupscreen extends StatefulWidget {
 class _SignupscreenState extends State<Signupscreen> {
   late Stream<List<PasswordRulesModel>> listPasswordRulesOutPutStream;
   late StreamController<List<PasswordRulesModel>> listPasswordRulesController;
+  late SignupViewmodel viewModel ;
   @override
   void initState() {
     listPasswordRulesController = StreamController<List<PasswordRulesModel>>.broadcast();
     listPasswordRulesInput = listPasswordRulesController.sink;
     listPasswordRulesOutPutStream = listPasswordRulesController.stream;
+    viewModel=context.read<SignupViewmodel>();
     super.initState();
   }
 
@@ -51,7 +53,6 @@ class _SignupscreenState extends State<Signupscreen> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<SignupViewmodel>();
 
     return Scaffold(
       backgroundColor: AppColors.kbackGroungColor,
@@ -59,10 +60,13 @@ class _SignupscreenState extends State<Signupscreen> {
         child: Center(
           child: BlocListener<SignupViewmodel, SignupState>(
             listener: (BuildContext context,  state) {
+              if(state is SignupLoading){
+                CircularProgressIndicator();
+              }
               
-              if (state is SignupSuccess) {
+            else  if (state is SignupSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.authResponse.message!)),
+                  SnackBar(content: Text(state.authResponse.alert!)),
                 );
               } else if (state is SignupError) {
                 ScaffoldMessenger.of(
@@ -130,7 +134,8 @@ class _SignupscreenState extends State<Signupscreen> {
                       stream: listPasswordRulesOutPutStream,
                       initialData: ConstsListsManager.passwordRulesRequirements,
                       builder: (context, snapshot) {
-                        if (snapshot.data!.any((x) => !x.valid)) {
+                        final rules = snapshot.data ?? const <PasswordRulesModel>[];
+                        if (rules.any((x) => !x.valid)) {
                           return Text(
                             "Please add all necessary characters to create safe password.",
                             style: TextStyle(
@@ -176,7 +181,7 @@ class _SignupscreenState extends State<Signupscreen> {
                       ),
                     ),
                     VerticalSpace(height: AppHeight.h8),
-                    CustomRoundedRectDottedBorder(),
+                    CustomRoundedRectDottedBorder(viewModel: viewModel,),
 
                     VerticalSpace(height: AppHeight.h30),
                     CustomButton(
@@ -200,4 +205,5 @@ class _SignupscreenState extends State<Signupscreen> {
       ),
     );
   }
+    
 }

@@ -9,13 +9,13 @@ abstract class ApiConsumer {
 
   Future<dynamic> post({
     required String url,
-    Map<String, dynamic>? body,
+    dynamic body,
     Map<String, dynamic>? queryParameters,
   });
 
   Future<dynamic> put({
     required String url,
-    Map<String, dynamic>? body,
+    dynamic body,
     Map<String, dynamic>? queryParameters,
   });
 

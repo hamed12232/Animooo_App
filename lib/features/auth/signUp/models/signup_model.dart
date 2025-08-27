@@ -24,33 +24,33 @@ class AuthResponse {
 }
 
 class UserResponseModel {
-  int? id;
-  String? firstName;
-  String? lastName;
-  String? email;
-  String? phone;
-  String? imagePath;
-  String? isVerified;
+  int id;
+  String firstName;
+  String lastName;
+  String email;
+  String phone;
+  String imagePath;
+  String isVerified;
 
   UserResponseModel({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.phone,
-    this.imagePath,
-    this.isVerified,
+   required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.phone,
+    required this.imagePath,
+   required this.isVerified,
   });
 
   factory UserResponseModel.fromJson(Map<String, dynamic> json) =>
       UserResponseModel(
-        id: json['id'],
-        firstName: json['firstName'],
-        lastName: json['lastName'],
+        id: json['id'] ,
+        firstName: json['first_name'],
+        lastName: json['last_name'],
         email: json['email'],
         phone: json['phone'],
-        imagePath: json['imagePath'],
-        isVerified: json['isVerified'] ?? "false",
+        imagePath: json['image_path'],
+        isVerified: json['is_verified'] ?? "false",
       );
   Map<String, dynamic> toJson() => {
     'id': id,

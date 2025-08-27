@@ -38,7 +38,7 @@ class MyTextFormField extends StatelessWidget {
         controller: controller,
         onTap: onTap,
         onChanged: onChanged,
-        onTapOutside: (event) => FocusManager.instance.primaryFocus!.unfocus(),
+        onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(

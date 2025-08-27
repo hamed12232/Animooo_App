@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'dart:developer';
+
 import 'package:animoo_app/core/api/api_constant.dart';
 import 'package:animoo_app/core/api/dio_services.dart';
 import 'package:animoo_app/core/errors/error_model.dart';
@@ -13,53 +14,44 @@ class SignupRepositoryImpl implements SignupRepository {
   SignupRepositoryImpl(this._dioServices);
 
   @override
-  Future<Either<ServerFailure, AuthResponse>> signup(
-    UserResponseModel model,
+  Future<Either<ErrorModel, AuthResponse>> signup(
+    String firstName,
+    String lastName,
+    String email,
+    String phone,
+    String imagePath,
     String password,
   ) async {
     try {
-      // Validate image path
-      if (model.imagePath == null || model.imagePath!.isEmpty) {
-        return Left(ServerFailure(
-          ErrorModel(error: ["Profile image is required"], code: 400),
-        ));
-      }
 
-      // Check if file exists
-      final file = File(model.imagePath!);
-      if (!await file.exists()) {
-        return Left(ServerFailure(
-          ErrorModel(error: ["Profile image file not found"], code: 400),
-        ));
-      }
+      final String fileName = imagePath.split('/').isNotEmpty
+          ? imagePath.split('/').last
+          : (imagePath.split('\\').isNotEmpty ? imagePath.split('\\').last : 'image.jpg');
+
+      final formData = FormData.fromMap({
+        ApiKeys.firstName: firstName,
+        ApiKeys.lastName: lastName,
+        ApiKeys.email: email,
+        ApiKeys.phoneNumber: phone,
+        ApiKeys.password: password,
+        ApiKeys.image: await MultipartFile.fromFile(
+          imagePath,
+          filename: fileName,
+        ),
+      });
 
       final response = await _dioServices.post(
         url: ApiConstant.signUp,
-        body: {
-          ApiKeys.firstName: model.firstName,
-          ApiKeys.lastName: model.lastName,
-          ApiKeys.email: model.email,
-          ApiKeys.password: password,
-          ApiKeys.phoneNumber: model.phone,
-          ApiKeys.image: await MultipartFile.fromFile(
-            model.imagePath!,
-            filename: model.imagePath!.split("/").last,
-          ),
-        },
+        body: formData,
       );
+      log(response.toString());
       return Right(AuthResponse.fromJson(response));
-    } on DioException catch (e) {
-      if (e.response != null && e.response?.data != null) {
-        return Left(ServerFailure(ErrorModel.fromJson(e.response?.data)));
-      } else {
-        return Left(
-          ServerFailure(
-            ErrorModel(error: [e.message ?? "Something went wrong"], code: 500),
-          ),
-        );
-      }
-    } catch (e) {
-      return Left(ServerFailure(ErrorModel(error: [e.toString()], code: 500)));
+    } on ServerFailure catch (e) {
+      return Left(e.errorModel);
+    }
+    catch (e) 
+    {
+        return Left(ErrorModel(error: [e.toString()],code: 500));
     }
   }
 }

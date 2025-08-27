@@ -1,5 +1,4 @@
 
-import 'dart:ui';
 
 import 'package:animoo_app/core/constant/const_manager.dart';
 import 'package:animoo_app/core/models/password_rules.dart';
@@ -23,21 +22,22 @@ class CustomListViewPasswordRequiredRules extends StatelessWidget {
       stream: stream,
       initialData: ConstsListsManager.passwordRulesRequirements,
       builder: (context, snapshot) {
+        final items = snapshot.data ?? const <PasswordRulesModel>[];
         return ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            bool valid = snapshot.data![index].valid;
+            bool valid = items[index].valid;
             return CustomPasswordRules(
               rulesColor: valid
                   ? AppColors.krulesOfPasswordColor
                   : AppColors.kannotationPasswordColor,
-              rulesText: snapshot.data![index].title,
+              rulesText: items[index].title,
               decoration: valid ? TextDecoration.lineThrough : TextDecoration.none
             );
           },
           separatorBuilder: (context, index) => VerticalSpace(height: AppHeight.h5),
-          itemCount: snapshot.data!.length,
+          itemCount: items.length,
         );
       },
     );
