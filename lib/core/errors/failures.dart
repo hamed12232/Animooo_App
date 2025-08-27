@@ -9,34 +9,31 @@ class ServerFailure implements Exception {
 }
 
  void handleDioExceptions(DioException e) {
+    final response = e.response;
+    final data = response?.data;
+    final statusCode = response?.statusCode;
+
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
-        throw ServerFailure(ErrorModel.fromJson(e.response!.data));
       case DioExceptionType.sendTimeout:
-        throw ServerFailure(ErrorModel.fromJson(e.response!.data));
       case DioExceptionType.receiveTimeout:
-        throw ServerFailure(ErrorModel.fromJson(e.response!.data));
-      case DioExceptionType.badResponse:
-        switch (e.response!.statusCode) {
-          case 400:
-            throw ServerFailure(ErrorModel.fromJson(e.response!.data));
-          case 401:
-            throw ServerFailure(ErrorModel.fromJson(e.response!.data));
-          case 403:
-            throw ServerFailure(ErrorModel.fromJson(e.response!.data));
-          case 404:
-            throw ServerFailure(ErrorModel.fromJson(e.response!.data));
-          case 500:
-            throw ServerFailure(ErrorModel.fromJson(e.response!.data));
-        }
       case DioExceptionType.cancel:
-        throw ServerFailure(ErrorModel.fromJson(e.response!.data));
       case DioExceptionType.unknown:
-        throw ServerFailure(ErrorModel.fromJson(e.response!.data));
+        if (data != null) {
+          throw ServerFailure(ErrorModel.fromJson(data));
+        }
+        throw ServerFailure(ErrorModel(error: [e.message ?? 'Network error'], code: statusCode ?? 0));
+      case DioExceptionType.badResponse:
+        if (statusCode != null && data != null) {
+          throw ServerFailure(ErrorModel.fromJson(data));
+        }
+        throw ServerFailure(ErrorModel(error: ['Server error'], code: statusCode ?? 0));
       default:
-        throw ServerFailure(ErrorModel.fromJson(e.response!.data));
+        if (data != null) {
+          throw ServerFailure(ErrorModel.fromJson(data));
+        }
+        throw ServerFailure(ErrorModel(error: ['Unexpected error'], code: statusCode ?? 0));
     }
-       
   }
 
  
