@@ -68,7 +68,7 @@ class _SignupscreenState extends State<Signupscreen> {
             listener: (BuildContext context, state) {
               if (state is SignupSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.authResponse.message!)),
+                  SnackBar(content: Text(state.authResponse.alert!)),
                 );
                 Navigator.of(
                   context,

@@ -1,4 +1,5 @@
 // import 'dart:developer';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:animoo_app/features/auth/signUp/repo/signup_repository_impl.dart';
@@ -42,6 +43,7 @@ class SignupViewmodel extends Cubit<SignupState> {
       imageFile!.path,
       passwordEditingController.text,
     );
+    log(response.toString());
     response.fold(
       (failure) => emit(SignupError(failure.error.toString())),
       (authResponse) => emit(SignupSuccess(authResponse: authResponse)),

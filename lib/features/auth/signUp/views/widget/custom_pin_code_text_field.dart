@@ -16,7 +16,7 @@ class CustomPinCodeTextField extends StatelessWidget {
     return PinCodeTextField(
       length: 5,
       appContext: context,
-      
+
       keyboardType: TextInputType.number,
       autoDismissKeyboard: true,
       autoDisposeControllers: true,
@@ -43,7 +43,7 @@ class CustomPinCodeTextField extends StatelessWidget {
         fieldHeight: AppHeight.h54,
         fieldWidth: AppWidth.w50,
         fieldOuterPadding: const EdgeInsets.symmetric(
-          horizontal: PAdding.kPadding14,
+          horizontal: PAdding.kPadding10,
         ),
       ),
       animationDuration: const Duration(milliseconds: 300),

@@ -1,22 +1,30 @@
 import 'package:animoo_app/features/auth/login/models/login_model.dart';
 
-abstract class OtpState {}
-
-class OtpInitial extends OtpState {
-    String code;
-    OtpInitial({this.code=""});
-
+abstract class OtpState {
+  final String code;
+  const OtpState({this.code = ""});
 }
 
-class OtpLoading extends OtpState {}
+class OtpInitial extends OtpState {
+  const OtpInitial({super.code});
+}
+
+class OtpLoading extends OtpState {
+  const OtpLoading({required super.code});
+}
 
 class OtpSuccess extends OtpState {
   final LoginModel loginModel;
-  OtpSuccess(this.loginModel);
-
+  const OtpSuccess({
+    required this.loginModel,
+    required super.code,
+  });
 }
 
 class OtpError extends OtpState {
   final String message;
-  OtpError(this.message);
+  const OtpError({
+    required this.message,
+    required super.code,
+  });
 }

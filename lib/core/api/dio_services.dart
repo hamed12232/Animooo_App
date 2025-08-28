@@ -9,7 +9,7 @@ class DioServices extends ApiConsumer {
   DioServices({required this.dio}) {
     dio.options.baseUrl = ApiConstant.baseUrl;
     dio.options.connectTimeout = const Duration(seconds: 10);
-    dio.options.receiveTimeout = const Duration(seconds: 5);
+    dio.options.receiveTimeout = const Duration(seconds: 15);
     dio.options.sendTimeout = const Duration(seconds: 10);
   }
   @override
@@ -25,11 +25,12 @@ class DioServices extends ApiConsumer {
 
       return response.data;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      handleDioException(e);
     }
   }
 
   @override
+
   Future get({
     required String url,
     Map<String, dynamic>? queryParameters,
@@ -38,7 +39,7 @@ class DioServices extends ApiConsumer {
       Response response = await dio.get(url, queryParameters: queryParameters);
       return response.data;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      handleDioException(e);
     }
   }
 
@@ -66,7 +67,7 @@ class DioServices extends ApiConsumer {
         );
       }
     }  catch (e) {
-      handleDioExceptions(e);
+      handleDioException(e);
     }
   }
 
@@ -85,7 +86,7 @@ class DioServices extends ApiConsumer {
 
       return response.data;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      handleDioException(e);
     }
   }
 }

@@ -3,25 +3,28 @@ import 'package:animoo_app/features/auth/signUp/view_models/otp_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OtpViewmodel extends Cubit<OtpState> {
-  OtpViewmodel(this.signupRepositoryImpl) : super(OtpInitial());
+  OtpViewmodel(this.signupRepositoryImpl) : super(const OtpInitial());
   final SignupRepositoryImpl signupRepositoryImpl;
 
   Future<void> verifyOtp(String email, String otp) async {
-    if (state is OtpInitial) {
-      final currentCode = (state as OtpInitial).code;
-      if (currentCode.isEmpty) return;
-    }
-    emit(OtpLoading());
+    if (state.code.isEmpty) return;
+
+    emit(OtpLoading(code: state.code));
+
     final response = await signupRepositoryImpl.verifyOtp(email, otp);
     response.fold(
-      (failure) => emit(OtpError(failure.error.toString())),
-      (loginModel) => emit(OtpSuccess(loginModel)),
+      (failure) => emit(OtpError(
+        message: failure.error.toString(),
+        code: state.code,
+      )),
+      (loginModel) => emit(OtpSuccess(
+        loginModel: loginModel,
+        code: state.code,
+      )),
     );
   }
 
   void updateCode(String value) {
-    if (state is OtpInitial) {
-      emit(OtpInitial(code: value));
-    }
+    emit(OtpInitial(code: value));
   }
 }

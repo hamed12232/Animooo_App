@@ -46,7 +46,7 @@ class _OtpverificationscreenState extends State<Otpverificationscreen> {
               }
             },
             builder: (BuildContext context, state) {
-              String code = state is OtpInitial ? state.code : "";
+              String code = state.code;
               if (state is OtpLoading) {
                 return const Center(child: CircularProgressIndicator());
               }
@@ -56,8 +56,7 @@ class _OtpverificationscreenState extends State<Otpverificationscreen> {
                   VerticalSpace(height: AppHeight.h16),
                   CustomTitleAndSubTitleVerficiation(
                     title: "OTP Verification",
-                    subtitle:
-                        "Please enter the 5 digit code sent your phone number",
+                    subtitle: "Please enter the 5 digit code sent your email",
                   ),
                   VerticalSpace(height: AppHeight.h54),
                   CustomPinCodeTextField(
