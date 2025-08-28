@@ -16,7 +16,7 @@ class AppRouteManager {
       case AppRoutesName.forgetPassword:
         widget = Forgetpasswordscreen();
       case AppRoutesName.otb:
-        widget = Otpverificationscreen();
+        widget = Otpverificationscreen(email: settings.arguments as String);
       case AppRoutesName.createNewPassword:
         widget = Createnewpassword();
       default:

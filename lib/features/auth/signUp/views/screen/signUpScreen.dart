@@ -70,7 +70,9 @@ class _SignupscreenState extends State<Signupscreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(state.authResponse.message!)),
                 );
-                Navigator.of(context).pushNamed(Otpverificationscreen.routeName,);
+                Navigator.of(
+                  context,
+                ).pushNamed(Otpverificationscreen.routeName,arguments: state.authResponse.user!.email);
               } else if (state is SignupError) {
                 ScaffoldMessenger.of(
                   context,
