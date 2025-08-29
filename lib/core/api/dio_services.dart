@@ -12,6 +12,7 @@ class DioServices extends ApiConsumer {
     dio.options.receiveTimeout = const Duration(seconds: 15);
     dio.options.sendTimeout = const Duration(seconds: 10);
   }
+
   @override
   Future delete({
     required String url,
@@ -30,7 +31,6 @@ class DioServices extends ApiConsumer {
   }
 
   @override
-
   Future get({
     required String url,
     Map<String, dynamic>? queryParameters,
@@ -63,10 +63,11 @@ class DioServices extends ApiConsumer {
       } else {
         //?failure
         throw ServerFailure(
-          ErrorModel.fromJson(response.data),response.data??{}
+          ErrorModel.fromJson(response.data),
+          response.data ?? {},
         );
       }
-    }  catch (e) {
+    } catch (e) {
       handleDioException(e);
     }
   }
