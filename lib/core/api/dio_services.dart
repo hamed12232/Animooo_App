@@ -63,7 +63,7 @@ class DioServices extends ApiConsumer {
       } else {
         //?failure
         throw ServerFailure(
-          ErrorModel.fromJson(response.data),
+          ErrorModel.fromJson(response.data),response.data??{}
         );
       }
     }  catch (e) {
