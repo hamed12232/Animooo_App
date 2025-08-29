@@ -18,9 +18,13 @@ class LoginRepositioryImp implements LoginRepository {
         body: {ApiKeys.email: email},
       );
       log(response.toString());
-      return Right(response["message"].toString());
+      if (response["message"].toString() == "Email sent successfully") {
+        return Right("Email sent successfully");
+      } else {
+        return Left(response["message"].toString());
+      }
     } on ServerFailure catch (e) {
-      return Left(e.response["message"].toString());
+      return Left(e.errorModel.error.toString());
     }
   }
 
