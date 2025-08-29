@@ -13,7 +13,7 @@ import 'package:animoo_app/core/widget/custom_animoo_logo_app.dart';
 import 'package:animoo_app/core/widget/custom_attribute_text_field.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
 import 'package:animoo_app/core/widget/custom_password_text_field.dart';
-import 'package:animoo_app/features/auth/login/screen/loginScreen.dart';
+import 'package:animoo_app/features/auth/login/view/screen/loginScreen.dart';
 import 'package:animoo_app/core/widget/custom_rich_text_button.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/signup_state.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/signup_viewmodel.dart';

@@ -4,6 +4,7 @@ class ApiConstant {
   static const String login = "api/login";
   static const String signUp = "/api/signup";
   static const String verifyOtp = "/api/verfication_code";
+  static const String forgetPassword = "/api/forget_password";
   
 }
 class ApiKeys {

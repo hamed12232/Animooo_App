@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:animoo_app/core/constant/asset_values.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_fonts_size.dart';
-import 'package:animoo_app/features/auth/login/screen/loginScreen.dart';
+import 'package:animoo_app/features/auth/login/view/screen/loginScreen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
-import 'package:animoo_app/features/auth/login/screen/createNewPassword.dart';
-import 'package:animoo_app/features/auth/login/screen/forgetPasswordScreen.dart';
-import 'package:animoo_app/features/auth/login/screen/loginScreen.dart';
+import 'package:animoo_app/features/auth/login/view/screen/createNewPassword.dart';
+import 'package:animoo_app/features/auth/login/view/screen/forgetPasswordScreen.dart';
+import 'package:animoo_app/features/auth/login/view/screen/loginScreen.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/otpVerificationScreen.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/signUpScreen.dart';
 import 'package:flutter/material.dart';
