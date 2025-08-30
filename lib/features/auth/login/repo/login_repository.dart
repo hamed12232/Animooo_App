@@ -3,7 +3,7 @@ import 'package:animoo_app/features/auth/login/models/login_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class LoginRepository {
-  Future<void> login(String email, String password);
+  Future<Either<ErrorModel, LoginModel>> login(String email, String password);
   Future<Either<String, String>> forgetPassword(String email);
   Future<Either<ErrorModel, LoginModel>> createNewPassword(
     String email,

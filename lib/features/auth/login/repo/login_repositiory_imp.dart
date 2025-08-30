@@ -31,8 +31,21 @@ class LoginRepositioryImp implements LoginRepository {
   }
 
   @override
-  Future<void> login(String email, String password) {
-    throw UnimplementedError();
+  Future<Either<ErrorModel, LoginModel>> login(
+    String email,
+    String password,
+  ) async {
+    try {
+      final response = await _dioServices.post(
+        url: ApiConstant.getLoginUrl(email, password),
+        body: {ApiKeys.email: email, ApiKeys.password: password},
+      );
+      return Right(LoginModel.fromJson(response));
+    } on ServerFailure catch (e) {
+      return Left(e.errorModel);
+    } catch (e) {
+      return Left(ErrorModel(error: [e.toString()], code: 500));
+    }
   }
 
   @override
