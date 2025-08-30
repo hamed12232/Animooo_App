@@ -3,8 +3,11 @@ import 'package:animoo_app/features/auth/login/view/screen/createNewPassword.dar
 import 'package:animoo_app/features/auth/login/view/screen/forgetPasswordScreen.dart';
 import 'package:animoo_app/features/auth/login/view/screen/loginScreen.dart';
 import 'package:animoo_app/features/auth/login/view_model/forget_password_view_model.dart';
+import 'package:animoo_app/features/auth/login/view_model/login_view_model.dart';
+import 'package:animoo_app/features/auth/signUp/view_models/signup_viewmodel.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/otpVerificationScreen.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/signUpScreen.dart';
+import 'package:animoo_app/features/home/view/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,11 +16,11 @@ class AppRouteManager {
     Widget widget;
     switch (settings.name) {
       case AppRoutesName.login:
-        widget = Loginscreen();
+        widget = BlocProvider(create: (context) => sl<LoginViewModel>(), child: Loginscreen());
       case AppRoutesName.signUP:
-        widget = Signupscreen();
+        widget = BlocProvider(create: (context) => sl<SignupViewmodel>(), child: Signupscreen());
       case AppRoutesName.forgetPassword:
-        widget = ForgetPasswordScreen();
+        widget = BlocProvider(create: (context) => sl<ForgetPasswordViewModel>(), child: ForgetPasswordScreen());
       case AppRoutesName.otb:
         final args = settings.arguments as Map<String, dynamic>;
 
@@ -30,6 +33,8 @@ class AppRouteManager {
           create: (context) => sl<ForgetPasswordViewModel>(),
           child: CreateNewPassword(email: settings.arguments as String),
         );
+      case AppRoutesName.home:
+        widget = HomeScreen();
       default:
         widget = Loginscreen();
     }
@@ -43,4 +48,5 @@ class AppRoutesName {
   static const String forgetPassword = '/forgetPassword';
   static const String otb = "/otp";
   static const String createNewPassword = '/CreateNewPassword';
+  static const String home = '/home';
 }

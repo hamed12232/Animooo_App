@@ -1,7 +1,5 @@
-import 'dart:developer';
-
 import 'package:animoo_app/core/constant/asset_values.dart';
-import 'package:animoo_app/core/services/internet_checker.dart';
+import 'package:animoo_app/core/functions/app_validators.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_fonts_size.dart';
@@ -12,8 +10,12 @@ import 'package:animoo_app/core/widget/custom_password_text_field.dart';
 import 'package:animoo_app/core/widget/custom_animoo_logo_app.dart';
 import 'package:animoo_app/core/widget/custom_rich_text_button.dart';
 import 'package:animoo_app/features/auth/login/view/widgets/forget_password.dart';
+import 'package:animoo_app/features/auth/login/view_model/login_state.dart';
+import 'package:animoo_app/features/auth/login/view_model/login_view_model.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/signUpScreen.dart';
+import 'package:animoo_app/features/home/view/screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -24,10 +26,13 @@ class Loginscreen extends StatefulWidget {
 }
 
 class _LoginscreenState extends State<Loginscreen> {
-  final TextEditingController emailEditingController = TextEditingController();
-  final TextEditingController passwordEditingController =
-      TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late LoginViewModel loginViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    loginViewModel = context.read<LoginViewModel>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +41,7 @@ class _LoginscreenState extends State<Loginscreen> {
         backgroundColor: AppColors.kbackGroungColor,
         body: Center(
           child: Form(
-            key: _formKey,
+            key: loginViewModel.formKey,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -53,29 +58,53 @@ class _LoginscreenState extends State<Loginscreen> {
                       ),
                     ),
                   ),
-              
+
                   CustomAttributeTextField(
                     attribute: "Email",
-                    attributeEditingController: emailEditingController,
+                    attributeEditingController:
+                        loginViewModel.emailEditingController,
+                        validator: (value) => AppValidators.emailValidator(value),
                   ),
                   VerticalSpace(height: AppHeight.h16),
                   CustomPasswordTextField(
-                    passwordEditingController: passwordEditingController,
+                    passwordEditingController:
+                        loginViewModel.passwordEditingController,
                     text: "Password",
                   ),
-              
+
                   VerticalSpace(height: AppHeight.h8),
                   ForgetPassword(),
                   VerticalSpace(height: AppHeight.h30),
-                  CustomButton(
-                    onPressed: () async {
-                      var result = InternetChecker();
-                      bool isConnected = await result();
-                      log('isConnected: $isConnected');
+                  BlocConsumer<LoginViewModel, LoginState>(
+                    listener: (context, state) {
+                      if (state is LoginSuccess) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(state.loginModel.message!)),
+                        );
+                        Navigator.of(context).pushNamed(HomeScreen.routeName);
+                      } else if (state is LoginError) {
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text(state.error)));
+                      }
                     },
-                    text: "Log In",
-                    fontSize: AppFontsSize.s14,
+                    builder: (BuildContext context, state) {
+                      if (state is LoginLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      return CustomButton(
+                        onPressed: () async {
+                          // var result =   InternetChecker();
+                          // bool isConnected = await result();
+                          // log('isConnected: $isConnected');
+                          await loginViewModel.login();
+                        },
+                        text: "Log In",
+                        fontSize: AppFontsSize.s14,
+                      );
+                    },
                   ),
+
                   VerticalSpace(height: AppHeight.h257),
                   const CustomRichTextButton(
                     subTextBottomTitle: "Don’t have an account? ",

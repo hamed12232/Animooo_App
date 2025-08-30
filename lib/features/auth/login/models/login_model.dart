@@ -17,7 +17,7 @@ class LoginModel {
 
   factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
-      statusCode: json['statusCode'],
+      statusCode: json['statusCode']??0,
       message: json['message'],
       accessToken: json['access_token'],
       refreshToken: json['refresh_token'],
