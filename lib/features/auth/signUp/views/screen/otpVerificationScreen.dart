@@ -1,22 +1,26 @@
-import 'package:animoo_app/core/api/dio_services.dart';
+import 'package:animoo_app/core/DI/get_it.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_height.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
+import 'package:animoo_app/features/auth/login/view/screen/createNewPassword.dart';
 import 'package:animoo_app/features/auth/login/view/widgets/custom_app_bar_verification.dart';
 import 'package:animoo_app/features/auth/login/view/widgets/custom_title_subTitle_verification.dart';
-import 'package:animoo_app/features/auth/signUp/repo/signup_repository_impl.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/otp_state.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/otp_viewmodel.dart';
 import 'package:animoo_app/features/auth/signUp/views/widget/custom_pin_code_text_field.dart';
 import 'package:animoo_app/features/auth/signUp/views/widget/resend_code_timer_animated.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Otpverificationscreen extends StatefulWidget {
-  const Otpverificationscreen({super.key, required this.email});
+  const Otpverificationscreen({
+    super.key,
+    required this.email,
+    this.isFromForgotPassword = false,
+  });
   final String email;
+  final bool isFromForgotPassword;
 
   static const String routeName = "/otp";
 
@@ -28,8 +32,7 @@ class _OtpverificationscreenState extends State<Otpverificationscreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          OtpViewmodel(SignupRepositoryImpl(DioServices(dio: Dio()))),
+      create: (context) => sl<OtpViewmodel>(),
       child: Scaffold(
         backgroundColor: AppColors.kbackGroungColor,
         resizeToAvoidBottomInset: false,
@@ -44,11 +47,13 @@ class _OtpverificationscreenState extends State<Otpverificationscreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(state.loginModel.message!)),
                 );
-              }
-              else if (state is OtpResend) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
-                );
+                if (widget.isFromForgotPassword) {
+                  Navigator.pushNamed(context, Createnewpassword.routeName);
+                }
+              } else if (state is OtpResend) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(state.message)));
               }
             },
             builder: (BuildContext context, state) {

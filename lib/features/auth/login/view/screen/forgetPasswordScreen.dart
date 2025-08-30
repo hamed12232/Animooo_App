@@ -1,4 +1,4 @@
-import 'package:animoo_app/core/api/dio_services.dart';
+import 'package:animoo_app/core/DI/get_it.dart';
 import 'package:animoo_app/core/functions/app_validators.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
@@ -6,13 +6,11 @@ import 'package:animoo_app/core/style/app_fonts_size.dart';
 import 'package:animoo_app/core/style/app_height.dart';
 import 'package:animoo_app/core/widget/custom_attribute_text_field.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
-import 'package:animoo_app/features/auth/login/repo/login_repositiory_imp.dart';
 import 'package:animoo_app/features/auth/login/view/widgets/custom_app_bar_verification.dart';
 import 'package:animoo_app/features/auth/login/view/widgets/custom_title_subTitle_verification.dart';
 import 'package:animoo_app/features/auth/login/view_model/forget_password_state.dart';
 import 'package:animoo_app/features/auth/login/view_model/forget_password_view_model.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/otpVerificationScreen.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,8 +22,7 @@ class Forgetpasswordscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          ForgetPasswordViewModel(LoginRepositioryImp(DioServices(dio: Dio()))),
+      create: (context) => sl<ForgetPasswordViewModel>(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.kbackGroungColor,
