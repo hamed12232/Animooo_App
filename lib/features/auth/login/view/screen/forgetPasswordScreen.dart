@@ -30,28 +30,28 @@ class Forgetpasswordscreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.kbackGroungColor,
         body: SafeArea(
-          child: BlocConsumer<ForgetPasswordViewModel, ForgetPasswordState>(
-            builder: (BuildContext context, state) {
-              if (state is ForgetPasswordLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return Column(
-                children: [
-                  CustomAppBarVerification(text: "Back"),
-                  VerticalSpace(height: AppFontsSize.s18),
-                  CustomTitleAndSubTitleVerficiation(
-                    title: "Forget Password",
-                    subtitle:
-                        "Please enter the email address associated with your account, and we'll send you OTP to reset your password.",
-                  ),
-                  VerticalSpace(height: AppHeight.h58),
-                  CustomAttributeTextField(
-                    attributeEditingController: emailEditingController,
-                    attribute: "Email",
-                    validator: (value) => AppValidators.emailValidator(value),
-                  ),
-                  VerticalSpace(height: AppHeight.h151),
-                  CustomButton(
+          child: Column(
+            children: [
+              CustomAppBarVerification(text: "Back"),
+              VerticalSpace(height: AppFontsSize.s18),
+              CustomTitleAndSubTitleVerficiation(
+                title: "Forget Password",
+                subtitle:
+                    "Please enter the email address associated with your account, and we'll send you OTP to reset your password.",
+              ),
+              VerticalSpace(height: AppHeight.h58),
+              CustomAttributeTextField(
+                attributeEditingController: emailEditingController,
+                attribute: "Email",
+                validator: (value) => AppValidators.emailValidator(value),
+              ),
+              VerticalSpace(height: AppHeight.h151),
+              BlocConsumer<ForgetPasswordViewModel, ForgetPasswordState>(
+                builder: (BuildContext context, state) {
+                  if (state is ForgetPasswordLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return CustomButton(
                     onPressed: () {
                       if (emailEditingController.text.isNotEmpty) {
                         context.read<ForgetPasswordViewModel>().forgetPassword(
@@ -65,25 +65,25 @@ class Forgetpasswordscreen extends StatelessWidget {
                     },
                     text: "Send Code",
                     fontSize: AppFontsSize.s14,
-                  ),
-                ],
-              );
-            },
-            listener: (BuildContext context, state) {
-              if (state is ForgetPasswordSuccess) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.message)));
-                Navigator.of(context).pushNamed(
-                  Otpverificationscreen.routeName,
-                  arguments: emailEditingController.text,
-                );
-              } else if (state is ForgetPasswordError) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.error)));
-              }
-            },
+                  );
+                },
+                listener: (BuildContext context, state) {
+                  if (state is ForgetPasswordSuccess) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(state.message)));
+                    Navigator.of(context).pushNamed(
+                      Otpverificationscreen.routeName,
+                      arguments: emailEditingController.text,
+                    );
+                  } else if (state is ForgetPasswordError) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(state.error)));
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
