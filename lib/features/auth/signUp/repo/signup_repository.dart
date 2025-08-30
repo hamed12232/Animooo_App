@@ -13,5 +13,5 @@ abstract class SignupRepository {
     String password,
   );
   Future<Either<ErrorModel, LoginModel>> verifyOtp(String email, String otp);
-  Future<Either<ErrorModel, String>> resendOtp(String phone);
+  Future<Either<ErrorModel, String>> resendOtp(String email);
 }

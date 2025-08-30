@@ -13,14 +13,20 @@ class OtpViewmodel extends Cubit<OtpState> {
 
     final response = await signupRepositoryImpl.verifyOtp(email, otp);
     response.fold(
-      (failure) => emit(OtpError(
-        message: failure.error.toString(),
-        code: state.code,
-      )),
-      (loginModel) => emit(OtpSuccess(
-        loginModel: loginModel,
-        code: state.code,
-      )),
+      (failure) =>
+          emit(OtpError(message: failure.error.toString(), code: state.code)),
+      (loginModel) =>
+          emit(OtpSuccess(loginModel: loginModel, code: state.code)),
+    );
+  }
+
+  Future<void> resendOtp(String email) async {
+    emit(OtpLoading(code: state.code));
+    final response = await signupRepositoryImpl.resendOtp(email);
+    response.fold(
+      (failure) =>
+          emit(OtpError(message: failure.error.toString(), code: state.code)),
+      (message) => emit(OtpResend(message)),
     );
   }
 

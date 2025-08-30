@@ -20,6 +20,10 @@ class OtpSuccess extends OtpState {
     required super.code,
   });
 }
+class OtpResend extends OtpState {
+  final String message;
+  const OtpResend(this.message, );
+}
 
 class OtpError extends OtpState {
   final String message;

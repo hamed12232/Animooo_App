@@ -28,7 +28,7 @@ class SignupRepositoryImpl implements SignupRepository {
           ? imagePath.split('/').last
           : (imagePath.split('\\').isNotEmpty
                 ? imagePath.split('\\').last
-                : 'image.jpg');// get the file name
+                : 'image.jpg'); // get the file name
 
       final formData = FormData.fromMap({
         ApiKeys.firstName: firstName,
@@ -40,7 +40,7 @@ class SignupRepositoryImpl implements SignupRepository {
           imagePath,
           filename: fileName,
         ),
-      });// create form data
+      }); // create form data
 
       final response = await _dioServices.post(
         url: ApiConstant.signUp,
@@ -54,15 +54,16 @@ class SignupRepositoryImpl implements SignupRepository {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
   }
+
   @override
-  Future<Either<ErrorModel, LoginModel>> verifyOtp(String email, String otp) async{
+  Future<Either<ErrorModel, LoginModel>> verifyOtp(
+    String email,
+    String otp,
+  ) async {
     try {
       final response = await _dioServices.post(
         url: ApiConstant.verifyOtp,
-        body: {
-          ApiKeys.email: email,
-          ApiKeys.code: otp,
-        },
+        body: {ApiKeys.email: email, ApiKeys.code: otp},
       );
       log(response.toString());
       return Right(LoginModel.fromJson(response));
@@ -72,10 +73,19 @@ class SignupRepositoryImpl implements SignupRepository {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
   }
-  
+
   @override
-  Future<Either<ErrorModel, String>> resendOtp(String phone) {
-    // TODO: implement resendOtp
-    throw UnimplementedError();
+  Future<Either<ErrorModel, String>> resendOtp(String email) async{
+    try {
+      final response = await _dioServices.post(
+        url: ApiConstant.resendOtp,
+        body: {ApiKeys.email: email},
+      );
+      return Right(response["message"].toString());
+    } on ServerFailure catch (e) {
+      return Left(e.errorModel);
+    } catch (e) {
+      return Left(ErrorModel(error: [e.toString()], code: 500));
+    }
   }
 }

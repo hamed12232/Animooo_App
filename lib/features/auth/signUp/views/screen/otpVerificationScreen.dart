@@ -45,6 +45,11 @@ class _OtpverificationscreenState extends State<Otpverificationscreen> {
                   SnackBar(content: Text(state.loginModel.message!)),
                 );
               }
+              else if (state is OtpResend) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.message)),
+                );
+              }
             },
             builder: (BuildContext context, state) {
               String code = state.code;
@@ -78,8 +83,14 @@ class _OtpverificationscreenState extends State<Otpverificationscreen> {
                     },
                   ),
                   VerticalSpace(height: AppHeight.h8),
-                  ResendCodeTimerAnimated(startFrom: const Duration(seconds: 60), onResend: (){},),
-                  
+                  ResendCodeTimerAnimated(
+                    startFrom: const Duration(seconds: 60),
+                    onResend: () async {
+                      await context.read<OtpViewmodel>().resendOtp(
+                        widget.email,
+                      );
+                    },
+                  ),
                 ],
               );
             },
