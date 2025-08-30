@@ -1,17 +1,17 @@
-import 'package:animoo_app/features/auth/signUp/repo/signup_repository_impl.dart';
+import 'package:animoo_app/features/auth/signUp/repo/signup_repository.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/otp_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OtpViewmodel extends Cubit<OtpState> {
-  OtpViewmodel(this.signupRepositoryImpl) : super(const OtpInitial());
-  final SignupRepositoryImpl signupRepositoryImpl;
+  OtpViewmodel(this.signupRepository) : super(const OtpInitial());
+  final SignupRepository signupRepository;
 
   Future<void> verifyOtp(String email, String otp) async {
     if (state.code.isEmpty) return;
 
     emit(OtpLoading(code: state.code));
 
-    final response = await signupRepositoryImpl.verifyOtp(email, otp);
+    final response = await signupRepository.verifyOtp(email, otp);
     response.fold(
       (failure) =>
           emit(OtpError(message: failure.error.toString(), code: state.code)),
@@ -22,7 +22,7 @@ class OtpViewmodel extends Cubit<OtpState> {
 
   Future<void> resendOtp(String email) async {
     emit(OtpLoading(code: state.code));
-    final response = await signupRepositoryImpl.resendOtp(email);
+    final response = await signupRepository.resendOtp(email);
     response.fold(
       (failure) =>
           emit(OtpError(message: failure.error.toString(), code: state.code)),

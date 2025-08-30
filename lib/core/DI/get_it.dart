@@ -2,6 +2,7 @@ import 'package:animoo_app/core/api/dio_services.dart';
 import 'package:animoo_app/features/auth/login/repo/login_repositiory_imp.dart';
 import 'package:animoo_app/features/auth/login/repo/login_repository.dart';
 import 'package:animoo_app/features/auth/login/view_model/forget_password_view_model.dart';
+import 'package:animoo_app/features/auth/login/view_model/login_view_model.dart';
 import 'package:animoo_app/features/auth/signUp/repo/signup_repository.dart';
 import 'package:animoo_app/features/auth/signUp/repo/signup_repository_impl.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/otp_viewmodel.dart';
@@ -13,12 +14,24 @@ final sl = GetIt.instance;
 
 void setup() {
   sl.registerLazySingleton(() => Dio());
-  sl.registerLazySingleton(() => DioServices(dio: sl()));
-  sl.registerLazySingleton<LoginRepository>(() => LoginRepositioryImp(sl()));
-  sl.registerLazySingleton<SignupRepository>(() => SignupRepositoryImpl(sl()));
+  sl.registerLazySingleton<DioServices>(() => DioServices(dio: sl()));
+  sl.registerLazySingleton<LoginRepository>(
+    () => LoginRepositioryImp(sl<DioServices>()),
+  );
+  sl.registerLazySingleton<SignupRepository>(
+    () => SignupRepositoryImpl(sl<DioServices>()),
+  );
 
-  sl.registerFactory(() => SignupViewmodel(sl()));
+  sl.registerFactory<SignupViewmodel>(
+    () => SignupViewmodel(sl<SignupRepository>()),
+  );
 
-  sl.registerFactory(() => ForgetPasswordViewModel(sl()));
-  sl.registerFactory(() => OtpViewmodel(sl()));
+  sl.registerFactory<LoginViewModel>(
+    () => LoginViewModel(sl<LoginRepository>()),
+  );
+
+  sl.registerFactory<ForgetPasswordViewModel>(
+    () => ForgetPasswordViewModel(sl<LoginRepository>()),
+  );
+  sl.registerFactory<OtpViewmodel>(() => OtpViewmodel(sl<SignupRepository>()));
 }
