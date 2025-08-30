@@ -15,4 +15,21 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordState> {
       (message) => emit(ForgetPasswordSuccess(message)),
     );
   }
+
+  Future<void> createNewPassword(
+    String email,
+    String password,
+    String confirmPassword,
+  ) async {
+    emit(ForgetPasswordLoading());
+    final response = await loginRepositiory.createNewPassword(
+      email,
+      password,
+      confirmPassword,
+    );
+    response.fold(
+      (failure) => emit(ForgetPasswordError(failure.error.toString())),
+      (loginModel) => emit(CreateNewPasswordSuccess(loginModel)),
+    );
+  }
 }

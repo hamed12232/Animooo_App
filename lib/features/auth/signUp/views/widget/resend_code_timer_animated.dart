@@ -12,18 +12,19 @@ class ResendCodeTimerAnimated extends StatefulWidget {
   final VoidCallback onResend;
 
   @override
-  State<ResendCodeTimerAnimated> createState() => _ResendCodeTimerAnimatedState();
+  State<ResendCodeTimerAnimated> createState() =>
+      _ResendCodeTimerAnimatedState();
 }
 
 class _ResendCodeTimerAnimatedState extends State<ResendCodeTimerAnimated>
- with SingleTickerProviderStateMixin // to make vsync 
- {
-  late AnimationController _c; // The animation controller for the timer
+    with SingleTickerProviderStateMixin {
+  late AnimationController _c;
 
   @override
   void initState() {
     super.initState();
-    _c = AnimationController(vsync: this, duration: widget.startFrom)..forward();
+    _c = AnimationController(vsync: this, duration: widget.startFrom)
+      ..forward();
   }
 
   @override
@@ -32,20 +33,19 @@ class _ResendCodeTimerAnimatedState extends State<ResendCodeTimerAnimated>
     super.dispose();
   }
 
-  /// Format a duration as a string in the form mm:ss, where mm is the
-  /// number of minutes and ss is the number of seconds. If the duration is
-  /// negative, it is clamped to 0. If the duration is greater than the
-  /// startFrom duration, it is clamped to the startFrom duration. The
-  /// mm and ss components are zero-padded to a minimum of 2 digits.
-  String _format(Duration d) {
-    final left = widget.startFrom - d;
+  String _format() {
+    final progress = _c.value; // بين 0 و 1
+    final elapsed = widget.startFrom * progress;
+    final left = widget.startFrom - elapsed;
     final clamped = left.isNegative ? Duration.zero : left;
-    final m = clamped.inMinutes.remainder(60).toString().padLeft(2, '0');//بيضيف صفر قدام الرقم لو أقل من 10
+
+    final m = clamped.inMinutes.remainder(60).toString().padLeft(2, '0');
     final s = clamped.inSeconds.remainder(60).toString().padLeft(2, '0');
     return '$m:$s';
   }
 
   void _resend() {
+    if (_c.isAnimating) return; // يمنع الدوبلكيت
     widget.onResend();
     _c.reset();
     _c.forward();
@@ -60,16 +60,18 @@ class _ResendCodeTimerAnimatedState extends State<ResendCodeTimerAnimated>
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (!done)// if the timer is not done
+            if (!done)
               Text(
-                'Resend Code In ${_format(_c.lastElapsedDuration // the last elapsed duration
-                 ?? Duration.zero)}',
+                'Resend Code In ${_format()}',
                 style: const TextStyle(color: Colors.grey),
               )
             else
               TextButton(
                 onPressed: _resend,
-                child: const Text('Resend Code', style: TextStyle(color: AppColors.kprimaryColor)),
+                child: const Text(
+                  'Resend Code',
+                  style: TextStyle(color: AppColors.kprimaryColor),
+                ),
               ),
           ],
         );

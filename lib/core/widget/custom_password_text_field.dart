@@ -50,6 +50,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
           hintText: "*********",
           isObsecure: isObsecure,
           onChanged: widget.onChanged,
+          
           suffixIcon: IconButton(
             icon: Icon(
               isObsecure ? CupertinoIcons.eye : CupertinoIcons.eye_slash,

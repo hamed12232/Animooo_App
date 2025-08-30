@@ -71,7 +71,11 @@ class Forgetpasswordscreen extends StatelessWidget {
                     ).showSnackBar(SnackBar(content: Text(state.message)));
                     Navigator.of(context).pushNamed(
                       Otpverificationscreen.routeName,
-                      arguments: emailEditingController.text,
+
+                      arguments: {
+                        "email": emailEditingController.text,
+                        "isFromForgotPassword": true,
+                      },
                     );
                   } else if (state is ForgetPasswordError) {
                     ScaffoldMessenger.of(

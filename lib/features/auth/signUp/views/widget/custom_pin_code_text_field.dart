@@ -16,14 +16,15 @@ class CustomPinCodeTextField extends StatelessWidget {
     return PinCodeTextField(
       length: 5,
       appContext: context,
+      autoFocus: false,
 
       keyboardType: TextInputType.number,
       autoDismissKeyboard: true,
-      autoDisposeControllers: true,
+      autoDisposeControllers: false,
       obscureText: false,
       onCompleted: onCompleted,
       onSubmitted: onSubmitted,
-      animationType: AnimationType.fade,
+      animationType: AnimationType.none,
       enableActiveFill: true,
       cursorColor: AppColors.kprimaryColor,
       pinTheme: PinTheme(

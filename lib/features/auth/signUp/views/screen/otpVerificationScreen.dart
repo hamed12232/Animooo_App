@@ -35,7 +35,7 @@ class _OtpverificationscreenState extends State<Otpverificationscreen> {
       create: (context) => sl<OtpViewmodel>(),
       child: Scaffold(
         backgroundColor: AppColors.kbackGroungColor,
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: BlocConsumer<OtpViewmodel, OtpState>(
             listener: (BuildContext context, state) {

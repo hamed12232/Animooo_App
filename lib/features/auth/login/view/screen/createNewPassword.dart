@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:animoo_app/core/constant/asset_values.dart';
 import 'package:animoo_app/core/functions/app_on_change_password.dart';
+import 'package:animoo_app/core/functions/app_validators.dart';
 import 'package:animoo_app/core/models/password_rules.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
@@ -11,8 +12,11 @@ import 'package:animoo_app/core/style/padding.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
 import 'package:animoo_app/core/widget/custom_password_text_field.dart';
 import 'package:animoo_app/features/auth/login/view/widgets/custom_app_bar_verification.dart';
+import 'package:animoo_app/features/auth/signUp/view_models/signup_viewmodel.dart';
 import 'package:animoo_app/features/auth/signUp/views/widget/custom_list_view_password_rules.dart';
+import 'package:animoo_app/features/auth/signUp/views/widget/password_rules_stream_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Createnewpassword extends StatefulWidget {
   const Createnewpassword({super.key});
@@ -23,20 +27,17 @@ class Createnewpassword extends StatefulWidget {
 }
 
 class _CreatenewpasswordState extends State<Createnewpassword> {
-  final TextEditingController passwordEditingController =
-      TextEditingController();
-
-  final TextEditingController confirmPasswordEditingController =
-      TextEditingController();
+  late SignupViewmodel viewModel;
 
   late Stream<List<PasswordRulesModel>> listPasswordRulesOutPutStream;
   late StreamController<List<PasswordRulesModel>> listPasswordRulesController;
   @override
-
   void initState() {
-    listPasswordRulesController = StreamController<List<PasswordRulesModel>>();
+    listPasswordRulesController =
+        StreamController<List<PasswordRulesModel>>.broadcast();
     listPasswordRulesInput = listPasswordRulesController.sink;
     listPasswordRulesOutPutStream = listPasswordRulesController.stream;
+    viewModel = context.read<SignupViewmodel>();
     super.initState();
   }
 
@@ -46,6 +47,7 @@ class _CreatenewpasswordState extends State<Createnewpassword> {
     listPasswordRulesInput.close();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,18 +75,13 @@ class _CreatenewpasswordState extends State<Createnewpassword> {
             ),
             VerticalSpace(height: AppHeight.h11),
             CustomPasswordTextField(
-              passwordEditingController: passwordEditingController,
+              passwordEditingController: viewModel.passwordEditingController,
               text: "New Password",
+              onChanged: (value) => onChangePassword(value),
             ),
             VerticalSpace(height: AppHeight.h8),
-            Text(
-              "Please add all necessary characters to create safe password.",
-              style: TextStyle(
-                fontFamily: FontValues.poppins,
-                color: AppColors.kannotationPasswordColor,
-                fontSize: AppFontsSize.s10,
-                fontWeight: FontWeight.w600,
-              ),
+            PasswordRulesStreamBuilder(
+              listPasswordRulesOutPutStream: listPasswordRulesOutPutStream,
             ),
             VerticalSpace(height: AppHeight.h11),
             CustomListViewPasswordRequiredRules(
@@ -92,8 +89,13 @@ class _CreatenewpasswordState extends State<Createnewpassword> {
             ),
             VerticalSpace(height: AppHeight.h16),
             CustomPasswordTextField(
-              passwordEditingController: confirmPasswordEditingController,
+              passwordEditingController:
+                  viewModel.confirmPasswordEditingController,
               text: "Confirm Password",
+              validator: (value) => AppValidators.confirmPasswordValidator(
+                viewModel.passwordEditingController.text,
+                value,
+              ),
             ),
             VerticalSpace(height: AppHeight.h82),
             CustomButton(

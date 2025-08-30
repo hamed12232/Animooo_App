@@ -13,8 +13,8 @@ import 'package:animoo_app/core/widget/custom_animoo_logo_app.dart';
 import 'package:animoo_app/core/widget/custom_attribute_text_field.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
 import 'package:animoo_app/core/widget/custom_password_text_field.dart';
-import 'package:animoo_app/features/auth/login/view/screen/loginScreen.dart';
 import 'package:animoo_app/core/widget/custom_rich_text_button.dart';
+import 'package:animoo_app/features/auth/login/view/screen/loginScreen.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/signup_state.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/signup_viewmodel.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/otpVerificationScreen.dart';
@@ -70,9 +70,10 @@ class _SignupscreenState extends State<Signupscreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(state.authResponse.alert!)),
                 );
-                Navigator.of(
-                  context,
-                ).pushNamed(Otpverificationscreen.routeName,arguments: state.authResponse.user!.email);
+                Navigator.of(context).pushNamed(
+                  Otpverificationscreen.routeName,
+                  arguments: state.authResponse.user!.email,
+                );
               } else if (state is SignupError) {
                 ScaffoldMessenger.of(
                   context,

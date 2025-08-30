@@ -36,6 +36,7 @@ class MyTextFormField extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         controller: controller,
+        autofocus: false,
         onTap: onTap,
         onChanged: onChanged,
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),

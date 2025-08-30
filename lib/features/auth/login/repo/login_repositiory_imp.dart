@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:animoo_app/core/api/api_constant.dart';
 import 'package:animoo_app/core/api/dio_services.dart';
+import 'package:animoo_app/core/errors/error_model.dart';
 import 'package:animoo_app/core/errors/failures.dart';
+import 'package:animoo_app/features/auth/login/models/login_model.dart';
 import 'package:animoo_app/features/auth/login/repo/login_repository.dart';
 import 'package:dartz/dartz.dart';
 
@@ -31,5 +33,29 @@ class LoginRepositioryImp implements LoginRepository {
   @override
   Future<void> login(String email, String password) {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<ErrorModel, LoginModel>> createNewPassword(
+    String email,
+    String password,
+    String confirmPassword,
+  ) async {
+    try {
+      final response = await _dioServices.post(
+        url: ApiConstant.createNewPassword,
+        body: {
+          ApiKeys.email: email,
+          ApiKeys.password: password,
+          ApiKeys.confirmPassword: confirmPassword,
+        },
+      );
+      log(response.toString());
+      return Right(LoginModel.fromJson(response));
+    } on ServerFailure catch (e) {
+      return Left(e.errorModel);
+    } catch (e) {
+      return Left(ErrorModel(error: [e.toString()], code: 500));
+    }
   }
 }
