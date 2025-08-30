@@ -8,9 +8,11 @@ class DioServices extends ApiConsumer {
   Dio dio;
   DioServices({required this.dio}) {
     dio.options.baseUrl = ApiConstant.baseUrl;
-    dio.options.connectTimeout = const Duration(seconds: 10);
-    dio.options.receiveTimeout = const Duration(seconds: 15);
-    dio.options.sendTimeout = const Duration(seconds: 10);
+    dio.options.connectTimeout = const Duration(seconds: 30);
+    dio.options.receiveTimeout = const Duration(seconds: 30);
+    dio.options.sendTimeout = const Duration(seconds: 30);
+    
+    
   }
 
   @override
@@ -79,7 +81,7 @@ class DioServices extends ApiConsumer {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      Response response = await dio.post(
+      Response response = await dio.put(
         url,
         data: body,
         queryParameters: queryParameters,

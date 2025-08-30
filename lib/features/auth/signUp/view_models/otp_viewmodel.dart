@@ -26,7 +26,7 @@ class OtpViewmodel extends Cubit<OtpState> {
     response.fold(
       (failure) =>
           emit(OtpError(message: failure.error.toString(), code: state.code)),
-      (message) => emit(OtpResend(message)),
+      (message) => emit(OtpResend(message, code: state.code)),
     );
   }
 

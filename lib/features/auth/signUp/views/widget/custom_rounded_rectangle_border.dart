@@ -24,8 +24,19 @@ class _CustomRoundedRectDottedBorderState
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        await widget.viewModel.pickImage();
-        setState(() {});
+        try {
+          await widget.viewModel.pickImage();
+          if (mounted) 
+          {
+            setState(() {});
+          }
+        } catch (e) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error picking image: $e')),
+            );
+          }
+        }
       },
       child: Stack(
         children: [
@@ -41,7 +52,6 @@ class _CustomRoundedRectDottedBorderState
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-
                   children: [
                     Icon(
                       CupertinoIcons.photo_fill,
@@ -68,6 +78,15 @@ class _CustomRoundedRectDottedBorderState
                 child: Image.file(
                   widget.viewModel.imageFile!,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey[300],
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

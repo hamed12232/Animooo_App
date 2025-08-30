@@ -11,6 +11,7 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordState> {
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  
   Future<void> forgetPassword(String email) async {
     emit(ForgetPasswordLoading());
     final response = await loginRepositiory.forgetPassword(email);

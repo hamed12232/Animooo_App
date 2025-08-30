@@ -36,24 +36,30 @@ class _SignupscreenState extends State<Signupscreen> {
   late Stream<List<PasswordRulesModel>> listPasswordRulesOutPutStream;
   late StreamController<List<PasswordRulesModel>> listPasswordRulesController;
   late SignupViewmodel viewModel;
+  
   @override
   void initState() {
-    listPasswordRulesController =
-        StreamController<
-          List<PasswordRulesModel>
-        >.broadcast(); // to allow multiple listeners
-    listPasswordRulesInput =
-        listPasswordRulesController.sink; // to add data to the stream
-    listPasswordRulesOutPutStream =
-        listPasswordRulesController.stream; // to listen to the stream
-    viewModel = context.read<SignupViewmodel>();
     super.initState();
+    listPasswordRulesController =
+        StreamController<List<PasswordRulesModel>>.broadcast();
+    listPasswordRulesOutPutStream = listPasswordRulesController.stream;
+    
+    // Set up the callback for password rules updates
+    setPasswordRulesCallback((rules) {
+      if (!listPasswordRulesController.isClosed) {
+        listPasswordRulesController.add(rules);
+      }
+    });
+    
+    viewModel = context.read<SignupViewmodel>();
   }
 
   @override
   void dispose() {
-    listPasswordRulesController.close();
-    listPasswordRulesInput.close();
+    clearPasswordRulesCallback();
+    if (!listPasswordRulesController.isClosed) {
+      listPasswordRulesController.close();
+    }
     viewModel.close();
     super.dispose();
   }
@@ -66,19 +72,21 @@ class _SignupscreenState extends State<Signupscreen> {
         child: Center(
           child: BlocConsumer<SignupViewmodel, SignupState>(
             listener: (BuildContext context, state) {
-              if (state is SignupSuccess) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.authResponse.alert!)),
-                );
-                Navigator.of(context).pushNamed(
-                  Otpverificationscreen.routeName,
-                  arguments: state.authResponse.user!.email,
-                );
-              } else if (state is SignupError) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.message)));
-              }
+            
+                if (state is SignupSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.authResponse.alert!)),
+                  );
+                  Navigator.of(context).pushNamed(
+                    Otpverificationscreen.routeName,
+                    arguments: state.authResponse.user!.email,
+                  );
+                } else if (state is SignupError) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(state.message)));
+                }
+              
             },
             builder: (BuildContext context, state) {
               if (state is SignupLoading) {

@@ -11,6 +11,7 @@ import 'package:animoo_app/core/style/app_height.dart';
 import 'package:animoo_app/core/style/padding.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
 import 'package:animoo_app/core/widget/custom_password_text_field.dart';
+import 'package:animoo_app/features/auth/login/view/screen/loginScreen.dart';
 import 'package:animoo_app/features/auth/login/view/widgets/custom_app_bar_verification.dart';
 import 'package:animoo_app/features/auth/login/view_model/forget_password_state.dart';
 import 'package:animoo_app/features/auth/login/view_model/forget_password_view_model.dart';
@@ -33,21 +34,30 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
 
   late Stream<List<PasswordRulesModel>> listPasswordRulesOutPutStream;
   late StreamController<List<PasswordRulesModel>> listPasswordRulesController;
+  
   @override
   void initState() {
+    super.initState();
     listPasswordRulesController =
         StreamController<List<PasswordRulesModel>>.broadcast();
-    listPasswordRulesInput = listPasswordRulesController.sink;
     listPasswordRulesOutPutStream = listPasswordRulesController.stream;
+    
+    // Set up the callback for password rules updates
+    setPasswordRulesCallback((rules) {
+      if (!listPasswordRulesController.isClosed) {
+        listPasswordRulesController.add(rules);
+      }
+    });
+    
     viewModel = context.read<ForgetPasswordViewModel>();
-
-    super.initState();
   }
 
   @override
   void dispose() {
-    listPasswordRulesController.close();
-    listPasswordRulesInput.close();
+    clearPasswordRulesCallback();
+    if (!listPasswordRulesController.isClosed) {
+      listPasswordRulesController.close();
+    }
     super.dispose();
   }
 
@@ -112,6 +122,9 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                   } else if (state is CreateNewPasswordSuccess) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(state.loginModel.message!)),
+                    );
+                    Navigator.of(context).pushNamed(
+                      Loginscreen.routeName,
                     );
                   }
                 },
