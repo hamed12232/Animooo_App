@@ -1,5 +1,5 @@
 class ApiConstant {
-  ApiConstant._(); 
+  ApiConstant._();
   static const String baseUrl = "http://10.0.2.2:8000";
   static const String login = "api/login";
   static const String signUp = "/api/signup";
@@ -7,8 +7,8 @@ class ApiConstant {
   static const String forgetPassword = "/api/forget_password";
   static const String resendOtp = "/api/create_new_verfication_code";
   static const String createNewPassword = "/api/create_new_possword";
-  
 }
+
 class ApiKeys {
   ApiKeys._();
   static const String email = "email";

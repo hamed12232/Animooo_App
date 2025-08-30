@@ -1,9 +1,12 @@
+import 'package:animoo_app/core/DI/get_it.dart';
 import 'package:animoo_app/features/auth/login/view/screen/createNewPassword.dart';
 import 'package:animoo_app/features/auth/login/view/screen/forgetPasswordScreen.dart';
 import 'package:animoo_app/features/auth/login/view/screen/loginScreen.dart';
+import 'package:animoo_app/features/auth/login/view_model/forget_password_view_model.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/otpVerificationScreen.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/signUpScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouteManager {
   static Route? onGenerateRoute(RouteSettings settings) {
@@ -14,7 +17,7 @@ class AppRouteManager {
       case AppRoutesName.signUP:
         widget = Signupscreen();
       case AppRoutesName.forgetPassword:
-        widget = Forgetpasswordscreen();
+        widget = ForgetPasswordScreen();
       case AppRoutesName.otb:
         final args = settings.arguments as Map<String, dynamic>;
 
@@ -23,7 +26,10 @@ class AppRouteManager {
           isFromForgotPassword: args["isFromForgotPassword"] ?? false,
         );
       case AppRoutesName.createNewPassword:
-        widget = Createnewpassword();
+        widget = BlocProvider(
+          create: (context) => sl<ForgetPasswordViewModel>(),
+          child: CreateNewPassword(email: settings.arguments as String),
+        );
       default:
         widget = Loginscreen();
     }
@@ -36,5 +42,5 @@ class AppRoutesName {
   static const String signUP = '/signUP';
   static const String forgetPassword = '/forgetPassword';
   static const String otb = "/otp";
-  static const String createNewPassword = '/createNewPassword';
+  static const String createNewPassword = '/CreateNewPassword';
 }

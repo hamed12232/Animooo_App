@@ -12,22 +12,24 @@ import 'package:animoo_app/core/style/padding.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
 import 'package:animoo_app/core/widget/custom_password_text_field.dart';
 import 'package:animoo_app/features/auth/login/view/widgets/custom_app_bar_verification.dart';
-import 'package:animoo_app/features/auth/signUp/view_models/signup_viewmodel.dart';
+import 'package:animoo_app/features/auth/login/view_model/forget_password_state.dart';
+import 'package:animoo_app/features/auth/login/view_model/forget_password_view_model.dart';
 import 'package:animoo_app/features/auth/signUp/views/widget/custom_list_view_password_rules.dart';
 import 'package:animoo_app/features/auth/signUp/views/widget/password_rules_stream_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Createnewpassword extends StatefulWidget {
-  const Createnewpassword({super.key});
-  static const String routeName = '/createNewPassword';
+class CreateNewPassword extends StatefulWidget {
+  const CreateNewPassword({super.key, required this.email});
+  static const String routeName = '/CreateNewPassword';
+  final String email;
 
   @override
-  State<Createnewpassword> createState() => _CreatenewpasswordState();
+  State<CreateNewPassword> createState() => _CreateNewPasswordState();
 }
 
-class _CreatenewpasswordState extends State<Createnewpassword> {
-  late SignupViewmodel viewModel;
+class _CreateNewPasswordState extends State<CreateNewPassword> {
+  late ForgetPasswordViewModel viewModel;
 
   late Stream<List<PasswordRulesModel>> listPasswordRulesOutPutStream;
   late StreamController<List<PasswordRulesModel>> listPasswordRulesController;
@@ -37,7 +39,8 @@ class _CreatenewpasswordState extends State<Createnewpassword> {
         StreamController<List<PasswordRulesModel>>.broadcast();
     listPasswordRulesInput = listPasswordRulesController.sink;
     listPasswordRulesOutPutStream = listPasswordRulesController.stream;
-    viewModel = context.read<SignupViewmodel>();
+    viewModel = context.read<ForgetPasswordViewModel>();
+
     super.initState();
   }
 
@@ -55,56 +58,80 @@ class _CreatenewpasswordState extends State<Createnewpassword> {
       resizeToAvoidBottomInset: false,
 
       body: SafeArea(
-        child: Column(
-          children: [
-            CustomAppBarVerification(text: "Cancel"),
-            VerticalSpace(height: AppHeight.h16),
-            Padding(
-              padding: const EdgeInsets.only(left: PAdding.kPadding18),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Create New Password",
-                  style: TextStyle(
-                    fontFamily: FontValues.otamaEp,
-                    color: AppColors.kprimaryColor,
-                    fontSize: AppFontsSize.s20,
+        child: Form(
+          key: viewModel.formKey,
+          child: Column(
+            children: [
+              CustomAppBarVerification(text: "Cancel"),
+              VerticalSpace(height: AppHeight.h16),
+              Padding(
+                padding: const EdgeInsets.only(left: PAdding.kPadding18),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Create New Password",
+                    style: TextStyle(
+                      fontFamily: FontValues.otamaEp,
+                      color: AppColors.kprimaryColor,
+                      fontSize: AppFontsSize.s20,
+                    ),
                   ),
                 ),
               ),
-            ),
-            VerticalSpace(height: AppHeight.h11),
-            CustomPasswordTextField(
-              passwordEditingController: viewModel.passwordEditingController,
-              text: "New Password",
-              onChanged: (value) => onChangePassword(value),
-            ),
-            VerticalSpace(height: AppHeight.h8),
-            PasswordRulesStreamBuilder(
-              listPasswordRulesOutPutStream: listPasswordRulesOutPutStream,
-            ),
-            VerticalSpace(height: AppHeight.h11),
-            CustomListViewPasswordRequiredRules(
-              stream: listPasswordRulesOutPutStream,
-            ),
-            VerticalSpace(height: AppHeight.h16),
-            CustomPasswordTextField(
-              passwordEditingController:
-                  viewModel.confirmPasswordEditingController,
-              text: "Confirm Password",
-              validator: (value) => AppValidators.confirmPasswordValidator(
-                viewModel.passwordEditingController.text,
-                value,
+              VerticalSpace(height: AppHeight.h11),
+              CustomPasswordTextField(
+                passwordEditingController: viewModel.passwordEditingController,
+                text: "New Password",
+                onChanged: (value) => onChangePassword(value),
               ),
-            ),
-            VerticalSpace(height: AppHeight.h82),
-            CustomButton(
-              text: "Submit",
-              onPressed: () {
-                // Add your confirmation logic here
-              },
-            ),
-          ],
+              VerticalSpace(height: AppHeight.h8),
+              PasswordRulesStreamBuilder(
+                listPasswordRulesOutPutStream: listPasswordRulesOutPutStream,
+              ),
+              VerticalSpace(height: AppHeight.h11),
+              CustomListViewPasswordRequiredRules(
+                stream: listPasswordRulesOutPutStream,
+              ),
+              VerticalSpace(height: AppHeight.h16),
+              CustomPasswordTextField(
+                passwordEditingController:
+                    viewModel.confirmPasswordEditingController,
+                text: "Confirm Password",
+                validator: (value) => AppValidators.confirmPasswordValidator(
+                  viewModel.passwordEditingController.text,
+                  value,
+                ),
+              ),
+              VerticalSpace(height: AppHeight.h82),
+              BlocConsumer<ForgetPasswordViewModel, ForgetPasswordState>(
+                listener: (context, state) {
+                  if (state is ForgetPasswordError) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(state.error)));
+                  } else if (state is CreateNewPasswordSuccess) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.loginModel.message!)),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return CustomButton(
+                    text: "Submit",
+                    onPressed: () {
+                      if (viewModel.formKey.currentState!.validate()) {
+                        viewModel.createNewPassword(
+                          widget.email,
+                          viewModel.passwordEditingController.text,
+                          viewModel.confirmPasswordEditingController.text,
+                        );
+                      }
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -12,7 +12,7 @@ class ForgetPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(Forgetpasswordscreen.routeName);
+        Navigator.of(context).pushNamed(ForgetPasswordScreen.routeName);
       },
       child: Padding(
         padding: const EdgeInsets.only(right: PAdding.kPadding35),

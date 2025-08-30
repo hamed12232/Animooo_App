@@ -14,8 +14,8 @@ import 'package:animoo_app/features/auth/signUp/views/screen/otpVerificationScre
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Forgetpasswordscreen extends StatelessWidget {
-  Forgetpasswordscreen({super.key});
+class ForgetPasswordScreen extends StatelessWidget {
+  ForgetPasswordScreen({super.key});
   static const String routeName = '/forgetPassword';
   final TextEditingController emailEditingController = TextEditingController();
 

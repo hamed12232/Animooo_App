@@ -48,7 +48,11 @@ class _OtpverificationscreenState extends State<Otpverificationscreen> {
                   SnackBar(content: Text(state.loginModel.message!)),
                 );
                 if (widget.isFromForgotPassword) {
-                  Navigator.pushNamed(context, Createnewpassword.routeName);
+                  Navigator.pushNamed(
+                    context,
+                    CreateNewPassword.routeName,
+                    arguments: widget.email,
+                  );
                 }
               } else if (state is OtpResend) {
                 ScaffoldMessenger.of(
