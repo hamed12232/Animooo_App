@@ -36,9 +36,8 @@ class LoginRepositioryImp implements LoginRepository {
     String password,
   ) async {
     try {
-      final response = await _dioServices.post(
+      final response = await _dioServices.get(
         url: ApiConstant.getLoginUrl(email, password),
-        body: {ApiKeys.email: email, ApiKeys.password: password},
       );
       return Right(LoginModel.fromJson(response));
     } on ServerFailure catch (e) {

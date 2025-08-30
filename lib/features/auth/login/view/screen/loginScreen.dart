@@ -63,13 +63,20 @@ class _LoginscreenState extends State<Loginscreen> {
                     attribute: "Email",
                     attributeEditingController:
                         loginViewModel.emailEditingController,
-                        validator: (value) => AppValidators.emailValidator(value),
+                    validator: (value) => AppValidators.emailValidator(value),
                   ),
                   VerticalSpace(height: AppHeight.h16),
                   CustomPasswordTextField(
                     passwordEditingController:
                         loginViewModel.passwordEditingController,
                     text: "Password",
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Password is required";
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
 
                   VerticalSpace(height: AppHeight.h8),
@@ -81,7 +88,7 @@ class _LoginscreenState extends State<Loginscreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(state.loginModel.message!)),
                         );
-                        Navigator.of(context).pushNamed(HomeScreen.routeName);
+                        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
                       } else if (state is LoginError) {
                         ScaffoldMessenger.of(
                           context,
