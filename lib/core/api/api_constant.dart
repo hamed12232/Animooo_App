@@ -1,7 +1,7 @@
 class ApiConstant {
   
   ApiConstant._();
-  static const String baseUrl = "http://192.168.1.4:8000";
+  static const String baseUrl = "http://127.0.0.1:8000";
   static const String signUp = "/api/signup";
   static const String verifyOtp = "/api/verfication_code";
   static const String forgetPassword = "/api/forget_password";

@@ -11,5 +11,6 @@ class AppColors {
   static const Color kDonotHaveAccountColor = Color(0xff828282);
   static const Color kannotationPasswordColor = Color(0xffFC1B1A);
   static const Color krulesOfPasswordColor = Color(0xff08A43A);
+  static const Color ksellAllProductsColor = Color(0xff155F45);
   static const Color kborderOtbColor = Color(0xffD6D6D6);
 }
