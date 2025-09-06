@@ -1,12 +1,8 @@
-import 'package:animoo_app/core/constant/asset_values.dart';
-import 'package:animoo_app/core/spacing/horizental_space.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
-import 'package:animoo_app/core/style/app_border_radius.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
-import 'package:animoo_app/core/style/app_fonts_size.dart';
 import 'package:animoo_app/core/style/app_height.dart';
-import 'package:animoo_app/core/style/app_width.dart';
 import 'package:animoo_app/core/style/padding.dart';
+import 'package:animoo_app/features/home/view/widget/category_section_header.dart';
 import 'package:animoo_app/features/home/view/widget/custom_app_bar_home_screen.dart';
 import 'package:animoo_app/features/home/view/widget/custom_list_view_seperator_categories.dart';
 import 'package:flutter/material.dart';
@@ -25,41 +21,16 @@ class HomeScreen extends StatelessWidget {
             children: [
               CustomAppBarHomeScreen(),
               VerticalSpace(height: AppHeight.h20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Categories ( 10 )",
-                    style: TextStyle(
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.kblackColor,
-                      fontSize: AppFontsSize.s16,
-                    ),
-                  ),
-
-                  Text(
-                    "Add New Category",
-                    style: TextStyle(
-                      fontFamily: "otama_ep",
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.kblackColor,
-                      fontSize: AppFontsSize.s12,
-                    ),
-                  ),
-                ],
+              CategorySectionHeader(headerName: "Categories ( 10 )"),
+              VerticalSpace(height: AppHeight.h20),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: PAdding.kPadding24,
+                ),
+                child: CustomListViewSeperatorCategories(),
               ),
               VerticalSpace(height: AppHeight.h20),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: PAdding.kPadding24,
-                  ),
-
-                  child: CustomListViewSeperatorCategories(),
-                ),
-              ),
+              CategorySectionHeader(headerName: "All Animal ( 10 )"),
             ],
           ),
         ),
