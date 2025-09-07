@@ -9,6 +9,7 @@ import 'package:animoo_app/features/auth/signUp/views/screen/otpVerificationScre
 import 'package:animoo_app/features/auth/signUp/views/screen/signUpScreen.dart';
 import 'package:animoo_app/features/category/view/screen/category_screen.dart';
 import 'package:animoo_app/features/home/view/screen/home_screen.dart';
+import 'package:animoo_app/features/home/view/screen/my_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,11 +18,20 @@ class AppRouteManager {
     Widget widget;
     switch (settings.name) {
       case AppRoutesName.login:
-        widget = BlocProvider(create: (context) => sl<LoginViewModel>(), child: Loginscreen());
+        widget = BlocProvider(
+          create: (context) => sl<LoginViewModel>(),
+          child: Loginscreen(),
+        );
       case AppRoutesName.signUP:
-        widget = BlocProvider(create: (context) => sl<SignupViewmodel>(), child: Signupscreen());
+        widget = BlocProvider(
+          create: (context) => sl<SignupViewmodel>(),
+          child: Signupscreen(),
+        );
       case AppRoutesName.forgetPassword:
-        widget = BlocProvider(create: (context) => sl<ForgetPasswordViewModel>(), child: ForgetPasswordScreen());
+        widget = BlocProvider(
+          create: (context) => sl<ForgetPasswordViewModel>(),
+          child: ForgetPasswordScreen(),
+        );
       case AppRoutesName.otb:
         final args = settings.arguments as Map<String, dynamic>;
 
@@ -36,6 +46,8 @@ class AppRouteManager {
         );
       case AppRoutesName.home:
         widget = HomeScreen();
+        case AppRoutesName.mainPage:
+        widget = MyHomePage();
       case AppRoutesName.category:
         widget = CategoryScreen();
       default:
@@ -51,7 +63,8 @@ class AppRoutesName {
   static const String forgetPassword = '/forgetPassword';
   static const String otb = "/otp";
   static const String createNewPassword = '/CreateNewPassword';
+  static const String mainPage = '/main';
+
   static const String home = '/home';
   static const String category = '/category';
-
 }

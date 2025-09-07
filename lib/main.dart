@@ -1,6 +1,7 @@
 import 'package:animoo_app/core/DI/get_it.dart';
 import 'package:animoo_app/core/routes/app_route.dart';
 import 'package:animoo_app/features/home/view/screen/home_screen.dart';
+import 'package:animoo_app/features/home/view/screen/my_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
           title: 'Animoo App',
           debugShowCheckedModeBanner: false,
           //onGenerateRoute: AppRouteManager.onGenerateRoute,
-          home: HomeScreen(),
+          home: MyHomePage(),
         );
       },
     );
