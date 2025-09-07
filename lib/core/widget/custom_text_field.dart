@@ -13,7 +13,9 @@ class MyTextFormField extends StatelessWidget {
     required this.isObsecure,
     required this.controller,
     this.validator,
-    this.onTap, this.onChanged,
+    this.onTap,
+    this.onChanged,
+    this.maxLines,
   });
   final String hintText;
   final bool isObsecure;
@@ -22,12 +24,12 @@ class MyTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final void Function()? onTap;
   final void Function(String)? onChanged;
-
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: AppHeight.h56,
+      height: (maxLines == null || maxLines == 1) ? AppHeight.h56 : null,
       width: AppWidth.w331,
       child: TextFormField(
         // style: TextStyle(color: AppColors.kgreyColor),
@@ -36,6 +38,8 @@ class MyTextFormField extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         controller: controller,
+        maxLines: maxLines,
+
         autofocus: false,
         onTap: onTap,
         onChanged: onChanged,

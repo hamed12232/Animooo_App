@@ -10,18 +10,20 @@ class CustomAttributeTextField extends StatelessWidget {
     super.key,
     required this.attributeEditingController,
     required this.attribute,
-    this.validator,
+    this.validator, this.maxLines,
   });
   final TextEditingController attributeEditingController;
   final String attribute;
   final String? Function(String? value)? validator;
+    final int? maxLines;
+
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: PAdding.kPadding22),
+          padding: const EdgeInsets.only(left: PAdding.kPadding18),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -40,6 +42,7 @@ class CustomAttributeTextField extends StatelessWidget {
           hintText: "Enter your $attribute",
           isObsecure: false,
           validator: validator,
+          maxLines: maxLines,
         ),
       ],
     );

@@ -2,11 +2,11 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:animoo_app/core/functions/select_image.dart';
 import 'package:animoo_app/features/auth/signUp/repo/signup_repository.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/signup_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 class SignupViewmodel extends Cubit<SignupState> {
   SignupViewmodel(this.signupRepository) : super(SignupInitial());
@@ -63,16 +63,8 @@ class SignupViewmodel extends Cubit<SignupState> {
   }
 
   Future<void> pickImage() async {
-    try {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.camera);
-      if (image != null) {
-        imageFile = File(image.path);
-      }
-    } catch (e) {
-      // Handle camera permission denied or other errors
-      log('Error picking image: $e');
-      // You might want to emit an error state here
-    }
+    await selectImage( imageFile);
   }
+
+  
 }

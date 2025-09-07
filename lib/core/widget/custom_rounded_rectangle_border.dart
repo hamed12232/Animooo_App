@@ -1,43 +1,24 @@
+import 'dart:io';
+
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_border_radius.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_fonts_size.dart';
 import 'package:animoo_app/core/style/app_height.dart';
 import 'package:animoo_app/core/style/app_width.dart';
-import 'package:animoo_app/features/auth/signUp/view_models/signup_viewmodel.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CustomRoundedRectDottedBorder extends StatefulWidget {
-  const CustomRoundedRectDottedBorder({super.key, required this.viewModel});
-  final SignupViewmodel viewModel;
+class CustomRoundedRectDottedBorder extends StatelessWidget {
+  const CustomRoundedRectDottedBorder({super.key, this.onTap, this.imageFile});
+  final void Function()? onTap;
+  final File? imageFile;
 
-  @override
-  State<CustomRoundedRectDottedBorder> createState() =>
-      _CustomRoundedRectDottedBorderState();
-}
-
-class _CustomRoundedRectDottedBorderState
-    extends State<CustomRoundedRectDottedBorder> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
-        try {
-          await widget.viewModel.pickImage();
-          if (mounted) 
-          {
-            setState(() {});
-          }
-        } catch (e) {
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Error picking image: $e')),
-            );
-          }
-        }
-      },
+      onTap: onTap,
       child: Stack(
         children: [
           SizedBox(
@@ -71,20 +52,17 @@ class _CustomRoundedRectDottedBorderState
               ),
             ),
           ),
-          if (widget.viewModel.imageFile != null)
+          if (imageFile != null)
             Positioned.fill(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppBorderRadius.br10),
                 child: Image.file(
-                  widget.viewModel.imageFile!,
+                  imageFile!,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       color: Colors.grey[300],
-                      child: Icon(
-                        Icons.error,
-                        color: Colors.red,
-                      ),
+                      child: Icon(Icons.error, color: Colors.red),
                     );
                   },
                 ),
