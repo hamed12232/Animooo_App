@@ -19,6 +19,7 @@ class PetCard extends StatelessWidget {
     return Container(
       width: AppWidth.w339,
       height: AppHeight.h310,
+      margin: EdgeInsets.only(bottom: PAdding.kPadding16),
       decoration: BoxDecoration(
         color: AppColors.kTextFieldColor,
         borderRadius: BorderRadius.circular(AppBorderRadius.br8),

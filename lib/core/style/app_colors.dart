@@ -15,4 +15,5 @@ class AppColors {
   static const Color ksellAllProductsColor = Color(0xff155F45);
   static const Color kellipsisVerticalIconColor = Color(0xff1C1B1F);
   static const Color kborderOtbColor = Color(0xffD6D6D6);
+  static const Color kunselectedItemColor = Color(0xff737373);
 }

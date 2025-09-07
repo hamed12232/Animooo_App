@@ -1,0 +1,26 @@
+
+import 'package:animoo_app/core/style/padding.dart';
+import 'package:animoo_app/features/home/view/widget/pet_card.dart';
+import 'package:flutter/material.dart';
+
+class PetCardListView extends StatelessWidget {
+  const PetCardListView({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return PetCard();
+      },
+      itemCount: 10,
+      padding: EdgeInsets.symmetric(
+        horizontal: PAdding.kPadding16,
+        
+      ),
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+    );
+  }
+}
