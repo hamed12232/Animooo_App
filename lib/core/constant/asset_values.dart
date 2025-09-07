@@ -3,6 +3,7 @@ class AssetValues {
   static const String _basePath = 'assets/images';
   static const String logoSvg = '$_basePath/svg/animoo_logo.svg';
   static const String categoriesPhoto = '$_basePath/png/image.png';
+  static const String productPhoto = 'assets/images/png/product1.jpg';
 }
 
 class FontValues {
