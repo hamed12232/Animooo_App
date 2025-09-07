@@ -7,6 +7,7 @@ import 'package:animoo_app/features/auth/login/view_model/login_view_model.dart'
 import 'package:animoo_app/features/auth/signUp/view_models/signup_viewmodel.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/otpVerificationScreen.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/signUpScreen.dart';
+import 'package:animoo_app/features/category/view/screen/category_screen.dart';
 import 'package:animoo_app/features/home/view/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,8 @@ class AppRouteManager {
         );
       case AppRoutesName.home:
         widget = HomeScreen();
+      case AppRoutesName.category:
+        widget = CategoryScreen();
       default:
         widget = Loginscreen();
     }
@@ -49,4 +52,6 @@ class AppRoutesName {
   static const String otb = "/otp";
   static const String createNewPassword = '/CreateNewPassword';
   static const String home = '/home';
+  static const String category = '/category';
+
 }

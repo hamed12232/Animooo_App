@@ -1,4 +1,3 @@
-
 import 'package:animoo_app/core/style/padding.dart';
 import 'package:animoo_app/features/home/view/widget/pet_card.dart';
 import 'package:flutter/material.dart';
