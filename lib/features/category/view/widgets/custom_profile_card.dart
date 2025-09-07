@@ -1,6 +1,4 @@
 
-import 'dart:ui';
-
 import 'package:animoo_app/core/constant/asset_values.dart';
 import 'package:animoo_app/core/spacing/horizental_space.dart';
 import 'package:animoo_app/core/style/app_border_radius.dart';

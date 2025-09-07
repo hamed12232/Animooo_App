@@ -1,4 +1,5 @@
 import 'package:animoo_app/core/style/app_colors.dart';
+import 'package:animoo_app/features/animal/view/screen/animal_screen.dart';
 import 'package:animoo_app/features/category/view/screen/category_screen.dart';
 import 'package:animoo_app/features/home/view/screen/home_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
     HomeScreen(),
     Center(child: Text('Search Page')),
     CategoryScreen(),
-    Center(child: Text('Animals Page')),
+    AnimalScreen(),
     Center(child: Text('Me Page')),
   ];
 

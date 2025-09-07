@@ -64,7 +64,7 @@ class AppRoutesName {
   static const String otb = "/otp";
   static const String createNewPassword = '/CreateNewPassword';
   static const String mainPage = '/main';
-
   static const String home = '/home';
   static const String category = '/category';
+  static const String animal = '/animal';
 }
