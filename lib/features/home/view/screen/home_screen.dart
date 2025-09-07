@@ -27,11 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 CustomAppBarHomeScreen(),
                 VerticalSpace(height: AppHeight.h20),
-                CategorySectionHeader(headerName: "Categories ( 10 )"),
+                CategorySectionHeader(headerName: "Categories ( 10 )",productType: "Category",),
                 VerticalSpace(height: AppHeight.h20),
                 CustomListViewSeperatorCategories(),
                 VerticalSpace(height: AppHeight.h20),
-                CategorySectionHeader(headerName: "All Animal ( 10 )"),
+                CategorySectionHeader(headerName: "All Animal ( 10 )",productType: "Animal",),
                 VerticalSpace(height: AppHeight.h11),
                 PetCardListView(),
               ],

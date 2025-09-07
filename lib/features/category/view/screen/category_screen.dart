@@ -37,6 +37,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              VerticalSpace(height: AppHeight.h16),
+
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -49,7 +51,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
               ),
               VerticalSpace(height: AppHeight.h11),
-              CustomProfileCard(),
+              CustomProfileCard(
+                statusText: " Public",
+                statusColor: AppColors.kprofileStateColor,
+              ),
               VerticalSpace(height: AppHeight.h20),
               CustomAttributeTextField(
                 attribute: "Category Name",

@@ -1,4 +1,5 @@
 import 'package:animoo_app/core/DI/get_it.dart';
+import 'package:animoo_app/features/animal/view/screen/animal_screen.dart';
 import 'package:animoo_app/features/auth/login/view/screen/createNewPassword.dart';
 import 'package:animoo_app/features/auth/login/view/screen/forgetPasswordScreen.dart';
 import 'package:animoo_app/features/auth/login/view/screen/loginScreen.dart';
@@ -10,6 +11,7 @@ import 'package:animoo_app/features/auth/signUp/views/screen/signUpScreen.dart';
 import 'package:animoo_app/features/category/view/screen/category_screen.dart';
 import 'package:animoo_app/features/home/view/screen/home_screen.dart';
 import 'package:animoo_app/features/home/view/screen/my_home_page.dart';
+import 'package:animoo_app/features/search/view/screen/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,10 +48,14 @@ class AppRouteManager {
         );
       case AppRoutesName.home:
         widget = HomeScreen();
-        case AppRoutesName.mainPage:
+      case AppRoutesName.mainPage:
         widget = MyHomePage();
       case AppRoutesName.category:
         widget = CategoryScreen();
+      case AppRoutesName.animal:
+        widget = AnimalScreen();
+      case AppRoutesName.search:
+        widget = SearchScreen();
       default:
         widget = Loginscreen();
     }
@@ -67,4 +73,5 @@ class AppRoutesName {
   static const String home = '/home';
   static const String category = '/category';
   static const String animal = '/animal';
+  static const String search = '/search';
 }

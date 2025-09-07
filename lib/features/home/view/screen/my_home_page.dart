@@ -2,6 +2,7 @@ import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/features/animal/view/screen/animal_screen.dart';
 import 'package:animoo_app/features/category/view/screen/category_screen.dart';
 import 'package:animoo_app/features/home/view/screen/home_screen.dart';
+import 'package:animoo_app/features/search/view/screen/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     HomeScreen(),
-    Center(child: Text('Search Page')),
+    SearchScreen(),
     CategoryScreen(),
     AnimalScreen(),
     Center(child: Text('Me Page')),
@@ -26,14 +27,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _selectedIndex, children: _pages),
       bottomNavigationBar: bottomNavigatorBar(),
     );
   }
-
 
   BottomNavigationBar bottomNavigatorBar() {
     return BottomNavigationBar(
@@ -49,12 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
       elevation: 0,
 
       items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
-          label: "Home",
-          
-
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
         BottomNavigationBarItem(
           icon: Icon(CupertinoIcons.search),
           label: "Search",
@@ -62,12 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(
           icon: Icon(CupertinoIcons.number),
           label: "Category",
-
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite_border),
           label: "animals",
-          
         ),
 
         BottomNavigationBarItem(
@@ -76,6 +66,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
-  
-}
+  }
 }

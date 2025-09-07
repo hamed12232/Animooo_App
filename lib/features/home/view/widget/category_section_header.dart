@@ -4,8 +4,9 @@ import 'package:animoo_app/core/style/padding.dart';
 import 'package:flutter/material.dart';
 
 class CategorySectionHeader extends StatelessWidget {
-  const CategorySectionHeader({super.key, required this.headerName});
+  const CategorySectionHeader({super.key, required this.headerName, required this.productType});
   final String headerName;
+  final String productType;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class CategorySectionHeader extends StatelessWidget {
           ),
 
           Text(
-            "Add New Category",
+            "Add New $productType",
             style: TextStyle(
               fontFamily: "otama_ep",
               fontWeight: FontWeight.bold,
