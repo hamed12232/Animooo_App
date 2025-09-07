@@ -1,7 +1,10 @@
+import 'package:animoo_app/core/spacing/horizental_space.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_height.dart';
+import 'package:animoo_app/core/style/app_width.dart';
 import 'package:animoo_app/core/style/padding.dart';
+import 'package:animoo_app/core/widget/custom_product_type_status.dart';
 import 'package:animoo_app/core/widget/custom_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Padding(
           padding: const EdgeInsets.only(left: PAdding.kPadding18),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               VerticalSpace(height: AppHeight.h16),
               MyTextFormField(
@@ -34,7 +38,19 @@ class _SearchScreenState extends State<SearchScreen> {
                 suffixIcon: Icon(CupertinoIcons.search),
               ),
               VerticalSpace(height: AppHeight.h8),
-              
+              Row(
+                children: [
+                  CustomProductTypeStatus(  statusText: " Category",
+                  statusColor: AppColors.kprimaryColor,
+                  color: AppColors.kbackGroungColor,
+                  ),
+                  HorizentalSpace(width: AppWidth.w12),
+                  CustomProductTypeStatus(
+                    statusText: " Animal",
+                    statusColor: AppColors.kprofileStateColor.withOpacity(0.1),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

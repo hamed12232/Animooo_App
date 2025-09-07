@@ -5,8 +5,14 @@ import 'package:animoo_app/core/style/app_height.dart';
 import 'package:flutter/material.dart';
 
 class CustomProductTypeStatus extends StatelessWidget {
-  const CustomProductTypeStatus({super.key, required this.statusText, required this.statusColor});
+  const CustomProductTypeStatus({
+    super.key,
+    required this.statusText,
+    required this.statusColor,
+    this.color = AppColors.kprofileStateColor,
+  });
   final String statusText;
+  final Color color;
   final Color statusColor;
 
   @override
@@ -19,16 +25,16 @@ class CustomProductTypeStatus extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         // ignore: deprecated_member_use
-        color: statusColor.withOpacity(0.1),
+        color: statusColor,
         borderRadius: BorderRadius.circular(AppBorderRadius.br35),
       ),
       child: Row(
         children: [
-          Icon(Icons.public, size: 8, color: AppColors.kprofileStateColor),
+          Icon(Icons.public, size: 10, color: color),
           Text(
             statusText,
             style: TextStyle(
-              color: AppColors.kprofileStateColor,
+              color: color,
               fontSize: AppFontsSize.s10,
               fontWeight: FontWeight.w400,
             ),
