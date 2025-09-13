@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:animoo_app/core/database/api/api_constant.dart';
 import 'package:animoo_app/core/database/api/dio_services.dart';
+import 'package:animoo_app/core/database/local/flutter_secure.dart';
 import 'package:animoo_app/core/errors/error_model.dart';
 import 'package:animoo_app/core/errors/failures.dart';
 import 'package:animoo_app/features/auth/login/models/login_model.dart';
@@ -39,7 +40,17 @@ class LoginRepositioryImp implements LoginRepository {
       final response = await _dioServices.get(
         url: ApiConstant.getLoginUrl(email, password),
       );
-      return Right(LoginModel.fromJson(response));
+      final loginMode = LoginModel.fromJson(response);
+      FlutterSecureDatabase.setSecuredString(
+        ApiKeys.accessToken,
+        loginMode.accessToken!,
+      );
+      FlutterSecureDatabase.setSecuredString(
+        ApiKeys.refreshToken,
+        loginMode.refreshToken!,
+      );
+
+      return Right(loginMode);
     } on ServerFailure catch (e) {
       return Left(e.errorModel);
     } catch (e) {

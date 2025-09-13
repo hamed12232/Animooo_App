@@ -10,12 +10,12 @@ class CustomAttributeTextField extends StatelessWidget {
     super.key,
     required this.attributeEditingController,
     required this.attribute,
-    this.validator, this.maxLines,
+    this.validator, this.maxLines=1,
   });
   final TextEditingController attributeEditingController;
   final String attribute;
   final String? Function(String? value)? validator;
-    final int? maxLines;
+    final int maxLines;
 
 
   @override

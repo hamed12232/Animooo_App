@@ -1,14 +1,25 @@
+import 'package:animoo_app/core/database/api/api_constant.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class FlutterSecureDatabase {
+  
+  static Future<void> setSecuredString(String key, String value) {
+    final storage = const FlutterSecureStorage(); 
 
-  static setSecuredString(String key, String value) {
-    final storage = FlutterSecureStorage();
     return storage.write(key: key, value: value);
-
   }
-  static getSecuredString(String key) async {
-    final storage = FlutterSecureStorage();
-    return await storage.read(key: key) ?? "";
+
+  static Future<String?> getSecuredString(String key) async {
+    final storage = const FlutterSecureStorage(); 
+
+    return await storage.read(key: key);
+  }
+
+  
+  static Future<void> clearTokens() async {
+    final storage = const FlutterSecureStorage(); 
+
+    await storage.delete(key: ApiKeys.accessToken);  
+    await storage.delete(key: ApiKeys.refreshToken);  
   }
 }

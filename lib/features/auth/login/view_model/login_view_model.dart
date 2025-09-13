@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:animoo_app/features/auth/login/repo/login_repository.dart';
 import 'package:animoo_app/features/auth/login/view_model/login_state.dart';
@@ -18,7 +17,7 @@ class LoginViewModel extends Cubit<LoginState> {
     }
     emit(LoginLoading());
     final response = await loginRepositiory.login(emailEditingController.text, passwordEditingController.text);
-    log(response.toString());
+    
     response.fold(
       (failure) => emit(LoginError(failure.error.toString())),
       (loginModel) => emit(LoginSuccess(loginModel)),

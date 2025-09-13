@@ -1,12 +1,14 @@
 class ApiConstant {
   
   ApiConstant._();
-  static const String baseUrl = "http://127.0.0.1:8000";
+  static const String baseUrl = "http://10.0.2.2:8000";
   static const String signUp = "/api/signup";
   static const String verifyOtp = "/api/verfication_code";
   static const String forgetPassword = "/api/forget_password";
   static const String resendOtp = "/api/create_new_verfication_code";
   static const String createNewPassword = "/api/create_new_possword";
+  static const String generateNewAccessToken = "/api/generateAccessToken";
+
 
   static String getLoginUrl(String email, String password) =>
      "/api/login?email=$email&password=$password";
@@ -23,4 +25,7 @@ class ApiKeys {
   static const String image = "image";
   static const String phoneNumber = "phone";
   static const String code = "code";
+  static const String accessToken = "access_token";
+  static const String refreshToken = "refresh_token";
+  
 }

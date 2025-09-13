@@ -50,6 +50,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
           hintText: "*********",
           isObsecure: isObsecure,
           onChanged: widget.onChanged,
+          maxLines: 1,
           
           suffixIcon: IconButton(
             icon: Icon(

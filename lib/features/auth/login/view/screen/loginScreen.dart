@@ -4,16 +4,16 @@ import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_fonts_size.dart';
 import 'package:animoo_app/core/style/app_height.dart';
-import 'package:animoo_app/core/widget/custom_button.dart';
-import 'package:animoo_app/core/widget/custom_attribute_text_field.dart';
-import 'package:animoo_app/core/widget/custom_password_text_field.dart';
 import 'package:animoo_app/core/widget/custom_animoo_logo_app.dart';
+import 'package:animoo_app/core/widget/custom_attribute_text_field.dart';
+import 'package:animoo_app/core/widget/custom_button.dart';
+import 'package:animoo_app/core/widget/custom_password_text_field.dart';
 import 'package:animoo_app/core/widget/custom_rich_text_button.dart';
 import 'package:animoo_app/features/auth/login/view/widgets/forget_password.dart';
 import 'package:animoo_app/features/auth/login/view_model/login_state.dart';
 import 'package:animoo_app/features/auth/login/view_model/login_view_model.dart';
 import 'package:animoo_app/features/auth/signUp/views/screen/signUpScreen.dart';
-import 'package:animoo_app/features/home/view/screen/home_screen.dart';
+import 'package:animoo_app/features/home/view/screen/my_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -88,7 +88,10 @@ class _LoginscreenState extends State<Loginscreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(state.loginModel.message!)),
                         );
-                        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+                        
+                        Navigator.of(
+                          context,
+                        ).pushReplacementNamed(MyHomePage.routeName);
                       } else if (state is LoginError) {
                         ScaffoldMessenger.of(
                           context,
