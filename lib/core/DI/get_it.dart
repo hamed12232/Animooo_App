@@ -7,6 +7,9 @@ import 'package:animoo_app/features/auth/signUp/repo/signup_repository.dart';
 import 'package:animoo_app/features/auth/signUp/repo/signup_repository_impl.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/otp_viewmodel.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/signup_viewmodel.dart';
+import 'package:animoo_app/features/category/repo/category_repositiory.dart';
+import 'package:animoo_app/features/category/repo/category_repositiory_imp.dart';
+import 'package:animoo_app/features/category/view_model/cubit/create_category_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -21,6 +24,9 @@ void setup() {
   sl.registerLazySingleton<SignupRepository>(
     () => SignupRepositoryImpl(sl<DioServices>()),
   );
+  sl.registerLazySingleton<CategoryRepositiory>(
+    () => CategoryRepositioryImp(sl<DioServices>()),
+  );
 
   sl.registerFactory<SignupViewmodel>(
     () => SignupViewmodel(sl<SignupRepository>()),
@@ -34,4 +40,7 @@ void setup() {
     () => ForgetPasswordViewModel(sl<LoginRepository>()),
   );
   sl.registerFactory<OtpViewmodel>(() => OtpViewmodel(sl<SignupRepository>()));
+  sl.registerFactory<CreateCategoryCubit>(
+    () => CreateCategoryCubit(sl<CategoryRepositiory>()),
+  );
 }

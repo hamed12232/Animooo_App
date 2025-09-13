@@ -90,7 +90,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
                     onTap: () async {
                       {
                         try {
-                          await selectImage(imageFile,context);
+                          await selectImage((image) => imageFile = image,context);
                           if (mounted) {
                             setState(() {});
                           }

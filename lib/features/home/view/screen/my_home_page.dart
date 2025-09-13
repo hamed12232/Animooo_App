@@ -1,10 +1,13 @@
+import 'package:animoo_app/core/DI/get_it.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/features/animal/view/screen/animal_screen.dart';
 import 'package:animoo_app/features/category/view/screen/category_screen.dart';
+import 'package:animoo_app/features/category/view_model/cubit/create_category_cubit.dart';
 import 'package:animoo_app/features/home/view/screen/home_screen.dart';
 import 'package:animoo_app/features/search/view/screen/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -19,7 +22,10 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _pages = [
     HomeScreen(),
     SearchScreen(),
-    CategoryScreen(),
+    BlocProvider.value(
+    value: sl<CreateCategoryCubit>(),
+    child: CategoryScreen(),
+  ),
     AnimalScreen(),
     Center(child: Text('Me Page')),
   ];

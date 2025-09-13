@@ -8,10 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
-Future<void> selectImage(File? imageFile, BuildContext context) async {
+Future<void> selectImage(
+  Function(File) onImagePicked,
+  BuildContext context,
+) async {
   showBottomSheet(
     context: context,
-  
+
     builder: (context) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -21,7 +24,13 @@ Future<void> selectImage(File? imageFile, BuildContext context) async {
             height: 56.h,
             child: CustomButton(
               text: "Photo Gallery",
-              onPressed: () => pickImageAtGallery(imageFile),
+              onPressed: () async {
+                File? file = await pickImageAtGallery();
+                if (file != null) {
+                  onImagePicked(file);
+                  Navigator.pop(context);
+                }
+              },
               // ignore: deprecated_member_use
               buttonColor: AppColors.kbackGroungColor.withOpacity(0.8),
               textColor: AppColors.kprimaryColor,
@@ -44,7 +53,13 @@ Future<void> selectImage(File? imageFile, BuildContext context) async {
             height: 56.h,
             child: CustomButton(
               text: "Camera",
-              onPressed: () => pickImageAtCamera(imageFile),
+              onPressed: () async {
+                File? file = await pickImageAtCamera();
+                if (file != null) {
+                  onImagePicked(file);
+                  Navigator.pop(context);
+                }
+              },
               // ignore: deprecated_member_use
               buttonColor: AppColors.kbackGroungColor.withOpacity(1),
               textColor: AppColors.kprimaryColor,
@@ -59,30 +74,27 @@ Future<void> selectImage(File? imageFile, BuildContext context) async {
       );
     },
     backgroundColor: Colors.transparent,
-    
   );
 }
 
-Future<void> pickImageAtCamera(File? imageFile) async {
+Future<File?> pickImageAtCamera() async {
   try {
     final ImagePicker picker = ImagePicker();
     XFile? image = await picker.pickImage(source: ImageSource.camera);
-    if (image != null) {
-      imageFile = File(image.path);
-    }
+    return image != null ? File(image.path) : null;
   } catch (e) {
     log('Error picking image: $e');
   }
+  return null;
 }
 
-Future<void> pickImageAtGallery(File? imageFile) async {
+Future<File?> pickImageAtGallery() async {
   try {
     final ImagePicker picker = ImagePicker();
     XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      imageFile = File(image.path);
-    }
+    return image != null ? File(image.path) : null;
   } catch (e) {
     log('Error picking image: $e');
   }
+  return null;
 }

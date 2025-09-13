@@ -15,6 +15,8 @@ class DioInterceptors {
         );
         if (accessToken != null) {
           options.headers['Authorization'] = 'Bearer $accessToken';
+              log("📤 Sending request with token: Bearer $accessToken");
+
         }
         return handler.next(options); //continue
       },

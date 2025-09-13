@@ -40,6 +40,7 @@ class CategoryRepositioryImp extends CategoryRepositiory {
       log(response.toString());
       return Right(CategoryModel.fromJson(response["Category"]));
     } on ServerFailure catch (e) {
+      log(e.errorModel.error.toString());
       return Left(e.errorModel);
     } catch (e) {
       return Left(ErrorModel(error: [e.toString()], code: 500));
