@@ -8,6 +8,7 @@ class ApiConstant {
   static const String resendOtp = "/api/create_new_verfication_code";
   static const String createNewPassword = "/api/create_new_possword";
   static const String generateNewAccessToken = "/api/generateAccessToken";
+  static const String createNewCategory = "/api/createNewCategory";
 
 
   static String getLoginUrl(String email, String password) =>
@@ -17,7 +18,10 @@ class ApiConstant {
 
 class ApiKeys {
   ApiKeys._();
+
   static const String email = "email";
+  static const String name = "name";
+  static const String description = "description";
   static const String firstName = "firstName";
   static const String lastName = "lastName";
   static const String password = "password";
