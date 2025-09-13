@@ -15,7 +15,7 @@ class DioServices extends ApiConsumer {
     dio.options.receiveTimeout = const Duration(seconds: 30);
     dio.options.sendTimeout = const Duration(seconds: 30);
     dio.interceptors.add(
-      DioInterceptors(dio).interceptors(),
+      DioInterceptors(dio).interceptor,
     );
   }
 

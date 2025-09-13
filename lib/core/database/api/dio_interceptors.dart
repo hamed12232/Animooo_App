@@ -7,8 +7,8 @@ import 'package:dio/dio.dart';
 class DioInterceptors {
   final Dio dio;
   DioInterceptors(this.dio);
-  interceptors() {
-    return InterceptorsWrapper(
+  InterceptorsWrapper get interceptor => 
+     InterceptorsWrapper(
       onRequest: (options, handler) async {
         final accessToken = await FlutterSecureDatabase.getSecuredString(
           ApiKeys.accessToken,
@@ -37,7 +37,7 @@ class DioInterceptors {
         return handler.next(e);
       },
     );
-  }
+  
 
   Future<bool> _refreshAccessToken() async {
     try {

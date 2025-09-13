@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animoo_app/core/constant/asset_values.dart';
 import 'package:animoo_app/core/functions/app_validators.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
@@ -88,6 +90,7 @@ class _LoginscreenState extends State<Loginscreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(state.loginModel.message!)),
                         );
+                        log(state.loginModel.accessToken!);
                         
                         Navigator.of(
                           context,
