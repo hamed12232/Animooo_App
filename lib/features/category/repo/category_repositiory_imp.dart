@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animoo_app/core/database/api/api_constant.dart';
 import 'package:animoo_app/core/database/api/dio_services.dart';
 import 'package:animoo_app/core/errors/error_model.dart';
@@ -35,7 +37,8 @@ class CategoryRepositioryImp extends CategoryRepositiory {
         url: ApiConstant.createNewCategory,
         body: formData,
       );
-      return Right(CategoryModel.fromJson(response));
+      log(response.toString());
+      return Right(CategoryModel.fromJson(response["Category"]));
     } on ServerFailure catch (e) {
       return Left(e.errorModel);
     } catch (e) {

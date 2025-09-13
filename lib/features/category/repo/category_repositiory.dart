@@ -3,7 +3,9 @@ import 'package:animoo_app/features/category/model/category_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class CategoryRepositiory {
-  Future<Either<ErrorModel, CategoryModel>> createNewCategory(  String name,
+  Future<Either<ErrorModel, CategoryModel>> createNewCategory(
+    String name,
     String imagePath,
-    String description,);
+    String description,
+  );
 }

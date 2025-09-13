@@ -21,7 +21,6 @@ class SignupViewmodel extends Cubit<SignupState> {
   File? imageFile;
   Future<void> signup() async {
     if (!(formKey.currentState?.validate() ?? false)) {
-      // Check if the form is valid
       return;
     }
     if (imageFile == null) {
