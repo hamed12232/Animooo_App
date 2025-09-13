@@ -53,7 +53,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               VerticalSpace(height: AppHeight.h11),
               CustomProfileCard(
                 statusText: " Public",
-                statusColor: AppColors.kprofileStateColor,
+                statusColor: AppColors.kprofileStateColor.withOpacity(0.1),
               ),
               VerticalSpace(height: AppHeight.h20),
               CustomAttributeTextField(
@@ -87,7 +87,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   onTap: () async {
                     {
                       try {
-                        await selectImage(imageFile);
+                        await selectImage(imageFile,context);
                         if (mounted) {
                           setState(() {});
                         }

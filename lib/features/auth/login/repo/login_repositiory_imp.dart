@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:animoo_app/core/api/api_constant.dart';
-import 'package:animoo_app/core/api/dio_services.dart';
+import 'package:animoo_app/core/database/api/api_constant.dart';
+import 'package:animoo_app/core/database/api/dio_services.dart';
 import 'package:animoo_app/core/errors/error_model.dart';
 import 'package:animoo_app/core/errors/failures.dart';
 import 'package:animoo_app/features/auth/login/models/login_model.dart';

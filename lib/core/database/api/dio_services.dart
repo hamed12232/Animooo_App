@@ -1,5 +1,5 @@
-import 'package:animoo_app/core/api/api_constant.dart';
-import 'package:animoo_app/core/api/api_consumer.dart';
+import 'package:animoo_app/core/database/api/api_constant.dart';
+import 'package:animoo_app/core/database/api/api_consumer.dart';
 import 'package:animoo_app/core/errors/error_model.dart';
 import 'package:animoo_app/core/errors/failures.dart';
 import 'package:dio/dio.dart';

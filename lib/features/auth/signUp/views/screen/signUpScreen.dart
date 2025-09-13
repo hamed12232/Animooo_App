@@ -188,7 +188,7 @@ class _SignupscreenState extends State<Signupscreen> {
                         onTap: () async {
                           {
                             try {
-                              await viewModel.pickImage();
+                              await viewModel.pickImage(context);
                               if (mounted) {
                                 setState(() {});
                               }

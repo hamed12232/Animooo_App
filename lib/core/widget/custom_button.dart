@@ -10,24 +10,31 @@ class CustomButton extends StatelessWidget {
     required this.text,
 
     this.fontSize = 16,
+    this.buttonColor = AppColors.kprimaryColor,
+    this.textColor = AppColors.kbackGroungColor,
+    this.isButtonImageSelector = false, this.borderRadius,
   });
   final void Function()? onPressed;
   final String text;
   final double fontSize;
+  final Color buttonColor;
+  final Color textColor;
+  final bool isButtonImageSelector;
+  final BorderRadiusGeometry? borderRadius;
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
-        backgroundColor: AppColors.kprimaryColor,
+        backgroundColor: buttonColor,
 
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-        fixedSize: Size(331.w, 56.h),
+        shape: RoundedRectangleBorder(borderRadius: borderRadius??BorderRadius.circular(8.r)),
+        fixedSize: !isButtonImageSelector ? Size(331.w, 56.h) : null,
       ),
       child: Text(
         text,
         style: TextStyle(
-          color: AppColors.kbackGroungColor,
+          color: textColor,
           fontSize: fontSize.sp,
           fontFamily: FontValues.poppins,
           fontWeight: FontWeight.w400,

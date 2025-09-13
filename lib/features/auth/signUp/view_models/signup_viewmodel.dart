@@ -62,8 +62,8 @@ class SignupViewmodel extends Cubit<SignupState> {
     return super.close();
   }
 
-  Future<void> pickImage() async {
-    await selectImage( imageFile);
+  Future<void> pickImage(BuildContext context) async {
+    await selectImage( imageFile,context);
   }
 
   

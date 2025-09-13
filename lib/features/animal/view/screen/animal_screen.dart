@@ -55,7 +55,8 @@ class _AnimalScreenState extends State<AnimalScreen> {
                 VerticalSpace(height: AppHeight.h11),
                 CustomProfileCard(
                   statusText: " Public",
-                  statusColor: AppColors.kprofileStateColor,
+                  // ignore: deprecated_member_use
+                  statusColor: AppColors.kprofileStateColor.withOpacity(0.1),
                 ),
                 VerticalSpace(height: AppHeight.h20),
                 CustomAttributeTextField(
@@ -89,7 +90,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
                     onTap: () async {
                       {
                         try {
-                          await selectImage(imageFile);
+                          await selectImage(imageFile,context);
                           if (mounted) {
                             setState(() {});
                           }
