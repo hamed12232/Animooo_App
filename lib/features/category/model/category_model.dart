@@ -1,13 +1,15 @@
-class CategoryModel {
-  int id;
-  String name;
-  String description;
-  String imagePath;
-  String createdAt;
-  String updatedAt;
-  int userId;
+import 'package:equatable/equatable.dart';
 
-  CategoryModel({
+class CategoryModel extends Equatable {
+  final int id;
+  final String name;
+  final String description;
+  final String imagePath;
+  final String createdAt;
+  final String updatedAt;
+  final int userId;
+
+  const CategoryModel({
     required this.id,
     required this.name,
     required this.description,
@@ -40,4 +42,15 @@ class CategoryModel {
       'userId': userId,
     };
   }
+
+  @override
+  List<Object?> get props => [
+    id,
+    name,
+    description,
+    imagePath,
+    createdAt,
+    updatedAt,
+    userId,
+  ];
 }

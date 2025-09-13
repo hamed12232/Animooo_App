@@ -1,13 +1,14 @@
 import 'package:animoo_app/features/auth/signUp/models/signup_model.dart';
+import 'package:equatable/equatable.dart';
 
-class LoginModel {
-  int? statusCode;
-  String? message;
-  String? accessToken;
-  String? refreshToken;
-  UserResponseModel? user;
+class LoginModel extends Equatable {
+  final int? statusCode;
+  final String? message;
+  final String? accessToken;
+  final String? refreshToken;
+  final UserResponseModel? user;
 
-  LoginModel({
+  const LoginModel({
     this.statusCode,
     this.message,
     this.accessToken,
@@ -37,5 +38,8 @@ class LoginModel {
     
     };
   }
+  
+  @override
+  List<Object?> get props => [statusCode, message, accessToken, refreshToken, user];
   
 }

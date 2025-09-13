@@ -1,10 +1,12 @@
-class AuthResponse {
-  int? statusCode;
-  String? message;
-  String? alert;
-  UserResponseModel? user;
+import 'package:equatable/equatable.dart';
 
-  AuthResponse({this.statusCode, this.message, this.alert, this.user});
+class AuthResponse extends Equatable {
+  final int? statusCode;
+  final String? message;
+  final String? alert;
+  final UserResponseModel? user;
+
+  const AuthResponse({this.statusCode, this.message, this.alert, this.user});
 
   factory AuthResponse.fromJson(Map<String, dynamic> json) => AuthResponse(
     alert: json['alert'],
@@ -21,30 +23,33 @@ class AuthResponse {
     'alert': alert,
     'user': user?.toJson(),
   };
+
+  @override
+  List<Object?> get props => [statusCode, message, alert, user];
 }
 
-class UserResponseModel {
-  int id;
-  String firstName;
-  String lastName;
-  String email;
-  String phone;
-  String imagePath;
-  String isVerified;
+class UserResponseModel extends Equatable {
+  final int id;
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String phone;
+  final String imagePath;
+  final String isVerified;
 
-  UserResponseModel({
-   required this.id,
+  const UserResponseModel({
+    required this.id,
     required this.firstName,
     required this.lastName,
     required this.email,
     required this.phone,
     required this.imagePath,
-   required this.isVerified,
+    required this.isVerified,
   });
 
   factory UserResponseModel.fromJson(Map<String, dynamic> json) =>
       UserResponseModel(
-        id: json['id'] ,
+        id: json['id'],
         firstName: json['first_name'],
         lastName: json['last_name'],
         email: json['email'],
@@ -61,4 +66,15 @@ class UserResponseModel {
     'image_path': imagePath,
     'is_verified': isVerified,
   };
+
+  @override
+  List<Object?> get props => [
+    id,
+    firstName,
+    lastName,
+    email,
+    phone,
+    imagePath,
+    isVerified,
+  ];
 }
