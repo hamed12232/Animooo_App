@@ -22,10 +22,7 @@ class AnimalScreen extends StatefulWidget {
 }
 
 class _AnimalScreenState extends State<AnimalScreen> {
-  TextEditingController animalName = TextEditingController();
-  TextEditingController categoryName = TextEditingController();
-  TextEditingController animalPrice = TextEditingController();
-  TextEditingController animalDescription = TextEditingController();
+  
   File? imageFile;
   @override
   Widget build(BuildContext context) {

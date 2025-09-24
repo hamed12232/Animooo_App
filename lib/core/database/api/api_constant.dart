@@ -9,6 +9,8 @@ class ApiConstant {
   static const String createNewPassword = "/api/create_new_possword";
   static const String generateNewAccessToken = "/api/generateAccessToken";
   static const String createNewCategory = "/api/createNewCategory";
+  static const String createNewAnimal = "/api/addNewAnimal";
+
 
 
   static String getLoginUrl(String email, String password) =>

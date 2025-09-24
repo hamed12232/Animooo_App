@@ -33,7 +33,7 @@ class AnimalRepositioryImp extends AnimalRepositiory {
         ApiKeys.categoryId: categoryId,
       });
       final response = await _dioServices.post(
-        url: ApiConstant.createNewCategory,
+        url: ApiConstant.createNewAnimal,
         body: formData,
       );
       log(response.toString());
