@@ -4,22 +4,18 @@ import 'package:animoo_app/core/database/api/api_constant.dart';
 import 'package:animoo_app/core/database/api/dio_services.dart';
 import 'package:animoo_app/core/errors/error_model.dart';
 import 'package:animoo_app/core/errors/failures.dart';
-import 'package:animoo_app/features/category/model/category_model.dart';
-import 'package:animoo_app/features/category/repo/category_repositiory.dart';
+import 'package:animoo_app/features/animal/model/animal_model.dart';
+import 'package:animoo_app/features/animal/repo/animal_repositiory.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-class CategoryRepositioryImp extends CategoryRepositiory {
-  CategoryRepositioryImp(this._dioServices);
-  final DioServices _dioServices;
-  @override
+class AnimalRepositioryImp extends AnimalRepositiory {
+    final DioServices _dioServices;
+  AnimalRepositioryImp(this._dioServices);
 
-  Future<Either<ErrorModel, CategoryModel>> createNewCategory(
-    String name,
-    String imagePath,
-    String description,
-  ) async {
-    try {
+  @override
+  Future<Either<ErrorModel, AnimalModel>> createNewAnimal(String name, String imagePath, String description, double price, String categoryId) async{
+      try {
       final String fileName = imagePath.split('/').isNotEmpty
           ? imagePath.split('/').last
           : (imagePath.split('\\').isNotEmpty
@@ -33,13 +29,15 @@ class CategoryRepositioryImp extends CategoryRepositiory {
           imagePath,
           filename: fileName,
         ),
+        ApiKeys.price: price,
+        ApiKeys.categoryId: categoryId,
       });
       final response = await _dioServices.post(
         url: ApiConstant.createNewCategory,
         body: formData,
       );
       log(response.toString());
-      return Right(CategoryModel.fromJson(response["Category"]));
+      return Right(AnimalModel.fromJson(response["Category"]));
     } on ServerFailure catch (e) {
       log(e.errorModel.error.toString());
       return Left(e.errorModel);

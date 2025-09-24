@@ -22,6 +22,8 @@ class ApiKeys {
   static const String email = "email";
   static const String name = "name";
   static const String description = "description";
+  static const String price = "price";
+  static const String categoryId = "category_id";
   static const String firstName = "firstName";
   static const String lastName = "lastName";
   static const String password = "password";
