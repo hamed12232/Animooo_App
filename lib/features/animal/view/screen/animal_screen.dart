@@ -88,24 +88,12 @@ class _AnimalScreenState extends State<AnimalScreen> {
                   child: CustomRoundedRectDottedBorder(
                     imageFile: imageFile,
                     onTap: () async {
-                      {
-                        try {
-                          await selectImage((image) => imageFile = image,context);
-                          if (mounted) {
-                            setState(() {});
-                          }
-                        } catch (e) {
-                          if (mounted) {
-                            // ignore: use_build_context_synchronously
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Error picking image: $e'),
-                              ),
-                            );
-                          }
-                        }
-                      }
-                    },
+                            await selectImage((file) {
+                              setState(() {
+                                imageFile = file;
+                              });
+                            }, context);
+                          },
                   ),
                 ),
 

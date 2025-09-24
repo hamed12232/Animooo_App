@@ -187,20 +187,9 @@ class _SignupscreenState extends State<Signupscreen> {
                       CustomRoundedRectDottedBorder(
                         onTap: () async {
                           {
-                            try {
-                              await viewModel.pickImage(context);
-                              if (mounted) {
-                                setState(() {});
-                              }
-                            } catch (e) {
-                              if (mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Error picking image: $e'),
-                                  ),
-                                );
-                              }
-                            }
+                            await viewModel.pickImage(context);
+
+                            setState(() {});
                           }
                         },
                         imageFile: viewModel.imageFile,

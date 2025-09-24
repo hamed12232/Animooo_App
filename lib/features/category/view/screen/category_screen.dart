@@ -26,18 +26,17 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   File? imageFile;
-  
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>  sl<CreateCategoryCubit>(),
+      create: (context) => sl<CreateCategoryCubit>(),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: AppColors.kbackGroungColor,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(left: PAdding.kPadding18),
+            padding: const EdgeInsets.symmetric(horizontal: PAdding.kPadding18),
 
             child: BlocConsumer<CreateCategoryCubit, CreateCategoryState>(
               listener: (context, state) {
@@ -54,7 +53,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 }
               },
               builder: (context, state) {
-                  final  createCategoryCubit = context.read<CreateCategoryCubit>();
+                final createCategoryCubit = context.read<CreateCategoryCubit>();
 
                 if (state is CreateCategoryLoading) {
                   return const Center(child: CircularProgressIndicator());
@@ -104,54 +103,39 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             : null,
                       ),
                       VerticalSpace(height: AppHeight.h16),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: PAdding.kPadding18,
-                        ),
-                        child: Text(
-                          "Upload Image For Your Cateogry",
-                          style: TextStyle(
-                            fontFamily: FontValues.poppins,
-                            color: AppColors.kTextFieldHintColor,
-                            fontSize: AppFontsSize.s16,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      Text(
+                        "Upload Image For Your Cateogry",
+                        style: TextStyle(
+                          fontFamily: FontValues.poppins,
+                          color: AppColors.kTextFieldHintColor,
+                          fontSize: AppFontsSize.s16,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
+
                       VerticalSpace(height: AppHeight.h8),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: PAdding.kPadding10,
-                        ),
-                        child: CustomRoundedRectDottedBorder(
-                          imageFile: imageFile,
-                          onTap: () async {
-                            {
-                              await selectImage((file) {
-                                setState(() {
-                                  imageFile = file;
-                                });
-                              }, context);
-                            }
-                          },
-                        ),
+                      CustomRoundedRectDottedBorder(
+                        imageFile: imageFile,
+                        onTap: () async {
+                          await selectImage((file) {
+                            setState(() {
+                              imageFile = file;
+                            });
+                          }, context);
+                        },
                       ),
+
                       VerticalSpace(height: AppHeight.h33),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: PAdding.kPadding10,
-                        ),
-                        child: CustomButton(
-                          text: "Save",
-                          onPressed: () async {
-                            if (createCategoryCubit.formKey.currentState!
-                                .validate()) {
-                              await createCategoryCubit.createCategory(
-                                imageFile!.path,
-                              );
-                            }
-                          },
-                        ),
+                      CustomButton(
+                        text: "Save",
+                        onPressed: () async {
+                          if (createCategoryCubit.formKey.currentState!
+                              .validate()) {
+                            await createCategoryCubit.createCategory(
+                              imageFile!.path,
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),

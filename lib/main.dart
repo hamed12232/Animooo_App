@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           title: 'Animoo App',
           debugShowCheckedModeBanner: false,
           onGenerateRoute: AppRouteManager.onGenerateRoute,
-        
+          
         );
       },
     );

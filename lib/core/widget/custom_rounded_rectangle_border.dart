@@ -10,15 +10,20 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CustomRoundedRectDottedBorder extends StatelessWidget {
+class CustomRoundedRectDottedBorder extends StatefulWidget {
   const CustomRoundedRectDottedBorder({super.key, this.onTap, this.imageFile});
   final void Function()? onTap;
   final File? imageFile;
 
   @override
+  State<CustomRoundedRectDottedBorder> createState() => _CustomRoundedRectDottedBorderState();
+}
+
+class _CustomRoundedRectDottedBorderState extends State<CustomRoundedRectDottedBorder> {
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Stack(
         children: [
           SizedBox(
@@ -52,17 +57,19 @@ class CustomRoundedRectDottedBorder extends StatelessWidget {
               ),
             ),
           ),
-          if (imageFile != null)
+          if (widget.imageFile != null)
             Positioned.fill(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppBorderRadius.br10),
                 child: Image.file(
-                  imageFile!,
+                  widget.imageFile!,
+                  key: ValueKey(widget.imageFile?.path),
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
+                    print('Error loading image: $error');
                     return Container(
                       color: Colors.grey[300],
-                      child: Icon(Icons.error, color: Colors.red),
+                      child: const Icon(Icons.error, color: Colors.red),
                     );
                   },
                 ),
