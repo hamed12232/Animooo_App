@@ -12,7 +12,7 @@ import 'package:animoo_app/features/auth/signUp/view_models/otp_viewmodel.dart';
 import 'package:animoo_app/features/auth/signUp/view_models/signup_viewmodel.dart';
 import 'package:animoo_app/features/category/repo/category_repositiory.dart';
 import 'package:animoo_app/features/category/repo/category_repositiory_imp.dart';
-import 'package:animoo_app/features/category/view_model/cubit/create_category_cubit.dart';
+import 'package:animoo_app/features/category/view_model/create_category/create_category_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 

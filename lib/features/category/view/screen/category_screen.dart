@@ -12,7 +12,7 @@ import 'package:animoo_app/core/widget/custom_attribute_text_field.dart';
 import 'package:animoo_app/core/widget/custom_button.dart';
 import 'package:animoo_app/core/widget/custom_rounded_rectangle_border.dart';
 import 'package:animoo_app/features/category/view/widgets/custom_profile_card.dart';
-import 'package:animoo_app/features/category/view_model/cubit/create_category_cubit.dart';
+import 'package:animoo_app/features/category/view_model/create_category/create_category_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
