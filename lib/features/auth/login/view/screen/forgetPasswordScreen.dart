@@ -43,7 +43,11 @@ class ForgetPasswordScreen extends StatelessWidget {
             BlocConsumer<ForgetPasswordViewModel, ForgetPasswordState>(
               builder: (BuildContext context, state) {
                 if (state is ForgetPasswordLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.kprimaryColor,
+                    ),
+                  );
                 }
                 return CustomButton(
                   onPressed: () {
@@ -68,7 +72,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   ).showSnackBar(SnackBar(content: Text(state.message)));
                   Navigator.of(context).pushNamed(
                     Otpverificationscreen.routeName,
-    
+
                     arguments: {
                       "email": emailEditingController.text,
                       "isFromForgotPassword": true,

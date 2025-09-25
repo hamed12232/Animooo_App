@@ -10,4 +10,6 @@ abstract class AnimalRepositiory {
     double price,
     String categoryId
   );
+
+  Future<Either<ErrorModel, List<AnimalModel>>> showAllAnimals();
 }

@@ -1,4 +1,5 @@
 import 'package:animoo_app/core/spacing/vertical_space.dart';
+import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_height.dart';
 import 'package:animoo_app/features/category/view_model/show_all_categories/show_all_categories_cubit.dart';
 import 'package:animoo_app/features/home/view/widget/category_section_header.dart';
@@ -21,7 +22,9 @@ class CustomCategorySectionItems extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is ShowAllCategoriesLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(
+          color: AppColors.kprimaryColor,
+          ));
         } else if (state is ShowAllCategoriesSuccess) {
           final categories = state.categories;
           return Column(

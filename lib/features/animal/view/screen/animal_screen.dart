@@ -57,6 +57,13 @@ class _AnimalScreenState extends State<AnimalScreen> {
                   final categoryName = createAnimalCubit.categoryName;
                   final animalPrice = createAnimalCubit.animalPrice;
                   final animalDescription = createAnimalCubit.animalDescription;
+                  if (state is CreateAnimalLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.kprimaryColor,
+                      ),
+                    );
+                  }
                   return Form(
                     key: createAnimalCubit.formKey,
                     child: Column(

@@ -91,7 +91,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           SnackBar(content: Text(state.loginModel.message!)),
                         );
                         log(state.loginModel.accessToken!);
-                        
+
                         Navigator.of(
                           context,
                         ).pushReplacementNamed(MyHomePage.routeName);
@@ -103,7 +103,11 @@ class _LoginscreenState extends State<Loginscreen> {
                     },
                     builder: (BuildContext context, state) {
                       if (state is LoginLoading) {
-                        return const Center(child: CircularProgressIndicator());
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.kprimaryColor,
+                          ),
+                        );
                       }
                       return CustomButton(
                         onPressed: () async {

@@ -88,7 +88,9 @@ class _SignupscreenState extends State<Signupscreen> {
             },
             builder: (BuildContext context, state) {
               if (state is SignupLoading) {
-                return CircularProgressIndicator();
+                return CircularProgressIndicator(
+                  color: AppColors.kprimaryColor,
+                );
               }
               return Form(
                 key: viewModel.formKey,

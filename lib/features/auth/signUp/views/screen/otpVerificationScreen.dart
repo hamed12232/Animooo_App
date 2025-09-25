@@ -63,7 +63,11 @@ class _OtpverificationscreenState extends State<Otpverificationscreen> {
             builder: (BuildContext context, state) {
               String code = state.code;
               if (state is OtpLoading) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.kprimaryColor,
+                  ),
+                );
               }
               return Column(
                 children: [

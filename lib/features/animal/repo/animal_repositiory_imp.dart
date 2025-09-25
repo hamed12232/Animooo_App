@@ -45,4 +45,20 @@ class AnimalRepositioryImp extends AnimalRepositiory {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
   }
+  @override
+  Future<Either<ErrorModel, List<AnimalModel>>> showAllAnimals() async {
+    try {
+      final response = await _dioServices.get(
+        url: ApiConstant.showAllAnimals,
+      );
+      List<AnimalModel> animals = (response['Animals'] as List)
+          .map((animalJson) => AnimalModel.fromJson(animalJson))
+          .toList();
+      return Right(animals);
+    } on ServerFailure catch (e) {
+      return Left(e.errorModel);
+    } catch (e) {
+      return Left(ErrorModel(error: [e.toString()], code: 500));
+    }
+  }
 }

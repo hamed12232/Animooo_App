@@ -56,7 +56,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 final createCategoryCubit = context.read<CreateCategoryCubit>();
 
                 if (state is CreateCategoryLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.kprimaryColor,
+                    ),
+                  );
                 }
                 return Form(
                   key: createCategoryCubit.formKey,

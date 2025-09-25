@@ -67,7 +67,9 @@ class CustomListViewSeperatorCategories extends StatelessWidget {
                                     color: Colors.grey[300],
                                   ),
                                   child: const Center(
-                                    child: CircularProgressIndicator(),
+                                    child: CircularProgressIndicator(
+                                      color: AppColors.kprimaryColor,
+                                    ),
                                   ),
                                 ),
                               ),
