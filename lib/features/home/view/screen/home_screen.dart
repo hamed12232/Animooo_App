@@ -19,28 +19,47 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late final ShowAllCategoriesCubit _categoriesCubit;
+  @override
+  void initState() {
+    super.initState();
+    _categoriesCubit = sl<ShowAllCategoriesCubit>()..showAllCategories();
+  }
+
+  @override
+  void dispose() {
+    _categoriesCubit.close();
+    super.dispose();
+  }
+
+  Future<void> _onRefresh() async {
+    await _categoriesCubit.showAllCategories(); // Use local instance
+  }
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<ShowAllCategoriesCubit>()..showAllCategories(),
-      child: Scaffold(
-        backgroundColor: AppColors.kbackGroungColor,
-        body: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  CustomAppBarHomeScreen(),
-                  VerticalSpace(height: AppHeight.h20),
-                  CustomCategorySectionItems(),
-                  VerticalSpace(height: AppHeight.h20),
-                  CategorySectionHeader(
-                    headerName: "All Animal ( 10 )",
-                    productType: "Animal",
-                  ),
-                  VerticalSpace(height: AppHeight.h11),
-                  PetCardListView(),
-                ],
+    return BlocProvider.value(
+      value: _categoriesCubit,
+      child: RefreshIndicator(
+        onRefresh: _onRefresh,
+        child: Scaffold(
+          backgroundColor: AppColors.kbackGroungColor,
+          body: SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                  const  CustomAppBarHomeScreen(),
+                    VerticalSpace(height: AppHeight.h20),
+                  const  CustomCategorySectionItems(),
+                    VerticalSpace(height: AppHeight.h20),
+                  const  CategorySectionHeader(
+                      headerName: "All Animal ( 10 )",
+                      productType: "Animal",
+                    ),
+                    VerticalSpace(height: AppHeight.h11),
+                  const  PetCardListView(),
+                  ],
+                ),
               ),
             ),
           ),
