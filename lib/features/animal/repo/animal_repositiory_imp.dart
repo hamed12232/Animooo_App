@@ -45,6 +45,7 @@ class AnimalRepositioryImp extends AnimalRepositiory {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
   }
+  
   @override
   Future<Either<ErrorModel, List<AnimalModel>>> showAllAnimals() async {
     try {
