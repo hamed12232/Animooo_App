@@ -21,69 +21,96 @@ class CustomListViewSeperatorCategories extends StatelessWidget {
           children: [
             Expanded(
               child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
                 separatorBuilder: (context, index) {
                   return HorizentalSpace(width: AppWidth.w24);
                 },
                 scrollDirection: Axis.horizontal,
-                itemCount: 3,
+                itemCount: 6,
                 itemBuilder: (BuildContext context, index) {
-                  return Stack(
-                    children: [
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            radius: AppBorderRadius.br35,
-                            backgroundImage: AssetImage(
-                              AssetValues.categoriesPhoto,
+                  return SizedBox(
+                    width: AppWidth.w70,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              width: AppWidth.w64,
+                              height: AppWidth.w64,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    AssetValues.categoriesPhoto,
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
-                          ),
-                          Text(
-                            "Dogs",
-                            style: TextStyle(
-                              fontSize: AppFontsSize.s16,
-                              color: AppColors.kblackColor,
-                              fontWeight: FontWeight.w500,
+                            const SizedBox(height: 4),
+                            Text(
+                              "Dogs",
+                              style: TextStyle(
+                                fontSize: AppFontsSize.s16,
+                                color: AppColors.kblackColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-                        ],
-                      ),
-                      Positioned(
-                        right: 0,
-                        child: CircleAvatar(
-                          radius: AppBorderRadius.br10,
-                          backgroundColor: AppColors.kprimaryColor,
-                          child: Text(
-                            "1",
-                            style: TextStyle(
-                              color: AppColors.kbackGroungColor,
-                              fontSize: AppFontsSize.s12,
+                          ],
+                        ),
+                        Positioned(
+                          right: -5,
+                          top: -5,
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: AppColors.kprimaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Text(
+                              "1",
+                              style: TextStyle(
+                                color: AppColors.kbackGroungColor,
+                                fontSize: AppFontsSize.s12,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Container(
-                margin: EdgeInsets.only(top: PAdding.kPadding35),
-                width: AppWidth.w50,
-                height: AppHeight.h16,
-                decoration: BoxDecoration(
-                  color: AppColors.ksellAllProductsColor,
-
+            Container(
+              margin: EdgeInsets.only(top: AppHeight.h16),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                  },
                   borderRadius: BorderRadius.circular(AppBorderRadius.br5),
-                ),
-                child: Center(
-                  child: Text(
-                    "See All",
-                    style: TextStyle(
-                      fontFamily: "Poppins",
-                      color: AppColors.kbackGroungColor,
-                      fontSize: AppFontsSize.s9,
+                  child: Container(
+                    width: AppWidth.w50,
+                    height: AppHeight.h16,
+                    decoration: BoxDecoration(
+                      color: AppColors.ksellAllProductsColor,
+                      borderRadius: BorderRadius.circular(AppBorderRadius.br5),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "See All",
+                        style: TextStyle(
+                          fontFamily: FontValues.poppins,
+                          color: AppColors.kbackGroungColor,
+                          fontSize: AppFontsSize.s9,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                   ),
                 ),

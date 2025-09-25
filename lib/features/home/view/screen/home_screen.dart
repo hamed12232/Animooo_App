@@ -3,7 +3,7 @@ import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_height.dart';
 import 'package:animoo_app/features/home/view/widget/category_section_header.dart';
 import 'package:animoo_app/features/home/view/widget/custom_app_bar_home_screen.dart';
-import 'package:animoo_app/features/home/view/widget/custom_list_view_seperator_categories.dart';
+import 'package:animoo_app/features/home/view/widget/custom_category_section_items.dart';
 import 'package:animoo_app/features/home/view/widget/petCard_list_view.dart';
 import 'package:flutter/material.dart';
 
@@ -27,9 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 CustomAppBarHomeScreen(),
                 VerticalSpace(height: AppHeight.h20),
-                CategorySectionHeader(headerName: "Categories ( 10 )",productType: "Category",),
-                VerticalSpace(height: AppHeight.h20),
-                CustomListViewSeperatorCategories(),
+                CustomCategorySectionItems(),
                 VerticalSpace(height: AppHeight.h20),
                 CategorySectionHeader(headerName: "All Animal ( 10 )",productType: "Animal",),
                 VerticalSpace(height: AppHeight.h11),
@@ -42,3 +40,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
