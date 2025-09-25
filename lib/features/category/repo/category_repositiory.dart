@@ -8,4 +8,5 @@ abstract class CategoryRepositiory {
     String imagePath,
     String description,
   );
+  Future<Either<ErrorModel, List<CategoryModel>>> showAllCategories();
 }

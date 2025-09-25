@@ -10,6 +10,7 @@ class ApiConstant {
   static const String generateNewAccessToken = "/api/generateAccessToken";
   static const String createNewCategory = "/api/createNewCategory";
   static const String createNewAnimal = "/api/addNewAnimal";
+  static const String showAllCategories = "/api/allCategories";
 
 
 

@@ -47,4 +47,23 @@ class CategoryRepositioryImp extends CategoryRepositiory {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
   }
+  
+  @override
+  Future<Either<ErrorModel, List<CategoryModel>>> showAllCategories() async{
+    try {
+      final response = await _dioServices.get(
+        url: ApiConstant.showAllCategories,
+      );
+      List<CategoryModel> categories = (response['Categories'] as List)
+          .map((categoryJson) => CategoryModel.fromJson(categoryJson))
+          .toList();
+      return Right(categories);
+    } on ServerFailure catch (e) {
+      log(e.errorModel.error.toString());
+      return Left(e.errorModel);
+    } catch (e) {
+      return Left(ErrorModel(error: [e.toString()], code: 500));
+    }
+  
+  }
 }

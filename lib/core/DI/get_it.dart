@@ -1,4 +1,7 @@
 import 'package:animoo_app/core/database/api/dio_services.dart';
+import 'package:animoo_app/features/animal/repo/animal_repositiory.dart';
+import 'package:animoo_app/features/animal/repo/animal_repositiory_imp.dart';
+import 'package:animoo_app/features/animal/view_model/cubit/create_animal_cubit.dart';
 import 'package:animoo_app/features/auth/login/repo/login_repositiory_imp.dart';
 import 'package:animoo_app/features/auth/login/repo/login_repository.dart';
 import 'package:animoo_app/features/auth/login/view_model/forget_password_view_model.dart';
@@ -27,6 +30,9 @@ void setup() {
   sl.registerLazySingleton<CategoryRepositiory>(
     () => CategoryRepositioryImp(sl<DioServices>()),
   );
+  sl.registerLazySingleton<AnimalRepositiory>( 
+    () => AnimalRepositioryImp(sl<DioServices>()),
+  );
 
   sl.registerFactory<SignupViewmodel>(
     () => SignupViewmodel(sl<SignupRepository>()),
@@ -42,5 +48,8 @@ void setup() {
   sl.registerFactory<OtpViewmodel>(() => OtpViewmodel(sl<SignupRepository>()));
   sl.registerFactory<CreateCategoryCubit>(
     () => CreateCategoryCubit(sl<CategoryRepositiory>()),
+  );
+  sl.registerFactory<CreateAnimalCubit>(
+    () => CreateAnimalCubit(sl<AnimalRepositiory>()),
   );
 }
