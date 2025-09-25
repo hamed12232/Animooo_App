@@ -16,10 +16,12 @@ class CustomRoundedRectDottedBorder extends StatefulWidget {
   final File? imageFile;
 
   @override
-  State<CustomRoundedRectDottedBorder> createState() => _CustomRoundedRectDottedBorderState();
+  State<CustomRoundedRectDottedBorder> createState() =>
+      _CustomRoundedRectDottedBorderState();
 }
 
-class _CustomRoundedRectDottedBorderState extends State<CustomRoundedRectDottedBorder> {
+class _CustomRoundedRectDottedBorderState
+    extends State<CustomRoundedRectDottedBorder> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -39,7 +41,7 @@ class _CustomRoundedRectDottedBorderState extends State<CustomRoundedRectDottedB
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       CupertinoIcons.photo_fill,
                       color: AppColors.kprimaryColor,
                     ),
@@ -66,10 +68,13 @@ class _CustomRoundedRectDottedBorderState extends State<CustomRoundedRectDottedB
                   key: ValueKey(widget.imageFile?.path),
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
-                    print('Error loading image: $error');
                     return Container(
                       color: Colors.grey[300],
-                      child: const Icon(Icons.error, color: Colors.red),
+                      child: const Icon(
+                        Icons.error,
+                        color: Colors.red,
+                        size: 24,
+                      ),
                     );
                   },
                 ),

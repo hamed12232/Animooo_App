@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:animoo_app/core/database/api/api_constant.dart';
 import 'package:animoo_app/core/database/api/dio_services.dart';
 import 'package:animoo_app/core/errors/error_model.dart';
@@ -13,7 +11,6 @@ class CategoryRepositioryImp extends CategoryRepositiory {
   CategoryRepositioryImp(this._dioServices);
   final DioServices _dioServices;
   @override
-
   Future<Either<ErrorModel, CategoryModel>> createNewCategory(
     String name,
     String imagePath,
@@ -38,33 +35,28 @@ class CategoryRepositioryImp extends CategoryRepositiory {
         url: ApiConstant.createNewCategory,
         body: formData,
       );
-      log(response.toString());
       return Right(CategoryModel.fromJson(response["Category"]));
     } on ServerFailure catch (e) {
-      log(e.errorModel.error.toString());
       return Left(e.errorModel);
     } catch (e) {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
   }
-  
+
   @override
-  Future<Either<ErrorModel, List<CategoryModel>>> showAllCategories() async{
+  Future<Either<ErrorModel, List<CategoryModel>>> showAllCategories() async {
     try {
       final response = await _dioServices.get(
         url: ApiConstant.showAllCategories,
       );
-      log(response.toString());
       List<CategoryModel> categories = (response['Categories'] as List)
           .map((categoryJson) => CategoryModel.fromJson(categoryJson))
           .toList();
       return Right(categories);
     } on ServerFailure catch (e) {
-      log(e.errorModel.error.toString());
       return Left(e.errorModel);
     } catch (e) {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
-  
   }
 }

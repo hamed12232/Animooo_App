@@ -22,7 +22,7 @@ class LoginRepositioryImp implements LoginRepository {
       );
       log(response.toString());
       if (response["message"].toString() == "Email sent successfully") {
-        return Right("Email sent successfully");
+        return const Right("Email sent successfully");
       } else {
         return Left(response["message"].toString());
       }

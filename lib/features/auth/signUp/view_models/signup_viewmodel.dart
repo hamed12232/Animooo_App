@@ -42,7 +42,7 @@ class SignupViewmodel extends Cubit<SignupState> {
       imageFile!.path,
       passwordEditingController.text,
     );
-    
+
     log(response.toString());
     response.fold(
       (failure) => emit(SignupError(failure.error.toString())),
@@ -62,8 +62,6 @@ class SignupViewmodel extends Cubit<SignupState> {
   }
 
   Future<void> pickImage(BuildContext context) async {
-    await selectImage( (image) => imageFile = image,context);
+    await selectImage((image) => imageFile = image, context);
   }
-
-  
 }

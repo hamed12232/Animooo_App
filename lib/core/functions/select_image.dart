@@ -35,13 +35,13 @@ Future<void> selectImage(
               buttonColor: AppColors.kbackGroungColor.withOpacity(0.8),
               textColor: AppColors.kprimaryColor,
               isButtonImageSelector: true,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(AppBorderRadius.br10),
                 topRight: Radius.circular(AppBorderRadius.br10),
               ),
             ),
           ),
-          Divider(
+          const Divider(
             color: AppColors.kgreyColor,
             indent: 0,
             height: 1,
@@ -64,7 +64,7 @@ Future<void> selectImage(
               buttonColor: AppColors.kbackGroungColor.withOpacity(1),
               textColor: AppColors.kprimaryColor,
               isButtonImageSelector: true,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(AppBorderRadius.br10),
                 bottomRight: Radius.circular(AppBorderRadius.br10),
               ),

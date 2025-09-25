@@ -22,12 +22,12 @@ class AppRouteManager {
       case AppRoutesName.login:
         widget = BlocProvider(
           create: (context) => sl<LoginViewModel>(),
-          child: Loginscreen(),
+          child: const Loginscreen(),
         );
       case AppRoutesName.signUP:
         widget = BlocProvider(
           create: (context) => sl<SignupViewmodel>(),
-          child: Signupscreen(),
+          child: const Signupscreen(),
         );
       case AppRoutesName.forgetPassword:
         widget = BlocProvider(
@@ -47,17 +47,17 @@ class AppRouteManager {
           child: CreateNewPassword(email: settings.arguments as String),
         );
       case AppRoutesName.home:
-        widget = HomeScreen();
+        widget = const HomeScreen();
       case AppRoutesName.mainPage:
-        widget = MyHomePage();
+        widget = const MyHomePage();
       case AppRoutesName.category:
-        widget = CategoryScreen();
+        widget = const CategoryScreen();
       case AppRoutesName.animal:
-        widget = AnimalScreen();
+        widget = const AnimalScreen();
       case AppRoutesName.search:
-        widget = SearchScreen();
+        widget = const SearchScreen();
       default:
-        widget = Loginscreen();
+        widget = const Loginscreen();
     }
     return MaterialPageRoute(builder: (_) => widget, settings: settings);
   }

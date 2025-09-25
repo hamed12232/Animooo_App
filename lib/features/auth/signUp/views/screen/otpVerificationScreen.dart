@@ -71,9 +71,9 @@ class _OtpverificationscreenState extends State<Otpverificationscreen> {
               }
               return Column(
                 children: [
-                  CustomAppBarVerification(text: "Cancel"),
+                  const CustomAppBarVerification(text: "Cancel"),
                   VerticalSpace(height: AppHeight.h16),
-                  CustomTitleAndSubTitleVerficiation(
+                  const CustomTitleAndSubTitleVerficiation(
                     title: "OTP Verification",
                     subtitle: "Please enter the 5 digit code sent your email",
                   ),

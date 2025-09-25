@@ -34,21 +34,21 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
 
   late Stream<List<PasswordRulesModel>> listPasswordRulesOutPutStream;
   late StreamController<List<PasswordRulesModel>> listPasswordRulesController;
-  
+
   @override
   void initState() {
     super.initState();
     listPasswordRulesController =
         StreamController<List<PasswordRulesModel>>.broadcast();
     listPasswordRulesOutPutStream = listPasswordRulesController.stream;
-    
+
     // Set up the callback for password rules updates
     setPasswordRulesCallback((rules) {
       if (!listPasswordRulesController.isClosed) {
         listPasswordRulesController.add(rules);
       }
     });
-    
+
     viewModel = context.read<ForgetPasswordViewModel>();
   }
 
@@ -72,7 +72,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
           key: viewModel.formKey,
           child: Column(
             children: [
-              CustomAppBarVerification(text: "Cancel"),
+              const CustomAppBarVerification(text: "Cancel"),
               VerticalSpace(height: AppHeight.h16),
               Padding(
                 padding: const EdgeInsets.only(left: PAdding.kPadding18),
@@ -123,9 +123,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(state.loginModel.message!)),
                     );
-                    Navigator.of(context).pushNamed(
-                      Loginscreen.routeName,
-                    );
+                    Navigator.of(context).pushNamed(Loginscreen.routeName);
                   }
                 },
                 builder: (context, state) {

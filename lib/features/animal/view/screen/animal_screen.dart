@@ -160,11 +160,12 @@ class _AnimalScreenState extends State<AnimalScreen> {
                           padding: const EdgeInsets.only(
                             left: PAdding.kPadding10,
                           ),
-                          child: CustomButton(text: "Save", onPressed: () {
-                            createAnimalCubit.createAnimal(
-                              imageFile!.path,
-                            );
-                          }),
+                          child: CustomButton(
+                            text: "Save",
+                            onPressed: () {
+                              createAnimalCubit.createAnimal(imageFile!.path);
+                            },
+                          ),
                         ),
                         VerticalSpace(height: AppHeight.h33),
                       ],

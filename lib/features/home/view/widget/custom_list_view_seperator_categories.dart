@@ -92,7 +92,7 @@ class CustomListViewSeperatorCategories extends StatelessWidget {
                           top: -5,
                           child: Container(
                             padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: AppColors.kprimaryColor,
                               shape: BoxShape.circle,
                             ),

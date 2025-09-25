@@ -13,7 +13,8 @@ class ShowAllAnimalsCubit extends Cubit<ShowAllAnimalsState> {
     emit(ShowAllAnimalsLoading());
     final result = await animalRepositiory.showAllAnimals();
     result.fold(
-      (errorModel) => emit(ShowAllAnimalsError(errorMessage: errorModel.error.toString())),
+      (errorModel) =>
+          emit(ShowAllAnimalsError(errorMessage: errorModel.error.toString())),
       (animalModel) => emit(ShowAllAnimalsSuccess(animals: animalModel)),
     );
   }

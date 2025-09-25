@@ -19,7 +19,9 @@ class CustomProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(backgroundImage: AssetImage(AssetValues.categoriesPhoto)),
+        const CircleAvatar(
+          backgroundImage: AssetImage(AssetValues.categoriesPhoto),
+        ),
         HorizentalSpace(width: AppWidth.w6),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

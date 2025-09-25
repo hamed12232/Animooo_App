@@ -17,11 +17,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    HomeScreen(),
-    SearchScreen(),
-    CategoryScreen(),
-    AnimalScreen(),
-    Center(child: Text('Me Page')),
+    const HomeScreen(),
+    const SearchScreen(),
+    const CategoryScreen(),
+    const AnimalScreen(),
+    const Center(child: Text('Me Page')),
   ];
 
   @override

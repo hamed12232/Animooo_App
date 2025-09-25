@@ -3,10 +3,9 @@ import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_height.dart';
 import 'package:animoo_app/features/category/view_model/show_all_categories/show_all_categories_cubit.dart';
-import 'package:animoo_app/features/home/view/widget/category_section_header.dart';
+import 'package:animoo_app/features/home/view/widget/custom_animals_section_items.dart';
 import 'package:animoo_app/features/home/view/widget/custom_app_bar_home_screen.dart';
 import 'package:animoo_app/features/home/view/widget/custom_category_section_items.dart';
-import 'package:animoo_app/features/home/view/widget/petCard_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _onRefresh() async {
     await _categoriesCubit.showAllCategories(); // Use local instance
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -48,16 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                  const  CustomAppBarHomeScreen(),
+                    const CustomAppBarHomeScreen(),
                     VerticalSpace(height: AppHeight.h20),
-                  const  CustomCategorySectionItems(),
+                    const CustomCategorySectionItems(),
                     VerticalSpace(height: AppHeight.h20),
-                  const  CategorySectionHeader(
-                      headerName: "All Animal ( 10 )",
-                      productType: "Animal",
-                    ),
-                    VerticalSpace(height: AppHeight.h11),
-                  const  PetCardListView(),
+                    const CustomAnimalsSectionItems(),
                   ],
                 ),
               ),

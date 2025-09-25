@@ -35,14 +35,15 @@ class _SearchScreenState extends State<SearchScreen> {
                 hintText: "",
                 controller: searchKey,
                 isObsecure: false,
-                suffixIcon: Icon(CupertinoIcons.search),
+                suffixIcon: const Icon(CupertinoIcons.search),
               ),
               VerticalSpace(height: AppHeight.h8),
               Row(
                 children: [
-                  CustomProductTypeStatus(  statusText: " Category",
-                  statusColor: AppColors.kprimaryColor,
-                  color: AppColors.kbackGroungColor,
+                  const CustomProductTypeStatus(
+                    statusText: " Category",
+                    statusColor: AppColors.kprimaryColor,
+                    color: AppColors.kbackGroungColor,
                   ),
                   HorizentalSpace(width: AppWidth.w12),
                   CustomProductTypeStatus(

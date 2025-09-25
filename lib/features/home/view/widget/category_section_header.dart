@@ -4,7 +4,11 @@ import 'package:animoo_app/core/style/padding.dart';
 import 'package:flutter/material.dart';
 
 class CategorySectionHeader extends StatelessWidget {
-  const CategorySectionHeader({super.key, required this.headerName, required this.productType});
+  const CategorySectionHeader({
+    super.key,
+    required this.headerName,
+    required this.productType,
+  });
   final String headerName;
   final String productType;
 

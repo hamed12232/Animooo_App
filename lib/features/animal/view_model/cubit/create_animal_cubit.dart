@@ -14,19 +14,23 @@ class CreateAnimalCubit extends Cubit<CreateAnimalState> {
   TextEditingController animalPrice = TextEditingController();
   TextEditingController animalDescription = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Future<void> createAnimal(
-    String imagePath,
-  ) async {
+  Future<void> createAnimal(String imagePath) async {
     if (!(formKey.currentState?.validate() ?? false)) {
       return;
     }
     if (imagePath.isEmpty) {
-      emit(CreateAnimalError(errorMessage: "Please select a category image"));
+      emit(
+        const CreateAnimalError(errorMessage: "Please select a category image"),
+      );
       return;
     }
-    if (!( imagePath.isNotEmpty)) {
+    if (!(imagePath.isNotEmpty)) {
       // Check if the file exists
-      emit(CreateAnimalError(errorMessage: "Selected image file not found on device"));
+      emit(
+        const CreateAnimalError(
+          errorMessage: "Selected image file not found on device",
+        ),
+      );
       return;
     }
     emit(CreateAnimalLoading());
@@ -37,10 +41,10 @@ class CreateAnimalCubit extends Cubit<CreateAnimalState> {
       animalDescription.text,
       double.parse(animalPrice.text),
       categoryName.text,
-      
     );
     result.fold(
-      (errorModel) => emit(CreateAnimalError(errorMessage: errorModel.error.toString())),
+      (errorModel) =>
+          emit(CreateAnimalError(errorMessage: errorModel.error.toString())),
       (categoryModel) => emit(CreateAnimalSuccess(animalModel: categoryModel)),
     );
   }

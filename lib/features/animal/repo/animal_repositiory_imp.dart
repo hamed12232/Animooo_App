@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:animoo_app/core/database/api/api_constant.dart';
 import 'package:animoo_app/core/database/api/dio_services.dart';
@@ -36,16 +35,14 @@ class AnimalRepositioryImp extends AnimalRepositiory {
         url: ApiConstant.createNewAnimal,
         body: formData,
       );
-      log(response.toString());
       return Right(AnimalModel.fromJson(response["Category"]));
     } on ServerFailure catch (e) {
-      log(e.errorModel.error.toString());
       return Left(e.errorModel);
     } catch (e) {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
   }
-  
+
   @override
   Future<Either<ErrorModel, List<AnimalModel>>> showAllAnimals() async {
     try {

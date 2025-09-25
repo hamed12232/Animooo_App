@@ -26,9 +26,9 @@ class ForgetPasswordScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            CustomAppBarVerification(text: "Back"),
+            const CustomAppBarVerification(text: "Back"),
             VerticalSpace(height: AppFontsSize.s18),
-            CustomTitleAndSubTitleVerficiation(
+            const CustomTitleAndSubTitleVerficiation(
               title: "Forget Password",
               subtitle:
                   "Please enter the email address associated with your account, and we'll send you OTP to reset your password.",
@@ -57,7 +57,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Please enter email")),
+                        const SnackBar(content: Text("Please enter email")),
                       );
                     }
                   },

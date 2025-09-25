@@ -1,4 +1,3 @@
-
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_border_radius.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
@@ -6,20 +5,21 @@ import 'package:animoo_app/core/style/app_fonts_size.dart';
 import 'package:animoo_app/core/style/app_height.dart';
 import 'package:animoo_app/core/style/app_width.dart';
 import 'package:animoo_app/core/style/padding.dart';
+import 'package:animoo_app/features/animal/model/animal_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PetCard extends StatelessWidget {
-  const PetCard({
-    super.key,
-  });
+  const PetCard({super.key, required this.animalModel});
+  final AnimalModel animalModel;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: AppWidth.w339,
       height: AppHeight.h310,
-      margin: EdgeInsets.only(bottom: PAdding.kPadding16),
+      margin: const EdgeInsets.only(bottom: PAdding.kPadding16),
       decoration: BoxDecoration(
         color: AppColors.kTextFieldColor,
         borderRadius: BorderRadius.circular(AppBorderRadius.br8),
@@ -28,12 +28,12 @@ class PetCard extends StatelessWidget {
         children: [
           ListTile(
             dense: true, //عشان يقلل المسافة بين العناصر
-            contentPadding: EdgeInsets.only(
+            contentPadding: const EdgeInsets.only(
               left: PAdding.kPadding8,
               right: PAdding.kPadding14,
             ),
             title: Text(
-              "Dog name",
+              animalModel.animalName,
               style: TextStyle(
                 color: AppColors.kblackColor,
                 fontSize: AppFontsSize.s12,
@@ -41,7 +41,7 @@ class PetCard extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              "create by Hamed Ahmed",
+              "by Hamed",
               style: TextStyle(
                 color: AppColors.kSubtitleCategoriyTextColor,
                 fontSize: AppFontsSize.s12,
@@ -53,14 +53,14 @@ class PetCard extends StatelessWidget {
               //عشان الـ Row ما يستهلكش المساحة كلها
               children: [
                 Text(
-                  "1000\$",
+                  "\$${animalModel.animalPrice}",
                   style: TextStyle(
                     color: AppColors.kprimaryColor,
                     fontSize: AppFontsSize.s12,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Icon(
+                const Icon(
                   CupertinoIcons.ellipsis_vertical,
                   color: AppColors.kellipsisVerticalIconColor,
                 ),
@@ -70,9 +70,8 @@ class PetCard extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             height: AppHeight.h173,
-            child: Image.asset(
-              'assets/images/png/product1.jpg',
-              fit: BoxFit.cover,
+            child: CachedNetworkImage(imageUrl: animalModel.animalImage,
+            
             ),
           ),
           VerticalSpace(height: AppHeight.h11),
@@ -82,7 +81,7 @@ class PetCard extends StatelessWidget {
                 horizontal: PAdding.kPadding10,
               ),
               child: Text(
-                "I found this sweet dog and am looking for a loving home for them. If you're ready to welcome a new furry friend into your life, this adorable pup is waiting to bring joy and...",
+                animalModel.animalDescription,
                 style: TextStyle(
                   color: AppColors.kblackColor,
                   fontSize: AppFontsSize.s12,

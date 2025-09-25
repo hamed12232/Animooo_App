@@ -88,7 +88,7 @@ class _SignupscreenState extends State<Signupscreen> {
             },
             builder: (BuildContext context, state) {
               if (state is SignupLoading) {
-                return CircularProgressIndicator(
+                return const CircularProgressIndicator(
                   color: AppColors.kprimaryColor,
                 );
               }
@@ -171,7 +171,9 @@ class _SignupscreenState extends State<Signupscreen> {
                       ),
                       VerticalSpace(height: AppHeight.h16),
                       Padding(
-                        padding: EdgeInsets.only(left: PAdding.kPadding22),
+                        padding: const EdgeInsets.only(
+                          left: PAdding.kPadding22,
+                        ),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -204,7 +206,7 @@ class _SignupscreenState extends State<Signupscreen> {
                         fontSize: AppFontsSize.s14,
                       ),
                       VerticalSpace(height: AppHeight.h8),
-                      CustomRichTextButton(
+                      const CustomRichTextButton(
                         subTextBottomTitle: "Already have an account? ",
                         textButtonTitle: "Log in",
                         routeName: Loginscreen.routeName,

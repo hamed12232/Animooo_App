@@ -75,7 +75,7 @@ class SignupRepositoryImpl implements SignupRepository {
   }
 
   @override
-  Future<Either<ErrorModel, String>> resendOtp(String email) async{
+  Future<Either<ErrorModel, String>> resendOtp(String email) async {
     try {
       final response = await _dioServices.post(
         url: ApiConstant.resendOtp,
