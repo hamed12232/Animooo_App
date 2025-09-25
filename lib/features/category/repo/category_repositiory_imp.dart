@@ -54,6 +54,7 @@ class CategoryRepositioryImp extends CategoryRepositiory {
       final response = await _dioServices.get(
         url: ApiConstant.showAllCategories,
       );
+      log(response.toString());
       List<CategoryModel> categories = (response['Categories'] as List)
           .map((categoryJson) => CategoryModel.fromJson(categoryJson))
           .toList();

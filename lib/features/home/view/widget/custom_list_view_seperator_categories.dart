@@ -6,10 +6,25 @@ import 'package:animoo_app/core/style/app_fonts_size.dart';
 import 'package:animoo_app/core/style/app_height.dart';
 import 'package:animoo_app/core/style/app_width.dart';
 import 'package:animoo_app/core/style/padding.dart';
+import 'package:animoo_app/features/category/model/category_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CustomListViewSeperatorCategories extends StatelessWidget {
-  const CustomListViewSeperatorCategories({super.key});
+  const CustomListViewSeperatorCategories({
+    super.key,
+    required this.categories,
+  });
+
+  final List<CategoryModel> categories;
+
+  String _buildFullImageUrl(String imagePath) {
+    // استبدال localhost بـ 10.0.2.2 للمحاكي
+    if (imagePath.contains('localhost')) {
+      return imagePath.replaceAll('localhost', '10.0.2.2');
+    }
+    return imagePath;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +41,7 @@ class CustomListViewSeperatorCategories extends StatelessWidget {
                   return HorizentalSpace(width: AppWidth.w24);
                 },
                 scrollDirection: Axis.horizontal,
-                itemCount: 6,
+                itemCount: categories.length,
                 itemBuilder: (BuildContext context, index) {
                   return SizedBox(
                     width: AppWidth.w70,
@@ -35,22 +50,31 @@ class CustomListViewSeperatorCategories extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            Container(
-                              width: AppWidth.w64,
-                              height: AppWidth.w64,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                    AssetValues.categoriesPhoto,
+                            ClipOval(
+                              child: CachedNetworkImage(
+                                width: AppWidth.w64,
+                                height: AppWidth.w64,
+                                imageUrl: _buildFullImageUrl(
+                                  categories[index].imagePath,
+                                ),
+
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Container(
+                                  width: AppWidth.w64,
+                                  height: AppWidth.w64,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.grey[300],
                                   ),
-                                  fit: BoxFit.cover,
+                                  child: const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
                                 ),
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              "Dogs",
+                              categories[index].name,
                               style: TextStyle(
                                 fontSize: AppFontsSize.s16,
                                 color: AppColors.kblackColor,
@@ -71,7 +95,7 @@ class CustomListViewSeperatorCategories extends StatelessWidget {
                               shape: BoxShape.circle,
                             ),
                             child: Text(
-                              "1",
+                              "${categories[index].id}",
                               style: TextStyle(
                                 color: AppColors.kbackGroungColor,
                                 fontSize: AppFontsSize.s12,
@@ -91,8 +115,7 @@ class CustomListViewSeperatorCategories extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {
-                  },
+                  onTap: () {},
                   borderRadius: BorderRadius.circular(AppBorderRadius.br5),
                   child: Container(
                     width: AppWidth.w50,

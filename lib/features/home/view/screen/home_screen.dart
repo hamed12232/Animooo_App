@@ -1,11 +1,14 @@
+import 'package:animoo_app/core/DI/get_it.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
 import 'package:animoo_app/core/style/app_height.dart';
+import 'package:animoo_app/features/category/view_model/show_all_categories/show_all_categories_cubit.dart';
 import 'package:animoo_app/features/home/view/widget/category_section_header.dart';
 import 'package:animoo_app/features/home/view/widget/custom_app_bar_home_screen.dart';
 import 'package:animoo_app/features/home/view/widget/custom_category_section_items.dart';
 import 'package:animoo_app/features/home/view/widget/petCard_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,21 +21,27 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.kbackGroungColor,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                CustomAppBarHomeScreen(),
-                VerticalSpace(height: AppHeight.h20),
-                CustomCategorySectionItems(),
-                VerticalSpace(height: AppHeight.h20),
-                CategorySectionHeader(headerName: "All Animal ( 10 )",productType: "Animal",),
-                VerticalSpace(height: AppHeight.h11),
-                PetCardListView(),
-              ],
+    return BlocProvider(
+      create: (context) => sl<ShowAllCategoriesCubit>()..showAllCategories(),
+      child: Scaffold(
+        backgroundColor: AppColors.kbackGroungColor,
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomAppBarHomeScreen(),
+                  VerticalSpace(height: AppHeight.h20),
+                  CustomCategorySectionItems(),
+                  VerticalSpace(height: AppHeight.h20),
+                  CategorySectionHeader(
+                    headerName: "All Animal ( 10 )",
+                    productType: "Animal",
+                  ),
+                  VerticalSpace(height: AppHeight.h11),
+                  PetCardListView(),
+                ],
+              ),
             ),
           ),
         ),
@@ -40,5 +49,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
