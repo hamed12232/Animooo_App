@@ -59,4 +59,6 @@ class CategoryRepositioryImp extends CategoryRepositiory {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
   }
+
+  
 }

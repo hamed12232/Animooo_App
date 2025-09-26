@@ -1,4 +1,5 @@
 import 'package:animoo_app/core/constant/asset_values.dart';
+import 'package:animoo_app/core/functions/build_images_from_api.dart';
 import 'package:animoo_app/core/spacing/horizental_space.dart';
 import 'package:animoo_app/core/style/app_border_radius.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
@@ -18,13 +19,7 @@ class CustomListViewSeperatorCategories extends StatelessWidget {
 
   final List<CategoryModel> categories;
 
-  String _buildFullImageUrl(String imagePath) {
-    // استبدال localhost بـ 10.0.2.2 للمحاكي
-    if (imagePath.contains('localhost')) {
-      return imagePath.replaceAll('localhost', '10.0.2.2');
-    }
-    return imagePath;
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +49,7 @@ class CustomListViewSeperatorCategories extends StatelessWidget {
                               child: CachedNetworkImage(
                                 width: AppWidth.w64,
                                 height: AppWidth.w64,
-                                imageUrl: _buildFullImageUrl(
+                                imageUrl: buildFullImageUrl(
                                   categories[index].imagePath,
                                 ),
 

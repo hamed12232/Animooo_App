@@ -1,3 +1,4 @@
+import 'package:animoo_app/core/functions/build_images_from_api.dart';
 import 'package:animoo_app/core/spacing/vertical_space.dart';
 import 'package:animoo_app/core/style/app_border_radius.dart';
 import 'package:animoo_app/core/style/app_colors.dart';
@@ -70,7 +71,8 @@ class PetCard extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             height: AppHeight.h173,
-            child: CachedNetworkImage(imageUrl: animalModel.animalImage,
+            child: CachedNetworkImage(imageUrl: buildFullImageUrl(animalModel.animalImage),
+            fit: BoxFit.cover,
             
             ),
           ),

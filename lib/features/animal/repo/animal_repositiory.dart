@@ -12,4 +12,5 @@ abstract class AnimalRepositiory {
   );
 
   Future<Either<ErrorModel, List<AnimalModel>>> showAllAnimals();
+  Future<int?> getCategoryIdByName(String name);
 }

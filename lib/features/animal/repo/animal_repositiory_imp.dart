@@ -1,20 +1,26 @@
-
 import 'package:animoo_app/core/database/api/api_constant.dart';
 import 'package:animoo_app/core/database/api/dio_services.dart';
 import 'package:animoo_app/core/errors/error_model.dart';
 import 'package:animoo_app/core/errors/failures.dart';
 import 'package:animoo_app/features/animal/model/animal_model.dart';
 import 'package:animoo_app/features/animal/repo/animal_repositiory.dart';
+import 'package:animoo_app/features/category/repo/category_repositiory_imp.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 class AnimalRepositioryImp extends AnimalRepositiory {
-    final DioServices _dioServices;
+  final DioServices _dioServices;
   AnimalRepositioryImp(this._dioServices);
 
   @override
-  Future<Either<ErrorModel, AnimalModel>> createNewAnimal(String name, String imagePath, String description, double price, String categoryId) async{
-      try {
+  Future<Either<ErrorModel, AnimalModel>> createNewAnimal(
+    String name,
+    String imagePath,
+    String description,
+    double price,
+    String categoryId,
+  ) async {
+    try {
       final String fileName = imagePath.split('/').isNotEmpty
           ? imagePath.split('/').last
           : (imagePath.split('\\').isNotEmpty
@@ -46,9 +52,7 @@ class AnimalRepositioryImp extends AnimalRepositiory {
   @override
   Future<Either<ErrorModel, List<AnimalModel>>> showAllAnimals() async {
     try {
-      final response = await _dioServices.get(
-        url: ApiConstant.showAllAnimals,
-      );
+      final response = await _dioServices.get(url: ApiConstant.showAllAnimals);
       List<AnimalModel> animals = (response['Animals'] as List)
           .map((animalJson) => AnimalModel.fromJson(animalJson))
           .toList();
@@ -58,5 +62,18 @@ class AnimalRepositioryImp extends AnimalRepositiory {
     } catch (e) {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
+  }
+
+  @override
+  Future<int?> getCategoryIdByName(String name) async {
+    final categories = await CategoryRepositioryImp(
+      _dioServices,
+    ).showAllCategories();
+    categories.fold((error) => null, (categories) {
+      return categories
+          .firstWhere((cat) => cat.name.toLowerCase() == name.toLowerCase())
+          .id;
+    });
+    return null;
   }
 }

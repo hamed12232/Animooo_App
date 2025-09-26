@@ -2,6 +2,7 @@ import 'package:animoo_app/core/database/api/dio_services.dart';
 import 'package:animoo_app/features/animal/repo/animal_repositiory.dart';
 import 'package:animoo_app/features/animal/repo/animal_repositiory_imp.dart';
 import 'package:animoo_app/features/animal/view_model/cubit/create_animal_cubit.dart';
+import 'package:animoo_app/features/animal/view_model/cubit/show_all_animals_cubit.dart';
 import 'package:animoo_app/features/auth/login/repo/login_repositiory_imp.dart';
 import 'package:animoo_app/features/auth/login/repo/login_repository.dart';
 import 'package:animoo_app/features/auth/login/view_model/forget_password_view_model.dart';
@@ -54,4 +55,5 @@ void setup() {
     () => CreateAnimalCubit(sl<AnimalRepositiory>()),
   );
   sl.registerFactory<ShowAllCategoriesCubit>(() => ShowAllCategoriesCubit(sl<CategoryRepositiory>()));
+  sl.registerFactory<ShowAllAnimalsCubit>(() => ShowAllAnimalsCubit(sl<AnimalRepositiory>()));
 }

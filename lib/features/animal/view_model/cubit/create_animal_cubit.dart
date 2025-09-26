@@ -48,4 +48,9 @@ class CreateAnimalCubit extends Cubit<CreateAnimalState> {
       (categoryModel) => emit(CreateAnimalSuccess(animalModel: categoryModel)),
     );
   }
+
+  Future<int?> getCategoryId(String categoryName) async {
+    int? id = await animalRepositiory.getCategoryIdByName(categoryName);
+    return id;
+  }
 }

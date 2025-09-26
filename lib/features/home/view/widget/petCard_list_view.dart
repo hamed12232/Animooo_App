@@ -13,7 +13,7 @@ class PetCardListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return  PetCard(animalModel: animals[index],);
       },
-      itemCount: 10,
+      itemCount: animals.length,
       padding: const EdgeInsets.symmetric(horizontal: PAdding.kPadding16),
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
