@@ -70,7 +70,6 @@ class _AnimalScreenState extends State<AnimalScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         VerticalSpace(height: AppHeight.h16),
-
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -164,6 +163,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
                             text: "Save",
                             onPressed: () {
                               createAnimalCubit.createAnimal(imageFile!.path);
+                            
                             },
                           ),
                         ),

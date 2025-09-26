@@ -32,7 +32,7 @@ class _CustomRoundedRectDottedBorderState
             width: AppWidth.w339,
             height: AppHeight.h200,
             child: DottedBorder(
-              options: RoundedRectDottedBorderOptions(
+              options: const RoundedRectDottedBorderOptions(
                 strokeWidth: 1,
                 radius: Radius.circular(AppBorderRadius.br10),
                 color: AppColors.kprimaryColor,
@@ -68,6 +68,7 @@ class _CustomRoundedRectDottedBorderState
                   key: ValueKey(widget.imageFile?.path),
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
+                    print('Error loading image: $error');
                     return Container(
                       color: Colors.grey[300],
                       child: const Icon(

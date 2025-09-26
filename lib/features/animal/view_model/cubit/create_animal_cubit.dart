@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animoo_app/features/animal/model/animal_model.dart';
 import 'package:animoo_app/features/animal/repo/animal_repositiory.dart';
 import 'package:bloc/bloc.dart';
@@ -34,14 +36,20 @@ class CreateAnimalCubit extends Cubit<CreateAnimalState> {
       return;
     }
     emit(CreateAnimalLoading());
+    final categoryId = await getCategoryId(categoryName.text);
+    if (categoryId == null) {
+      emit(const CreateAnimalError(errorMessage: "Category not found"));
+      return;
+    }
 
     final result = await animalRepositiory.createNewAnimal(
       animalName.text,
       imagePath,
       animalDescription.text,
       double.parse(animalPrice.text),
-      categoryName.text,
+      categoryId,
     );
+    log(result.toString());
     result.fold(
       (errorModel) =>
           emit(CreateAnimalError(errorMessage: errorModel.error.toString())),

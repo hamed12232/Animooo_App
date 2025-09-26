@@ -8,7 +8,7 @@ abstract class AnimalRepositiory {
     String imagePath,
     String description,
     double price,
-    String categoryId
+    int categoryId
   );
 
   Future<Either<ErrorModel, List<AnimalModel>>> showAllAnimals();

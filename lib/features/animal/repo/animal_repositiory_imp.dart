@@ -18,7 +18,7 @@ class AnimalRepositioryImp extends AnimalRepositiory {
     String imagePath,
     String description,
     double price,
-    String categoryId,
+    int categoryId,
   ) async {
     try {
       final String fileName = imagePath.split('/').isNotEmpty
@@ -69,11 +69,14 @@ class AnimalRepositioryImp extends AnimalRepositiory {
     final categories = await CategoryRepositioryImp(
       _dioServices,
     ).showAllCategories();
-    categories.fold((error) => null, (categories) {
-      return categories
-          .firstWhere((cat) => cat.name.toLowerCase() == name.toLowerCase())
-          .id;
+    return categories.fold((error) => null, (categories) {
+      try {
+        return categories
+            .firstWhere((cat) => cat.name.toLowerCase() == name.toLowerCase())
+            .id;
+      } catch (e) {
+        return null;
+      }
     });
-    return null;
   }
 }

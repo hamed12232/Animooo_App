@@ -17,6 +17,7 @@ final class CreateAnimalSuccess extends CreateAnimalState {
   @override
   List<Object> get props => [animalModel];
 }
+
 final class CreateAnimalError extends CreateAnimalState {
   final String errorMessage;
   const CreateAnimalError({required this.errorMessage});

@@ -52,6 +52,7 @@ class CategoryRepositioryImp extends CategoryRepositiory {
       List<CategoryModel> categories = (response['Categories'] as List)
           .map((categoryJson) => CategoryModel.fromJson(categoryJson))
           .toList();
+
       return Right(categories);
     } on ServerFailure catch (e) {
       return Left(e.errorModel);
@@ -59,6 +60,4 @@ class CategoryRepositioryImp extends CategoryRepositiory {
       return Left(ErrorModel(error: [e.toString()], code: 500));
     }
   }
-
-  
 }
